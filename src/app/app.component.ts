@@ -6,6 +6,7 @@ import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import { LoopBackConfig } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
+import { HomePage } from '../pages/home/home';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { SchoolsPage } from '../pages/schools/schools';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -23,7 +24,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Page One', component: Page1 },
+      { title: 'Home', component: HomePage },
       { title: 'Sekolah', component: SchoolsPage }
     ];
 
