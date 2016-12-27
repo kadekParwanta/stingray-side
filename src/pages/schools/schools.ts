@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { School, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
+import { SchoolDetailPage } from '../school-detail/school-detail';  
 
 /*
   Generated class for the Schools page.
@@ -87,6 +88,10 @@ export class SchoolsPage {
       })
       this.iterateSchool()
     }
+  }
+
+  goToDetails(school) {
+    this.navCtrl.push(SchoolDetailPage, { school: school });
   }
 
 }

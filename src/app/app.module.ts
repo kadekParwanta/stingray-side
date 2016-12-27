@@ -6,6 +6,7 @@ import { Page2 } from '../pages/page2/page2';
 import { SDKBrowserModule } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
+import { SchoolDetailPage } from '../pages/school-detail/school-detail';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { HomePage } from '../pages/home/home';
     Page1,
     Page2,
     SchoolsPage,
-    HomePage
+    HomePage,
+    SchoolDetailPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -25,7 +27,8 @@ import { HomePage } from '../pages/home/home';
     Page1,
     Page2,
     SchoolsPage,
-    HomePage
+    HomePage,
+    SchoolDetailPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
