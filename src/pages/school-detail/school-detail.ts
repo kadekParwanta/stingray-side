@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { School, Generation, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
+import { GenerationDetailPage } from '../generation-detail/generation-detail';  
 
 /*
   Generated class for the SchoolDetail page.
@@ -56,6 +57,10 @@ export class SchoolDetailPage {
       },
       () => console.log('getDetails completed')
     )
+  }
+
+  goToDetails(generation) {
+    this.navCtrl.push(GenerationDetailPage, { generation: generation });
   }
 
 }
