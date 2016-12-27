@@ -16,39 +16,32 @@
 </ion-header>
 
 
-<ion-content class="cards-bg">
-  <ion-card *ngFor="let school of schools" (click)="goToDetails(school)">
-    <img *ngIf="school.photos.length > 0" [src]="school.photos[0].url" />
-    
+<ion-content class="card-background-page">
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-grid>
+    <ion-row *ngFor="let row of grid">
+      <ion-col width-50 *ngFor="let school of row">
+        <ion-card (click)="goToDetails(school)">
+          <div *ngIf="school.photos.length > 0"><img [src]="school.photos[0].url" /></div>
+          <ion-card-content>
+            <ion-card-title>
+              {{school.name}}
+            </ion-card-title>
+            <p>
+              {{school.hymne}}
+            </p>
+          </ion-card-content>
 
-    <ion-card-content>
-      <ion-card-title>
-        {{school.name}}
-      </ion-card-title>
-      <p>
-        {{school.hymne}}
-      </p>
-    </ion-card-content>
-
-    <ion-row no-padding>
-      <ion-col>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='star'></ion-icon>
-          Favorite
-        </button>
-      </ion-col>
-      <ion-col text-center>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='musical-notes'></ion-icon>
-          Listen
-        </button>
-      </ion-col>
-      <ion-col text-right>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
-        </button>
+          <ion-row no-padding>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="people"></ion-icon>
+                <div>{{school.generations.length}} generasi</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
       </ion-col>
     </ion-row>
-  </ion-card>
+  </ion-grid>
 </ion-content>
