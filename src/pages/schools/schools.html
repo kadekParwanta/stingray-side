@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -27,16 +27,13 @@
             <ion-card-title>
               {{school.name}}
             </ion-card-title>
-            <p>
-              {{school.hymne}}
-            </p>
           </ion-card-content>
 
           <ion-row no-padding>
             <ion-col>
               <button ion-button icon-left clear small>
                 <ion-icon name="people"></ion-icon>
-                <div>{{school.generations.length}} generasi</div>
+                <div>{{school.generations.length}} angkatan</div>
               </button>
             </ion-col>
           </ion-row>
@@ -44,4 +41,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="scan()"><ion-icon name="qr-scanner"></ion-icon></button>
+  </ion-fab>
 </ion-content>

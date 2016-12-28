@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { School, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
-import { SchoolDetailPage } from '../school-detail/school-detail';  
+import { SchoolDetailPage } from '../school-detail/school-detail';
+import { ZBar } from 'ionic-native';
 
 /*
   Generated class for the Schools page.
@@ -30,7 +31,7 @@ export class SchoolsPage {
   }
 
   getSchools() {
-    this.schoolApi.find({ include: ['photos','generations']}).subscribe(
+    this.schoolApi.find({ include: ['photos', 'generations'] }).subscribe(
       (schools: Array<School>) => {
 
         for (var i = 0; i < schools.length; i++) {
@@ -92,6 +93,21 @@ export class SchoolsPage {
 
   goToDetails(school) {
     this.navCtrl.push(SchoolDetailPage, { school: school });
+  }
+
+  scan() {
+    let zBarOptions = {
+      flash: "off",
+      drawSight: false
+    };
+
+    ZBar.scan(zBarOptions)
+      .then(result => {
+        console.log(result); // Scanned code
+      })
+      .catch(error => {
+        console.log(error); // Error message
+      });
   }
 
 }
