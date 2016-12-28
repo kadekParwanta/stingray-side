@@ -15,13 +15,14 @@ import { GenerationApi } from '../../app/shared/sdk/services';
 })
 export class GenerationDetailPage {
   generation: Generation
+  private shownItem
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
-    var generation = navParams.get('generation');
-    this.getGenerationDetails(generation)
+    this.generation = navParams.get('generation');
   }
 
   ionViewDidLoad() {
+    this.getGenerationDetails(this.generation)
     console.log('ionViewDidLoad GenerationDetailPage');
   }
 
@@ -53,6 +54,18 @@ export class GenerationDetailPage {
       },
       () => console.log('getDetails completed')
     )
+  }
+
+  toggleItem(classRoom) {
+    if (this.isItemShown(classRoom)) {
+      this.shownItem = null
+    } else {
+      this.shownItem = classRoom
+    }
+  }
+
+  isItemShown(classRoom): Boolean  {
+    return this.shownItem === classRoom;
   }
 
 }

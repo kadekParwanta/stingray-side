@@ -7,22 +7,47 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{generation.name}}</ion-title>
+    <ion-title>Angkatan {{generation.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="content">
+
+  <ion-slides #slider [options]="mySlideOptions" class="slider">
+    <ion-slide *ngFor="let photo of generation.photos">
+      <img [src]="photo.url" class="slide-image" />
+    </ion-slide>
+  </ion-slides>
+
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-slides #slider [options]="mySlideOptions" class="slider">
-          <ion-slide *ngFor="let photo of generation.photos">
-            <img [src]="photo.url" class="slide-image"/>
-          </ion-slide>
-        </ion-slides>
+        <p>#{{generation.name}}</p>
+        <p>Tahun {{generation.year}}</p>
       </ion-col>
     </ion-row>
+    <ion-row class="pictureRow">
+      <ion-col offset-67>
+        <h4>Kelas</h4>
+      </ion-col>
+    </ion-row>
+    <div *ngFor="let class of generation.classes">
+      <ion-row>
+        <ion-list >
+          <ion-item *ngFor="let student of class.students" class="item item-text-wrap">
+            <div ng-class="isItemShown(item) ? 'item-expand active' : 'item-expand inactive'">
+            <h2>{{ class.name }}</h2>
+            <p>{{ student.name }}</p>
+          </div>
+          <div (click)="toggleItem(item)" class="item-expand-footer">
+            <i (class)="isItemShown(item) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i>
+            {{ isItemShown(item) ? 'Less' : 'More' }}
+          </div>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+    </div>
   </ion-grid>
 </ion-content>
