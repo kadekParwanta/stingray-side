@@ -35,18 +35,14 @@
     </ion-row>
     <div *ngFor="let class of generation.classes">
       <ion-row>
-        <ion-list >
-          <ion-item *ngFor="let student of class.students" class="item item-text-wrap">
-            <div ng-class="isItemShown(item) ? 'item-expand active' : 'item-expand inactive'">
-            <h2>{{ class.name }}</h2>
-            <p>{{ student.name }}</p>
-          </div>
-          <div (click)="toggleItem(item)" class="item-expand-footer">
-            <i (class)="isItemShown(item) ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i>
-            {{ isItemShown(item) ? 'Less' : 'More' }}
-          </div>
-          </ion-item>
-        </ion-list>
+        <ion-col>
+          <h4>{{ class.name }}</h4>
+          <ion-list *ngFor="let student of class.students">
+            <ion-item>
+              <p>{{ student.name }}</p>
+            </ion-item>
+          </ion-list>
+        </ion-col>
       </ion-row>
     </div>
   </ion-grid>
