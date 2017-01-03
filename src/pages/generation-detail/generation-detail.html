@@ -33,14 +33,29 @@
       </ion-col>
     </ion-row>
     <div *ngFor="let class of generation.classes">
-      <ion-row>
+      <ion-row class="pictureRow">
         <ion-col>
           <h4>{{ class.name }}</h4>
+          <div *ngIf="class.photos.length > 0">
+          <p>Foto Kelas</p>
+            <ion-grid>
+              <ion-row wrap *ngFor="let photo of class.photos">
+                <ion-col width-33>
+                  <img [src]="photo.url">
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <p>Biodata</p>
           <ion-grid>
             <ion-row wrap>
               <ion-col width-50 *ngFor="let student of class.students">
-                <div *ngIf="student.photo"><img [src]="student.photo.url"></div>
-                <p>{{student.name}}</p>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col width-50><div *ngIf="student.photo"><img [src]="student.photo.url"></div></ion-col>
+                    <ion-col center><p>{{student.name}}</p></ion-col>
+                  </ion-row>
+                </ion-grid>
               </ion-col>
             </ion-row>
           </ion-grid>

@@ -17,7 +17,7 @@
 
 
 <ion-content class="card-background-page">
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)" (ionClear)="OnClearSearch($event)"></ion-searchbar>
   <ion-grid>
     <ion-row *ngFor="let row of grid">
       <ion-col width-50 *ngFor="let school of row">

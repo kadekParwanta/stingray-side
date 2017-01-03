@@ -70,35 +70,51 @@ export class GenerationDetailPage {
         this.generation = generation
         let photos = generation.photos
         if (photos.length > 0) {
-            var photo = photos[0].url
-            this.generation.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com'+photo
+          for (var i = 0; i < photos.length; i++) {
+            let photo = photos[i]
+            this.generation.photos[i].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+          }
+        } else {
+          var media = new Media()
+          media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+          var medias = new Array<Media>()
+          medias.push(media)
+          this.generation.photos = medias
+        }
+
+        let classes = generation.classes
+        for (var l = 0; l < classes.length; l++) {
+          let classRoom = classes[l]
+          let classPhotos = classRoom.photos
+          if (classPhotos.length > 0) {
+            for (var k = 0; k < classPhotos.length; k++) {
+              let photo = classPhotos[k]
+              classRoom.photos[k].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+            }
           } else {
             var media = new Media()
             media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
-            this.generation.photos = medias
+            classRoom.photos = medias
           }
 
-          let classes = generation.classes
-          for (var i = 0; i < classes.length; i++) {
-            let classRoom = classes[i]
-            let students = classRoom.students
+          let students = classRoom.students
 
-            for (var j=0; j<students.length; j++) {
-              let student = students[j]
-              let photo = student.photo
-              if (photo) {
-                classRoom.students[j].photo.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com'+photo.url
-              } else {
-                let media = new Media()
-                media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
-                classRoom.students[j].photo = media
-              }
-              
+          for (var j = 0; j < students.length; j++) {
+            let student = students[j]
+            let photo = student.photo
+            if (photo) {
+              classRoom.students[j].photo.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+            } else {
+              let media = new Media()
+              media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+              classRoom.students[j].photo = media
             }
+
           }
-          
+        }
+
       },
       err => {
         if (err.status == 404) {

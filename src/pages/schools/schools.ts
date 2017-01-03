@@ -98,6 +98,11 @@ export class SchoolsPage {
     }
   }
 
+  OnClearSearch(event:any){
+    this.filteredSchools = this.schools
+    this.iterateSchool()
+  }
+
   goToDetails(school) {
     this.navCtrl.push(SchoolDetailPage, { school: school });
   }
