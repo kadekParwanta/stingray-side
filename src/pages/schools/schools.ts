@@ -21,40 +21,48 @@ export class SchoolsPage {
   filteredSchools = new Array<School>()
   grid: Array<Array<School>>
   searchQuery: string = ''
+  perpage:number = 10
+  private start:number=0
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private schoolApi: SchoolApi) {
-    this.getSchools()
+    
+  }
+
+  populateSchools(schools: Array<School>) {
+    for (var i = 0; i < schools.length; i++) {
+        var schoolData = schools[i]
+        var photos = schoolData.photos
+        if (photos.length > 0) {
+          var photo = photos[0].url
+          schoolData.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo
+        } else {
+          var media = new Media()
+          media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+          var medias = new Array<Media>()
+          medias.push(media)
+          schoolData.photos = medias
+        }
+
+        this.schools.push(schoolData)
+      }
+      this.filteredSchools = this.schools
+      this.iterateSchool()
   }
 
   ionViewDidLoad() {
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+    })
     console.log('ionViewDidLoad SchoolsPage');
   }
 
-  getSchools() {
-    this.schoolApi.find({ include: ['photos', 'generations'] }).subscribe(
-      (schools: Array<School>) => {
-
-        for (var i = 0; i < schools.length; i++) {
-          var schoolData = schools[i]
-          var photos = schoolData.photos
-          if (photos.length > 0) {
-            var photo = photos[0].url
-            schoolData.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo
-          } else {
-            var media = new Media()
-            media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
-            var medias = new Array<Media>()
-            medias.push(media)
-            schoolData.photos = medias
-          }
-
-          this.schools.push(schoolData)
-        }
-        this.filteredSchools = this.schools
-        this.iterateSchool()
-
-      }
-    )
+  getSchools(start: number = 0) {
+    return new Promise(resolve => {
+      this.schoolApi.find({ skip: start, limit: this.perpage, include: ['photos', 'generations'] }).subscribe(
+        (schools: Array<School>) => {
+          resolve(schools);
+        })
+    })
   }
 
   iterateSchool() {
@@ -108,6 +116,15 @@ export class SchoolsPage {
       .catch(error => {
         console.log(error); // Error message
       });
+  }
+
+  loadMoreSchool(infiniteScroll) {
+     this.start+=10;
+     
+     this.getSchools().then((schools: Array<School>)=>{
+       this.populateSchools(schools)
+       infiniteScroll.complete();
+     });
   }
 
 }

@@ -38,7 +38,7 @@
     <ion-row wrap>
       <ion-col>
         <ion-list *ngFor="let generation of generations">
-          <ion-item (click)="goToDetails(generation)">
+          <ion-item (click)="goToDetails(generation)" detail-push>
             <ion-thumbnail item-left>
               <img *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url" />
             </ion-thumbnail>
