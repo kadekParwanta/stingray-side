@@ -25,7 +25,9 @@ export class SchoolsPage {
   private start:number=0
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private schoolApi: SchoolApi) {
-    
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+    })
   }
 
   populateSchools(schools: Array<School>) {
@@ -50,9 +52,6 @@ export class SchoolsPage {
   }
 
   ionViewDidLoad() {
-    this.getSchools(this.start).then((schools: Array<School>) => {
-      this.populateSchools(schools)
-    })
     console.log('ionViewDidLoad SchoolsPage');
   }
 

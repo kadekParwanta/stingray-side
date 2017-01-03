@@ -38,7 +38,7 @@
           <h4>{{ class.name }}</h4>
           <ion-grid>
             <ion-row wrap>
-              <ion-col width-33 *ngFor="let student of class.students">
+              <ion-col width-50 *ngFor="let student of class.students">
                 <div *ngIf="student.photo"><img [src]="student.photo.url"></div>
                 <p>{{student.name}}</p>
               </ion-col>
@@ -48,4 +48,6 @@
       </ion-row>
     </div>
   </ion-grid>
+
+ <button ion-button block (click)="order($event)">Order</button>
 </ion-content>
