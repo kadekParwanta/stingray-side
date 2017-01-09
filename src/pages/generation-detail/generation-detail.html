@@ -53,7 +53,12 @@
                 <ion-grid>
                   <ion-row>
                     <ion-col width-50><div *ngIf="student.photo"><img [src]="student.photo.url"></div></ion-col>
-                    <ion-col center><p>{{student.name}}</p></ion-col>
+                    <ion-col center>
+                      <p>{{student.name}}</p>
+                      <p>{{student.motto}}</p>
+                      <p>{{student.address}}</p>
+                      <p>{{student.NIS}}</p>
+                      </ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-col>
