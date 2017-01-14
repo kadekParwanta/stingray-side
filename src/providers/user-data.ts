@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
+import {User} from '../app/shared/sdk';
 
 /*
   Generated class for the UserData provider.
@@ -38,26 +39,50 @@ export class UserData {
     }
   };
 
-  login(username: string) {
+  user(user:User) {
+    this.storage.set('userdata',user);
+  }
+
+  getUser() {
+    return this.storage.get('userdata').then((value) => {
+      return value;
+    });
+  };
+
+  login(username: string, password: string) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
+    this.setCredentials(username, password);
     this.events.publish('user:login');
   };
 
-  signup(username: string) {
+  signup(username: string, password: string) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
+    this.setCredentials(username, password);
     this.events.publish('user:signup');
   };
 
   logout() {
     this.storage.remove(this.HAS_LOGGED_IN);
     this.storage.remove('username');
+    this.storage.remove('userdata');
+    this.storage.remove('credentials');
     this.events.publish('user:logout');
   };
 
   setUsername(username: string) {
     this.storage.set('username', username);
+  };
+
+  setCredentials(username: string ,password: string) {
+    this.storage.set('credentials', {username:username, password:password});
+  }
+
+  getCredentials() {
+    return this.storage.get('credentials').then((value) => {
+      return value;
+    });
   };
 
   getUsername() {

@@ -54,7 +54,7 @@ export class RegisterPage {
 
       this.userApi.create(this.signupForm.value).subscribe(
         (res) => {
-          this.userData.signup(this.signupForm.value["username"]);
+          this.userData.signup(this.signupForm.value["username"], this.signupForm.value["password"]);
           loading.dismiss();
           this.showAlert("Success", "Please verify your email before login", ["OK"]);
         },

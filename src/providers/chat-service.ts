@@ -15,30 +15,42 @@ import { LoopBackConfig } from '../app/shared/sdk';
 @Injectable()
 export class ChatService {
   private socket;
+  private credentials;
 
   constructor(public http: Http) {
-    console.log('Hello ChatService Provider');
-    this.socket = io(LoopBackConfig.getPath);
+    console.log('Hello ChatService Provider' + LoopBackConfig.getPath());
+    this.socket = io.connect(LoopBackConfig.getPath());
   }
 
-  authenticate() {
-
+  authenticate(credentials) {
+    this.credentials = credentials;
+    this.socket = io.connect(LoopBackConfig.getPath());
+    this.socket.on("connect", () => this.connect());
+    this.socket.on("authenticated", () => {
+      console.log('authenticated');
+    });
   }
 
-  sendMessage(message){
-    this.socket.emit('add-message', message);    
+  connect() {
+    console.log(`connecting to "${LoopBackConfig.getPath()}"`);
+    // Request initial list when connected
+    this.socket.emit("authentication", this.credentials);
   }
-  
+
+  sendMessage(message) {
+    this.socket.emit('add-message', message);
+  }
+
   getMessages() {
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
-        observer.next(data);    
+        observer.next(data);
       });
       return () => {
         this.socket.disconnect();
-      };  
-    })     
+      };
+    })
     return observable;
-  }  
+  }
 
 }
