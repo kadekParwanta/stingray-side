@@ -25,20 +25,29 @@
         <img [@flyInBottomSlow]="logoState" src="assets/img/stingray.jpg" />
       </ion-col>
     </ion-row>
- 
+    
+    <form #loginForm="ngForm" novalidate>
     <ion-row>
       <ion-col>
         <ion-list inset [@bounceInBottom]="formState">
  
           <ion-item>
             <ion-label>Username</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"required>
+            </ion-input>
           </ion-item>
+          <p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
+				    Username is required
+			    </p>
  
           <ion-item style="margin-top:10px">
             <ion-label>Password</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+				    </ion-input>
           </ion-item>
+          <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+				    Password is required
+			  </p>
  
         </ion-list>
       </ion-col>
@@ -46,16 +55,17 @@
  
     <ion-row>
       <ion-col>
-        <button ion-button class="login-button" [@fadeIn]="loginState">Login</button>
+        <button ion-button class="login-button" [@fadeIn]="loginState" (click)="onLogin(loginForm)" type="submit">Login</button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
         <p color="primary" [@fadeIn]="registerState"> Or </p>
-        <button ion-button class="register-button" [@fadeIn]="registerState">Register</button>
+        <button ion-button class="register-button" [@fadeIn]="registerState" (click)="onSignup()">Register</button>
       </ion-col>
     </ion-row>
+    </form>
  
   </div>
  

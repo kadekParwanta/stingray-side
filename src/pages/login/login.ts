@@ -1,5 +1,9 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
+import { User } from '../../app/shared/sdk/models';
+import { UserApi } from '../../app/shared/sdk/services';
+import { RegisterPage } from '../register/register';  
 
 /*
   Generated class for the Login page.
@@ -67,11 +71,25 @@ export class LoginPage {
   loginState: any = "in";
   formState: any = "in";
   registerState: any = "in";
+  login: {username?: string, password?: string} = {};
+  submitted = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+
+  onLogin(form: NgForm) {
+    this.submitted = true;
+
+    if (form.valid) {
+      
+    }
+  }
+
+  onSignup() {
+    this.navCtrl.push(RegisterPage);
   }
 
 }
