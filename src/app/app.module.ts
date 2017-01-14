@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { SchoolDetailPage } from '../pages/school-detail/school-detail';
 import { GenerationDetailPage } from '../pages/generation-detail/generation-detail';
 import { OrderYearbookPage } from '../pages/order-yearbook/order-yearbook';
+import { RegisterPage } from '../pages/register/register';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { OrderYearbookPage } from '../pages/order-yearbook/order-yearbook';
     HomePage,
     SchoolDetailPage,
     GenerationDetailPage,
-    OrderYearbookPage
+    OrderYearbookPage,
+    RegisterPage,
+    LoginPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,7 +38,9 @@ import { OrderYearbookPage } from '../pages/order-yearbook/order-yearbook';
     HomePage,
     SchoolDetailPage,
     GenerationDetailPage,
-    OrderYearbookPage
+    OrderYearbookPage,
+    RegisterPage,
+    LoginPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

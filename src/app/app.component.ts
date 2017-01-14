@@ -7,6 +7,8 @@ import { Page2 } from '../pages/page2/page2';
 import { LoopBackConfig } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+
 
 
 @Component({
@@ -25,7 +27,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Yearbook', component: SchoolsPage }
+      { title: 'Yearbook', component: SchoolsPage },
+      { title: 'Login', component: LoginPage }
     ];
 
   }
