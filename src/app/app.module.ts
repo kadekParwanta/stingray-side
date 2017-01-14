@@ -11,6 +11,8 @@ import { GenerationDetailPage } from '../pages/generation-detail/generation-deta
 import { OrderYearbookPage } from '../pages/order-yearbook/order-yearbook';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
+import { UserData } from '../providers/user-data';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,6 @@ import { LoginPage } from '../pages/login/login';
     RegisterPage,
     LoginPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, Storage]
 })
 export class AppModule {}

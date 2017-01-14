@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Page1 } from '../pages/page1/page1';
@@ -8,8 +8,15 @@ import { LoopBackConfig } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { UserData } from '../providers/user-data';
 
-
+export interface PageInterface {
+  title: string;
+  component: any;
+  icon: string;
+  logsOut?: boolean;
+  index?: number;
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -18,18 +25,32 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
+  hasLoggedIn: Boolean;
+  pages: PageInterface[] = [
+    { title: 'Home', component: HomePage, icon: 'home' },
+    { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
+  ]
 
-  pages: Array<{title: string, component: any}>;
+  footerPage: PageInterface;
 
-  constructor(public platform: Platform) {
+  loggedInPage: PageInterface = { title: 'Logout', component: HomePage, icon: 'log-out', logsOut: true };
+  loggedOutPage: PageInterface = { title: 'Login', component: LoginPage, icon: 'log-in' };
+
+  constructor(public platform: Platform, public userData: UserData, public events: Events) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Yearbook', component: SchoolsPage },
-      { title: 'Login', component: LoginPage }
-    ];
+    this.footerPage = this.loggedOutPage;
+    // decide which menu items should be hidden by current login status stored in local storage
+    this.userData.hasLoggedIn().then((hasLoggedIn) => {
+      this.hasLoggedIn = hasLoggedIn;
+      if (hasLoggedIn) {
+        this.footerPage = this.loggedInPage;
+      } else {
+        this.footerPage = this.loggedOutPage;
+      }
+    });
+
+    this.listenToLoginEvents();
 
   }
 
@@ -44,9 +65,32 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  openPage(page: PageInterface) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+    if (page.logsOut === true) {
+      // Give the menu time to close before changing to logged out
+      setTimeout(() => {
+        this.userData.logout();
+      }, 1000);
+    }
+  }
+
+  listenToLoginEvents() {
+    this.events.subscribe('user:login', () => {
+      // TODO
+      this.footerPage = this.loggedInPage;
+    });
+
+    this.events.subscribe('user:signup', () => {
+      // TODO
+      this.footerPage = this.loggedInPage;
+    });
+
+    this.events.subscribe('user:logout', () => {
+      // TODO
+      this.footerPage = this.loggedOutPage;
+    });
   }
 }
