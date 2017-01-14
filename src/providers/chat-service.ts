@@ -53,4 +53,8 @@ export class ChatService {
     return observable;
   }
 
+  disconnect() {
+    this.socket.disconnect();
+  }
+
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChatService } from '../../providers/chat-service';
-import { LoggerService, RealTime } from '../../app/shared/sdk/services';
+import { User } from '../../app/shared/sdk';
 import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
 
@@ -18,41 +18,40 @@ import { LoginPage } from '../login/login';
 export class ContactUsPage implements OnDestroy {
   messages = [];
   connection;
-  message;
+  message: string = '';
+  me: User;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private logger: LoggerService,
-    private realTime: RealTime,
     private userData: UserData,
     private chatService: ChatService
   ) {
     this.userData.getCredentials().then((credentials) => {
       if (credentials) {
-        // this.realTime.IO.on('connect').subscribe(
-        //   () => {
-        //     this.realTime.IO.emit('authentication', credentials);
-        //     this.realTime.IO.on('authenticated').subscribe(
-        //       () => console.log('connected')
-        //     )
-        //   }
-        // )
         this.chatService.authenticate(credentials);
       } else {
         this.navCtrl.setRoot(LoginPage);
       }
 
+      this.userData.getUser().then(
+        (user) => this.me = user
+      )
+
     });
   }
 
   ngOnDestroy() {
-    this.realTime.disconnect();
+    this.chatService.disconnect();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactUsPage');
+  }
+
+  sendMessage(msg){
+    this.chatService.sendMessage(msg);
   }
 
 }

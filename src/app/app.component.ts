@@ -30,7 +30,7 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
-    { title: 'Chat Us', component: ContactUsPage, index: 1, icon: 'book' },
+    { title: 'Chat Us', component: ContactUsPage, index: 1, icon: 'chatbubbles' },
   ]
 
   footerPage: PageInterface;

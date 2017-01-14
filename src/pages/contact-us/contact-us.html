@@ -6,7 +6,10 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Chat Us</ion-title>
   </ion-navbar>
 
@@ -15,17 +18,19 @@
 
 <ion-content>
   <div class="messages">
-    <div class="message" *ngFor="#m of msgs | async" [ngClass]="{'me': m.sender.id === me.id}">
+    <div class="message" *ngFor="let m of messages" [ngClass]="{'me': m.sender.id === me.id}">
       <img [src]="m.sender.avatar" class="avatar" *ngIf="m.sender.id !== me.id">
       {{ m.msg }}
       <span class="date">{{ m.dateSent | date:'medium' }}</span>
     </div>
   </div>
 </ion-content>
-<div class="msg">
-  <input type="text" placeholder="Message ..." [(ngModel)]="msg" (keydown.enter)="sendMessage()">
-  <button small (click)="sendMessage()" 
-                [disabled]="msg === ''">
-    Send
+
+<ion-footer>
+  <div class="msg">
+  <input type="text" placeholder="Message ..." [(ngModel)]="message" (keydown.enter)="sendMessage(message)">
+  <button ion-button (click)="sendMessage(msg)" [disabled]="message === ''" color="primary" style="height: 75%;">
+    <ion-icon name="send"></ion-icon>
   </button>  
 </div>
+</ion-footer>

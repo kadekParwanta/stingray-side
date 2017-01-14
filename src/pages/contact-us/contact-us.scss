@@ -1,6 +1,13 @@
 page-contact-us {
     padding-bottom: 50px;
 
+    .content {
+        background-image: url("../assets/img/home-bg.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+
   .header {
     display: block;
     height: 40px;
