@@ -12,6 +12,8 @@ import { OrderYearbookPage } from '../pages/order-yearbook/order-yearbook';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { UserData } from '../providers/user-data';
+import { ChatService } from '../providers/chat-service';
+import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { Storage } from '@ionic/storage';
 
 @NgModule({
@@ -25,7 +27,8 @@ import { Storage } from '@ionic/storage';
     GenerationDetailPage,
     OrderYearbookPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    ContactUsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -42,8 +45,9 @@ import { Storage } from '@ionic/storage';
     GenerationDetailPage,
     OrderYearbookPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    ContactUsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, Storage]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage]
 })
 export class AppModule {}

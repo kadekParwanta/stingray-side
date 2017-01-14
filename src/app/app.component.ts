@@ -8,6 +8,7 @@ import { LoopBackConfig } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserData } from '../providers/user-data';
 
 export interface PageInterface {
@@ -29,6 +30,7 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
+    { title: 'Chat Us', component: ContactUsPage, index: 1, icon: 'book' },
   ]
 
   footerPage: PageInterface;
