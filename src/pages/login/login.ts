@@ -94,7 +94,7 @@ export class LoginPage {
 
     if (form.valid) {
       let loading = this.loadingCtrl.create({
-        content: 'Loading Please Wait...'
+        content: 'Please Wait...'
       });
 
       loading.present();

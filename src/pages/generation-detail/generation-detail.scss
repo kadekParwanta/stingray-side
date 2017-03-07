@@ -1,8 +1,7 @@
 page-generation-detail {
     .slide-image {
-        height: 100%;
+        height: auto;
         width: 100%;
-        margin: 18px 0;
     }
 
     .slide-zoom {
@@ -15,15 +14,15 @@ page-generation-detail {
 
     .slider {
       width: 100%;
-      height: 30%;
+      height: auto;
     }
     
     .swiper-pagination-bullet {
-      background-color: #60646B; opacity: 1; 
+      background-color: #fff; opacity: 1; 
     } 
     
     .swiper-pagination-bullet-active { 
-        background: #fff; opacity: 1; 
+        background: #60646B; opacity: 1; 
     }
 
     .content {

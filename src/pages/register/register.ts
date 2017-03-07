@@ -47,7 +47,7 @@ export class RegisterPage {
     this.submitAttempt = true;
     if (this.signupForm.valid) {
       let loading = this.loadingCtrl.create({
-        content: 'Loading Please Wait...'
+        content: 'Please Wait...'
       });
 
       loading.present();

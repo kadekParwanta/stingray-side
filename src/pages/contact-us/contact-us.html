@@ -29,7 +29,7 @@
 <ion-footer>
   <div class="msg">
   <input type="text" placeholder="Message ..." [(ngModel)]="message" (keydown.enter)="sendMessage(message)">
-  <button ion-button (click)="sendMessage(msg)" [disabled]="message === ''" color="primary" style="height: 75%;">
+  <button ion-button (click)="sendMessage(message)" [disabled]="message === ''" color="primary" style="height: 75%;">
     <ion-icon name="send"></ion-icon>
   </button>  
 </div>

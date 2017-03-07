@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Generation, Media } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
+import { ZBar } from 'ionic-native';
 
 /*
   Generated class for the GenerationDetail page.
@@ -28,8 +29,8 @@ export class GenerationDetailPage {
   }
 
   mySlideOptions = {
-    autoplay: 2000,
-    loop: true,
+    autoplay: null,
+    loop: false,
     pager: true
   };
 
@@ -139,8 +140,24 @@ export class GenerationDetailPage {
     return this.shownItem === classRoom;
   }
 
-  order(event) {
-    this.navCtrl.push(OrderYearbookPage, { generation: this.generation });
+  order() {
+    // this.navCtrl.push(OrderYearbookPage, { generation: this.generation });
+    let zBarOptions = {
+      flash: "off",
+      drawSight: false
+    };
+
+    ZBar.scan(zBarOptions)
+      .then(result => {
+        console.log(result); // Scanned code
+      })
+      .catch(error => {
+        console.log(error); // Error message
+      });
+  }
+
+  goToStudentDetails(student) {
+      this.order();
   }
 
 }
