@@ -47,37 +47,15 @@
             </ion-grid>
           </div>
           <p>Daftar Siswa</p>
-          <ion-grid>
-            <!--<ion-row wrap>
-              <ion-col width-50 *ngFor="let student of class.students">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col width-50><div *ngIf="student.photo"><img [src]="student.photo.url"></div></ion-col>
-                    <ion-col center>
-                      <p>{{student.name}}</p>
-                      <p>{{student.motto}}</p>
-                      <p>{{student.address}}</p>
-                      <p>{{student.NIS}}</p>
-                      </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-col>
-            </ion-row>-->
-
-            <ion-row>
-              <ion-col>
-                <ion-list *ngFor="let student of class.students">
-                  <ion-item (click)="goToStudentDetails(student)" detail-push>
-                    <ion-avatar item-left>
-                      <img [src]="student.photo.url">
-                    </ion-avatar>
-                    <h2>{{student.name}}</h2>
-                    <p>{{student.motto}}</p>
-                  </ion-item>
-                </ion-list>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <ion-list *ngFor="let student of class.students">
+            <ion-item (click)="goToStudentDetails(student)" detail-push>
+              <ion-avatar item-left>
+                <img [src]="student.photo.url">
+              </ion-avatar>
+              <h2>{{student.name}}</h2>
+              <p>{{student.motto}}</p>
+            </ion-item>
+          </ion-list>
         </ion-col>
       </ion-row>
     </div>
