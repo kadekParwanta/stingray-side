@@ -12,9 +12,9 @@ export interface SchoolInterface {
   profile?: string;
   hymne?: string;
   id?: any;
-  generations?: Array<Generation>;
-  teachers?: Array<Teacher>;
-  photos?: Array<Media>;
+  generations?: Generation[];
+  teachers?: Teacher[];
+  photos?: Media[];
 }
 
 export class School implements SchoolInterface {
@@ -23,9 +23,9 @@ export class School implements SchoolInterface {
   profile: string;
   hymne: string;
   id: any;
-  generations: Array<Generation>;
-  teachers: Array<Teacher>;
-  photos: Array<Media>;
+  generations: Generation[];
+  teachers: Teacher[];
+  photos: Media[];
   constructor(data?: SchoolInterface) {
     Object.assign(this, data);
   }
@@ -81,17 +81,17 @@ export class School implements SchoolInterface {
       relations: {
         generations: {
           name: 'generations',
-          type: 'Array<Generation>',
+          type: 'Generation[]',
           model: 'Generation'
         },
         teachers: {
           name: 'teachers',
-          type: 'Array<Teacher>',
+          type: 'Teacher[]',
           model: 'Teacher'
         },
         photos: {
           name: 'photos',
-          type: 'Array<Media>',
+          type: 'Media[]',
           model: 'Media'
         },
       }

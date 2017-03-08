@@ -9,10 +9,9 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import { Epub } from '../../models/Epub';
-import { SocketConnections } from '../../sockets/socket.connections';
+import { SocketConnection } from '../../sockets/socket.connections';
 import { Epubpage } from '../../models/Epubpage';
 
 
@@ -24,23 +23,23 @@ export class EpubApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
-    @Inject(SocketConnections) protected connections: SocketConnections,
+    @Inject(SocketConnection) protected connection: SocketConnection,
     @Inject(SDKModels) protected models: SDKModels,
     @Inject(LoopBackAuth) protected auth: LoopBackAuth,
     @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
-    super(http,  connections,  models, auth, searchParams, errorHandler);
+    super(http,  connection,  models, auth, searchParams, errorHandler);
   }
 
   /**
    * Find a related item by id for epubpages.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for epubpages
+   * @param {any} fk Foreign key for epubpages
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -66,11 +65,11 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for epubpages.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for epubpages
+   * @param {any} fk Foreign key for epubpages
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -93,15 +92,15 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for epubpages.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for epubpages
+   * @param {any} fk Foreign key for epubpages
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -110,7 +109,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public updateByIdEpubpages(id: any, fk: any, data: Epubpage): Observable<any> {
+  public updateByIdEpubpages(id: any, fk: any, data: Epubpage = new Epubpage()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/:fk";
@@ -129,11 +128,11 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Queries epubpages of Epub.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object filter 
+   * @param {object} filter 
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -159,13 +158,13 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epubpages of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -174,7 +173,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createEpubpages(id: any, data: Epubpage): Observable<any> {
+  public createEpubpages(id: any, data: Epubpage = new Epubpage()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -192,9 +191,9 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Deletes all epubpages of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -216,11 +215,11 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Counts epubpages of Epub.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object where Criteria to match model instances
+   * @param {object} where Criteria to match model instances
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -245,13 +244,13 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epubpages of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -260,7 +259,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createManyEpubpages(id: any, data: Array<Epubpage> = []): Observable<any> {
+  public createManyEpubpages(id: any, data: Epubpage[] = new Array<Epubpage>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";

@@ -9,7 +9,7 @@ export interface EpubInterface {
   publisher?: string;
   id?: any;
   yearbookId?: any;
-  epubpages?: Array<Epubpage>;
+  epubpages?: Epubpage[];
 }
 
 export class Epub implements EpubInterface {
@@ -17,7 +17,7 @@ export class Epub implements EpubInterface {
   publisher: string;
   id: any;
   yearbookId: any;
-  epubpages: Array<Epubpage>;
+  epubpages: Epubpage[];
   constructor(data?: EpubInterface) {
     Object.assign(this, data);
   }
@@ -69,7 +69,7 @@ export class Epub implements EpubInterface {
       relations: {
         epubpages: {
           name: 'epubpages',
-          type: 'Array<Epubpage>',
+          type: 'Epubpage[]',
           model: 'Epubpage'
         },
       }

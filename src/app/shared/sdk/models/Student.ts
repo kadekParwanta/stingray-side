@@ -8,6 +8,16 @@ declare var Object: any;
 export interface StudentInterface {
   motto?: string;
   NIS?: string;
+  noAbsen?: number;
+  noFotoIn?: number;
+  panggilan?: string;
+  ttl?: string;
+  email?: string;
+  instagram?: string;
+  line?: string;
+  hobi?: string;
+  citacita?: string;
+  quote?: string;
   name: string;
   phonenumber?: string;
   address?: string;
@@ -20,6 +30,16 @@ export interface StudentInterface {
 export class Student implements StudentInterface {
   motto: string;
   NIS: string;
+  noAbsen: number;
+  noFotoIn: number;
+  panggilan: string;
+  ttl: string;
+  email: string;
+  instagram: string;
+  line: string;
+  hobi: string;
+  citacita: string;
+  quote: string;
   name: string;
   phonenumber: string;
   address: string;
@@ -64,6 +84,46 @@ export class Student implements StudentInterface {
         },
         NIS: {
           name: 'NIS',
+          type: 'string'
+        },
+        noAbsen: {
+          name: 'noAbsen',
+          type: 'number'
+        },
+        noFotoIn: {
+          name: 'noFotoIn',
+          type: 'number'
+        },
+        panggilan: {
+          name: 'panggilan',
+          type: 'string'
+        },
+        ttl: {
+          name: 'ttl',
+          type: 'string'
+        },
+        email: {
+          name: 'email',
+          type: 'string'
+        },
+        instagram: {
+          name: 'instagram',
+          type: 'string'
+        },
+        line: {
+          name: 'line',
+          type: 'string'
+        },
+        hobi: {
+          name: 'hobi',
+          type: 'string'
+        },
+        citacita: {
+          name: 'citacita',
+          type: 'string'
+        },
+        quote: {
+          name: 'quote',
           type: 'string'
         },
         name: {

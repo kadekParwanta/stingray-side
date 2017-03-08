@@ -10,15 +10,15 @@ import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { PushNotification } from '../../models/PushNotification';
+import { Room } from '../../models/Room';
 import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
- * Api services for the `PushNotification` model.
+ * Api services for the `Room` model.
  */
 @Injectable()
-export class PushNotificationApi extends BaseLoopBackApi {
+export class RoomApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -33,9 +33,9 @@ export class PushNotificationApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `PushNotification`.
+   * i.e. `Room`.
    */
   public getModelName() {
-    return "PushNotification";
+    return "Room";
   }
 }

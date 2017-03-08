@@ -9,10 +9,9 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import { Yearbook } from '../../models/Yearbook';
-import { SocketConnections } from '../../sockets/socket.connections';
+import { SocketConnection } from '../../sockets/socket.connections';
 import { Epub } from '../../models/Epub';
 
 
@@ -24,23 +23,23 @@ export class YearbookApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
-    @Inject(SocketConnections) protected connections: SocketConnections,
+    @Inject(SocketConnection) protected connection: SocketConnection,
     @Inject(SDKModels) protected models: SDKModels,
     @Inject(LoopBackAuth) protected auth: LoopBackAuth,
     @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
-    super(http,  connections,  models, auth, searchParams, errorHandler);
+    super(http,  connection,  models, auth, searchParams, errorHandler);
   }
 
   /**
    * Fetches hasOne relation epub.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param boolean refresh 
+   * @param {boolean} refresh 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -66,13 +65,13 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epub of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -81,7 +80,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createEpub(id: any, data: Epub ): Observable<any> {
+  public createEpub(id: any, data: Epub = new Epub()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -99,13 +98,13 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Update epub of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -114,7 +113,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public updateEpub(id: any, data: Epub ): Observable<any> {
+  public updateEpub(id: any, data: Epub = new Epub()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -132,9 +131,9 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Deletes epub of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -156,11 +155,11 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Generate Epub
    *
-   * @param string id 
+   * @param {string} id 
    *
-   * @param object options 
+   * @param {object} options 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -186,13 +185,13 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epub of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -201,7 +200,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createManyEpub(id: any, data: Array<Epub> = []): Observable<any> {
+  public createManyEpub(id: any, data: Epub[] = new Array<Epub>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";

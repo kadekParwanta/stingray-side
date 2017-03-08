@@ -16,6 +16,11 @@ export interface MediaInterface {
   classId?: any;
   generationId?: any;
   schoolId?: any;
+  projectId?: any;
+  photographyId?: any;
+  eventOrganizerId?: any;
+  clothingId?: any;
+  musicId?: any;
 }
 
 export class Media implements MediaInterface {
@@ -33,6 +38,11 @@ export class Media implements MediaInterface {
   classId: any;
   generationId: any;
   schoolId: any;
+  projectId: any;
+  photographyId: any;
+  eventOrganizerId: any;
+  clothingId: any;
+  musicId: any;
   constructor(data?: MediaInterface) {
     Object.assign(this, data);
   }
@@ -118,6 +128,26 @@ export class Media implements MediaInterface {
         },
         schoolId: {
           name: 'schoolId',
+          type: 'any'
+        },
+        projectId: {
+          name: 'projectId',
+          type: 'any'
+        },
+        photographyId: {
+          name: 'photographyId',
+          type: 'any'
+        },
+        eventOrganizerId: {
+          name: 'eventOrganizerId',
+          type: 'any'
+        },
+        clothingId: {
+          name: 'clothingId',
+          type: 'any'
+        },
+        musicId: {
+          name: 'musicId',
           type: 'any'
         },
       },

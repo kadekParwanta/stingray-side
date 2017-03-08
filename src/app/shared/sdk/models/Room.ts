@@ -1,35 +1,32 @@
 /* tslint:disable */
-import {
-  Media
-} from '../index';
 
 declare var Object: any;
-export interface PictureInterface {
+export interface RoomInterface {
+  name: string;
   id?: any;
-  media?: Media[];
 }
 
-export class Picture implements PictureInterface {
+export class Room implements RoomInterface {
+  name: string;
   id: any;
-  media: Media[];
-  constructor(data?: PictureInterface) {
+  constructor(data?: RoomInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Picture`.
+   * i.e. `Room`.
    */
   public static getModelName() {
-    return "Picture";
+    return "Room";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Picture for dynamic purposes.
+  * This method creates an instance of Room for dynamic purposes.
   **/
-  public static factory(data: PictureInterface): Picture{
-    return new Picture(data);
+  public static factory(data: RoomInterface): Room{
+    return new Room(data);
   }  
   /**
   * @method getModelDefinition
@@ -40,20 +37,19 @@ export class Picture implements PictureInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Picture',
-      plural: 'Pictures',
+      name: 'Room',
+      plural: 'Rooms',
       properties: {
+        name: {
+          name: 'name',
+          type: 'string'
+        },
         id: {
           name: 'id',
           type: 'any'
         },
       },
       relations: {
-        media: {
-          name: 'media',
-          type: 'Media[]',
-          model: 'Media'
-        },
       }
     }
   }

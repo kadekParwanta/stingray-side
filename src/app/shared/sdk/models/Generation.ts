@@ -10,10 +10,11 @@ declare var Object: any;
 export interface GenerationInterface {
   name?: string;
   year?: number;
+  barcode?: string;
   id?: any;
   schoolId?: any;
-  classes?: Array<Class>;
-  photos?: Array<Media>;
+  classes?: Class[];
+  photos?: Media[];
   school?: School;
   yearbook?: Yearbook;
 }
@@ -21,10 +22,11 @@ export interface GenerationInterface {
 export class Generation implements GenerationInterface {
   name: string;
   year: number;
+  barcode: string;
   id: any;
   schoolId: any;
-  classes: Array<Class>;
-  photos: Array<Media>;
+  classes: Class[];
+  photos: Media[];
   school: School;
   yearbook: Yearbook;
   constructor(data?: GenerationInterface) {
@@ -66,6 +68,10 @@ export class Generation implements GenerationInterface {
           name: 'year',
           type: 'number'
         },
+        barcode: {
+          name: 'barcode',
+          type: 'string'
+        },
         id: {
           name: 'id',
           type: 'any'
@@ -78,12 +84,12 @@ export class Generation implements GenerationInterface {
       relations: {
         classes: {
           name: 'classes',
-          type: 'Array<Class>',
+          type: 'Class[]',
           model: 'Class'
         },
         photos: {
           name: 'photos',
-          type: 'Array<Media>',
+          type: 'Media[]',
           model: 'Media'
         },
         school: {

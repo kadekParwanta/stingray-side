@@ -10,15 +10,16 @@ import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { PushNotification } from '../../models/PushNotification';
+import { Message } from '../../models/Message';
 import { SocketConnection } from '../../sockets/socket.connections';
+import { User } from '../../models/User';
 
 
 /**
- * Api services for the `PushNotification` model.
+ * Api services for the `Message` model.
  */
 @Injectable()
-export class PushNotificationApi extends BaseLoopBackApi {
+export class MessageApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -32,10 +33,40 @@ export class PushNotificationApi extends BaseLoopBackApi {
   }
 
   /**
+   * Fetches belongsTo relation sender.
+   *
+   * @param {any} id PersistedModel id
+   *
+   * @param {boolean} refresh 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Message` object.)
+   * </em>
+   */
+  public getSender(id: any, refresh: any = {}): Observable<any> {
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Messages/:id/sender";
+    let _routeParams: any = {
+      id: id
+    };
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (refresh) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    return result;
+  }
+
+  /**
    * The name of the model represented by this $resource,
-   * i.e. `PushNotification`.
+   * i.e. `Message`.
    */
   public getModelName() {
-    return "PushNotification";
+    return "Message";
   }
 }

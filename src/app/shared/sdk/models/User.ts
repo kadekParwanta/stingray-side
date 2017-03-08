@@ -1,6 +1,8 @@
 /* tslint:disable */
 import {
-  Media
+  Media,
+  Message,
+  Room
 } from '../index';
 
 declare var Object: any;
@@ -24,11 +26,13 @@ export interface UserInterface {
   lastUpdated?: Date;
   id?: any;
   creatorId?: any;
-  accessTokens?: Array<any>;
-  Role?: Array<any>;
-  roleMapping?: Array<any>;
+  accessTokens?: any[];
+  Role?: any[];
+  roleMapping?: any[];
   creator?: User;
   media?: Media;
+  messages?: Message[];
+  rooms?: Room[];
 }
 
 export class User implements UserInterface {
@@ -51,11 +55,13 @@ export class User implements UserInterface {
   lastUpdated: Date;
   id: any;
   creatorId: any;
-  accessTokens: Array<any>;
-  Role: Array<any>;
-  roleMapping: Array<any>;
+  accessTokens: any[];
+  Role: any[];
+  roleMapping: any[];
   creator: User;
   media: Media;
+  messages: Message[];
+  rooms: Room[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
   }
@@ -171,17 +177,17 @@ export class User implements UserInterface {
       relations: {
         accessTokens: {
           name: 'accessTokens',
-          type: 'Array<any>',
+          type: 'any[]',
           model: ''
         },
         Role: {
           name: 'Role',
-          type: 'Array<any>',
+          type: 'any[]',
           model: ''
         },
         roleMapping: {
           name: 'roleMapping',
-          type: 'Array<any>',
+          type: 'any[]',
           model: ''
         },
         creator: {
@@ -193,6 +199,16 @@ export class User implements UserInterface {
           name: 'media',
           type: 'Media',
           model: 'Media'
+        },
+        messages: {
+          name: 'messages',
+          type: 'Message[]',
+          model: 'Message'
+        },
+        rooms: {
+          name: 'rooms',
+          type: 'Room[]',
+          model: 'Room'
         },
       }
     }

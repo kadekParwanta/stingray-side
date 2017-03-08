@@ -9,10 +9,9 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import { Generation } from '../../models/Generation';
-import { SocketConnections } from '../../sockets/socket.connections';
+import { SocketConnection } from '../../sockets/socket.connections';
 import { Class } from '../../models/Class';
 import { Media } from '../../models/Media';
 import { School } from '../../models/School';
@@ -27,23 +26,23 @@ export class GenerationApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
-    @Inject(SocketConnections) protected connections: SocketConnections,
+    @Inject(SocketConnection) protected connection: SocketConnection,
     @Inject(SDKModels) protected models: SDKModels,
     @Inject(LoopBackAuth) protected auth: LoopBackAuth,
     @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
-    super(http,  connections,  models, auth, searchParams, errorHandler);
+    super(http,  connection,  models, auth, searchParams, errorHandler);
   }
 
   /**
    * Find a related item by id for classes.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for classes
+   * @param {any} fk Foreign key for classes
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -69,11 +68,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for classes.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for classes
+   * @param {any} fk Foreign key for classes
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -96,15 +95,15 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for classes.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for classes
+   * @param {any} fk Foreign key for classes
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -113,7 +112,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public updateByIdClasses(id: any, fk: any, data: Class): Observable<any> {
+  public updateByIdClasses(id: any, fk: any, data: Class = new Class()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/classes/:fk";
@@ -132,11 +131,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for photos.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for photos
+   * @param {any} fk Foreign key for photos
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -162,11 +161,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for photos.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for photos
+   * @param {any} fk Foreign key for photos
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -189,15 +188,15 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for photos.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param any fk Foreign key for photos
+   * @param {any} fk Foreign key for photos
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -206,7 +205,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public updateByIdPhotos(id: any, fk: any, data: Media): Observable<any> {
+  public updateByIdPhotos(id: any, fk: any, data: Media = new Media()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/photos/:fk";
@@ -225,11 +224,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation school.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param boolean refresh 
+   * @param {boolean} refresh 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -255,11 +254,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation yearbook.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param boolean refresh 
+   * @param {boolean} refresh 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -285,13 +284,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbook of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -300,7 +299,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createYearbook(id: any, data: Yearbook): Observable<any> {
+  public createYearbook(id: any, data: Yearbook = new Yearbook()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/yearbook";
@@ -318,13 +317,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Update yearbook of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -333,7 +332,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public updateYearbook(id: any, data: Yearbook): Observable<any> {
+  public updateYearbook(id: any, data: Yearbook = new Yearbook()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/yearbook";
@@ -351,9 +350,9 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Deletes yearbook of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -375,11 +374,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Queries classes of Generation.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object filter 
+   * @param {object} filter 
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -405,13 +404,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in classes of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -420,7 +419,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createClasses(id: any, data: Class): Observable<any> {
+  public createClasses(id: any, data: Class = new Class()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/classes";
@@ -438,9 +437,9 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Deletes all classes of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -462,11 +461,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Counts classes of Generation.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object where Criteria to match model instances
+   * @param {object} where Criteria to match model instances
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -491,11 +490,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Queries photos of Generation.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object filter 
+   * @param {object} filter 
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -521,13 +520,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -536,7 +535,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createPhotos(id: any, data: Media): Observable<any> {
+  public createPhotos(id: any, data: Media = new Media()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/photos";
@@ -554,9 +553,9 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Deletes all photos of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -578,11 +577,11 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Counts photos of Generation.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object where Criteria to match model instances
+   * @param {object} where Criteria to match model instances
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -605,15 +604,43 @@ export class GenerationApi extends BaseLoopBackApi {
   }
 
   /**
+   * Find generation by barcode
+   *
+   * @param {object} data Request data.
+   *
+   *  - `barcode` – `{string}` - 
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * <em>
+   * (The remote method definition does not provide any description.
+   * This usually means the response is a `Generation` object.)
+   * </em>
+   */
+  public findByBarcode(barcode: any): Observable<Generation> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Generations/findByBarcode";
+    let _routeParams: any = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    if (barcode) _urlParams.barcode = barcode;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    return result.map((instance: Generation) => new Generation(instance));
+  }
+
+  /**
    * export a file to web service
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    *  - `id` – `{string}` - 
    *
    *  - `Objects` – `{object}` - 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -637,13 +664,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Uploads picture files
    *
-   * @param object options 
+   * @param {object} options 
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    *  - `id` – `{string}` - 
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -669,13 +696,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbook of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -684,7 +711,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createManyYearbook(id: any, data: Array<Yearbook> = []): Observable<any> {
+  public createManyYearbook(id: any, data: Yearbook[] = new Array<Yearbook>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/yearbook";
@@ -702,13 +729,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in classes of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -717,7 +744,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createManyClasses(id: any, data: Array<Class> = []): Observable<any> {
+  public createManyClasses(id: any, data: Class[] = new Array<Class>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/classes";
@@ -735,13 +762,13 @@ export class GenerationApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param any id PersistedModel id
+   * @param {any} id PersistedModel id
    *
-   * @param object data Request data.
+   * @param {object} data Request data.
    *
    * This method expects a subset of model properties as request parameters.
    *
-   * @returns object[] An empty reference that will be
+   * @returns {object[]} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -750,7 +777,7 @@ export class GenerationApi extends BaseLoopBackApi {
    * This usually means the response is a `Generation` object.)
    * </em>
    */
-  public createManyPhotos(id: any, data: Array<Media> = []): Observable<any> {
+  public createManyPhotos(id: any, data: Media[] = new Array<Media>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Generations/:id/photos";

@@ -20,11 +20,19 @@ import { School } from '../../models/School';
 import { Yearbook } from '../../models/Yearbook';
 import { Epub } from '../../models/Epub';
 import { Epubpage } from '../../models/Epubpage';
+import { Message } from '../../models/Message';
+import { Room } from '../../models/Room';
+import { Photography } from '../../models/Photography';
+import { EventOrganizer } from '../../models/EventOrganizer';
+import { Clothing } from '../../models/Clothing';
+import { Music } from '../../models/Music';
+
+export interface Models { [name: string]: any }
 
 @Injectable()
 export class SDKModels {
 
-  private models: { [name: string]: any } = {
+  private models: Models = {
     Email: Email,
     User: User,
     Media: Media,
@@ -45,10 +53,24 @@ export class SDKModels {
     Yearbook: Yearbook,
     Epub: Epub,
     Epubpage: Epubpage,
+    Message: Message,
+    Room: Room,
+    Photography: Photography,
+    EventOrganizer: EventOrganizer,
+    Clothing: Clothing,
+    Music: Music,
     
   };
 
   public get(modelName: string): any {
     return this.models[modelName];
+  }
+
+  public getAll(): Models {
+    return this.models;
+  }
+
+  public getModelNames(): string[] {
+    return Object.keys(this.models);
   }
 }

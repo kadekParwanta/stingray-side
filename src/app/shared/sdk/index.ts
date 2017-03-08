@@ -46,7 +46,7 @@ import { CookieBrowser } from './storage/cookie.browser';
 import { StorageBrowser } from './storage/storage.browser';
 import { SocketBrowser } from './sockets/socket.browser';
 import { SocketDriver } from './sockets/socket.driver';
-import { SocketConnections } from './sockets/socket.connections';
+import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
 import { EmailApi } from './services/custom/Email';
 import { UserApi } from './services/custom/User';
@@ -68,6 +68,12 @@ import { SchoolApi } from './services/custom/School';
 import { YearbookApi } from './services/custom/Yearbook';
 import { EpubApi } from './services/custom/Epub';
 import { EpubpageApi } from './services/custom/Epubpage';
+import { MessageApi } from './services/custom/Message';
+import { RoomApi } from './services/custom/Room';
+import { PhotographyApi } from './services/custom/Photography';
+import { EventOrganizerApi } from './services/custom/EventOrganizer';
+import { ClothingApi } from './services/custom/Clothing';
+import { MusicApi } from './services/custom/Music';
 /**
 * @module SDKBrowserModule
 * @description
@@ -83,11 +89,14 @@ import { EpubpageApi } from './services/custom/Epubpage';
   exports:      [ ],
   providers:    [
     ErrorHandler,
-    SocketConnections
+    SocketConnection
   ]
 })
 export class SDKBrowserModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(internalStorageProvider: any = {
+    provide: InternalStorage,
+    useClass: CookieBrowser
+  }): ModuleWithProviders {
     return {
       ngModule  : SDKBrowserModule,
       providers : [
@@ -116,7 +125,13 @@ export class SDKBrowserModule {
         YearbookApi,
         EpubApi,
         EpubpageApi,
-        { provide: InternalStorage, useClass: CookieBrowser },
+        MessageApi,
+        RoomApi,
+        PhotographyApi,
+        EventOrganizerApi,
+        ClothingApi,
+        MusicApi,
+        internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }
       ]
@@ -130,4 +145,6 @@ export class SDKBrowserModule {
 export * from './models/index';
 export * from './services/index';
 export * from './lb.config';
-
+export * from './storage/storage.swaps';
+export { CookieBrowser } from './storage/cookie.browser';
+export { StorageBrowser } from './storage/storage.browser';

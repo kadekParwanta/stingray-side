@@ -10,8 +10,8 @@ export interface ClassInterface {
   name: string;
   id?: any;
   generationId?: any;
-  students?: Array<Student>;
-  photos?: Array<Media>;
+  students?: Student[];
+  photos?: Media[];
   generation?: Generation;
 }
 
@@ -19,8 +19,8 @@ export class Class implements ClassInterface {
   name: string;
   id: any;
   generationId: any;
-  students: Array<Student>;
-  photos: Array<Media>;
+  students: Student[];
+  photos: Media[];
   generation: Generation;
   constructor(data?: ClassInterface) {
     Object.assign(this, data);
@@ -69,12 +69,12 @@ export class Class implements ClassInterface {
       relations: {
         students: {
           name: 'students',
-          type: 'Array<Student>',
+          type: 'Student[]',
           model: 'Student'
         },
         photos: {
           name: 'photos',
-          type: 'Array<Media>',
+          type: 'Media[]',
           model: 'Media'
         },
         generation: {

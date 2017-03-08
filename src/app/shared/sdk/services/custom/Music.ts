@@ -10,16 +10,16 @@ import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { Picture } from '../../models/Picture';
+import { Music } from '../../models/Music';
 import { SocketConnection } from '../../sockets/socket.connections';
 import { Media } from '../../models/Media';
 
 
 /**
- * Api services for the `Picture` model.
+ * Api services for the `Music` model.
  */
 @Injectable()
-export class PictureApi extends BaseLoopBackApi {
+export class MusicApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
@@ -33,11 +33,11 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Find a related item by id for media.
+   * Find a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
-   * @param {any} fk Foreign key for media
+   * @param {any} fk Foreign key for photos
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -45,13 +45,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `Music` object.)
    * </em>
    */
-  public findByIdMedia(id: any, fk: any): Observable<any> {
+  public findByIdPhotos(id: any, fk: any): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media/:fk";
+    "/Music/:id/photos/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -63,11 +63,11 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Delete a related item by id for media.
+   * Delete a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
-   * @param {any} fk Foreign key for media
+   * @param {any} fk Foreign key for photos
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -75,10 +75,10 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdMedia(id: any, fk: any): Observable<any> {
+  public destroyByIdPhotos(id: any, fk: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media/:fk";
+    "/Music/:id/photos/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -90,11 +90,11 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update a related item by id for media.
+   * Update a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
-   * @param {any} fk Foreign key for media
+   * @param {any} fk Foreign key for photos
    *
    * @param {object} data Request data.
    *
@@ -106,13 +106,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `Music` object.)
    * </em>
    */
-  public updateByIdMedia(id: any, fk: any, data: Media = new Media()): Observable<any> {
+  public updateByIdPhotos(id: any, fk: any, data: Media = new Media()): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media/:fk";
+    "/Music/:id/photos/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -126,9 +126,9 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries media of Picture.
+   * Queries photos of Music.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
    * @param {object} filter 
    *
@@ -138,13 +138,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `Music` object.)
    * </em>
    */
-  public getMedia(id: any, filter: LoopBackFilter = {}): Observable<any> {
+  public getPhotos(id: any, filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media";
+    "/Music/:id/photos";
     let _routeParams: any = {
       id: id
     };
@@ -156,9 +156,9 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in media of this model.
+   * Creates a new instance in photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
    * @param {object} data Request data.
    *
@@ -170,13 +170,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `Music` object.)
    * </em>
    */
-  public createMedia(id: any, data: Media = new Media()): Observable<any> {
+  public createPhotos(id: any, data: Media = new Media()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media";
+    "/Music/:id/photos";
     let _routeParams: any = {
       id: id
     };
@@ -189,9 +189,9 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Deletes all media of this model.
+   * Deletes all photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -199,10 +199,10 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteMedia(id: any): Observable<any> {
+  public deletePhotos(id: any): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media";
+    "/Music/:id/photos";
     let _routeParams: any = {
       id: id
     };
@@ -213,9 +213,9 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts media of Picture.
+   * Counts photos of Music.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -227,10 +227,10 @@ export class PictureApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countMedia(id: any, where: any = {}): Observable<any> {
+  public countPhotos(id: any, where: any = {}): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media/count";
+    "/Music/:id/photos/count";
     let _routeParams: any = {
       id: id
     };
@@ -242,9 +242,9 @@ export class PictureApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in media of this model.
+   * Creates a new instance in photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Project id
    *
    * @param {object} data Request data.
    *
@@ -256,13 +256,13 @@ export class PictureApi extends BaseLoopBackApi {
    *
    * <em>
    * (The remote method definition does not provide any description.
-   * This usually means the response is a `Picture` object.)
+   * This usually means the response is a `Music` object.)
    * </em>
    */
-  public createManyMedia(id: any, data: Media[] = new Array<Media>()): Observable<any> {
+  public createManyPhotos(id: any, data: Media[] = new Array<Media>()): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Pictures/:id/media";
+    "/Music/:id/photos";
     let _routeParams: any = {
       id: id
     };
@@ -276,9 +276,9 @@ export class PictureApi extends BaseLoopBackApi {
 
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Picture`.
+   * i.e. `Music`.
    */
   public getModelName() {
-    return "Picture";
+    return "Music";
   }
 }

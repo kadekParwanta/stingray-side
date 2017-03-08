@@ -9,10 +9,9 @@ import { LoopBackFilter,  } from '../../models/BaseModels';
 import { JSONSearchParams } from '../core/search.params';
 import { ErrorHandler } from '../core/error.service';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import { Installation } from '../../models/Installation';
-import { SocketConnections } from '../../sockets/socket.connections';
+import { SocketConnection } from '../../sockets/socket.connections';
 
 
 /**
@@ -23,25 +22,25 @@ export class InstallationApi extends BaseLoopBackApi {
 
   constructor(
     @Inject(Http) protected http: Http,
-    @Inject(SocketConnections) protected connections: SocketConnections,
+    @Inject(SocketConnection) protected connection: SocketConnection,
     @Inject(SDKModels) protected models: SDKModels,
     @Inject(LoopBackAuth) protected auth: LoopBackAuth,
     @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
     @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
   ) {
-    super(http,  connections,  models, auth, searchParams, errorHandler);
+    super(http,  connection,  models, auth, searchParams, errorHandler);
   }
 
   /**
    * Find installations by application id
    *
-   * @param string deviceType Device type
+   * @param {string} deviceType Device type
    *
-   * @param string appId Application id
+   * @param {string} appId Application id
    *
-   * @param string appVersion Application version
+   * @param {string} appVersion Application version
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -67,11 +66,11 @@ export class InstallationApi extends BaseLoopBackApi {
   /**
    * Find installations by user id
    *
-   * @param string deviceType Device type
+   * @param {string} deviceType Device type
    *
-   * @param string userId User id
+   * @param {string} userId User id
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
@@ -96,11 +95,11 @@ export class InstallationApi extends BaseLoopBackApi {
   /**
    * Find installations by subscriptions
    *
-   * @param string deviceType Device type
+   * @param {string} deviceType Device type
    *
-   * @param string subscriptions Subscriptions
+   * @param {string} subscriptions Subscriptions
    *
-   * @returns object An empty reference that will be
+   * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
    *   from the server.
    *
