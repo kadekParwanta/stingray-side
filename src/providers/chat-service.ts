@@ -38,12 +38,13 @@ export class ChatService {
   }
 
   sendMessage(message) {
-    this.socket.emit('add-message', message);
+    this.socket.emit('add-message', {text:message, username:this.credentials.username});
   }
 
-  getMessages() {
+  getMessages(id) {
     let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {
+      var name = '/add-message/'+id;
+      this.socket.on(name, (data) => {
         observer.next(data);
       });
       return () => {

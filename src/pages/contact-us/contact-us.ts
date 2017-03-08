@@ -16,7 +16,7 @@ import { LoginPage } from '../login/login';
   templateUrl: 'contact-us.html'
 })
 export class ContactUsPage implements OnDestroy {
-  messages = [];
+  messages;
   connection;
   message: string = '';
   me: User;
@@ -26,17 +26,23 @@ export class ContactUsPage implements OnDestroy {
     public navParams: NavParams,
     private userData: UserData,
     private chatService: ChatService
-  ) {
+  ) {}
+
+
+  ngOnInit(): void {
     this.userData.getCredentials().then((credentials) => {
       if (credentials) {
         this.chatService.authenticate(credentials);
+        this.userData.getUser().then(
+          (user) => {
+            this.me = user
+            this.chatService.getMessages(user.id).subscribe((messages) => {
+              this.messages = messages;
+            });
+          })
       } else {
         this.navCtrl.setRoot(LoginPage);
       }
-
-      this.userData.getUser().then(
-        (user) => this.me = user
-      )
 
     });
   }
@@ -50,8 +56,9 @@ export class ContactUsPage implements OnDestroy {
     console.log('ionViewDidLoad ContactUsPage');
   }
 
-  sendMessage(msg){
+  sendMessage(msg) {
     this.chatService.sendMessage(msg);
+    this.message = '';
   }
 
 }
