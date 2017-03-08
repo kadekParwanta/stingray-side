@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserData } from '../providers/user-data';
+import { PhotographyPage } from '../pages/photography/photography';
 
 export interface PageInterface {
   title: string;
@@ -30,6 +31,7 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
+    { title: 'Photography', component: PhotographyPage, index: 1, icon: 'camera' },
     { title: 'Chat Us', component: ContactUsPage, index: 1, icon: 'chatbubbles' },
   ]
 

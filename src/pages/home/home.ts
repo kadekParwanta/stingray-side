@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Slides } from 'ionic-angular';
 import { SchoolsPage } from '../schools/schools';
+import { PhotographyPage } from '../photography/photography';
 
 /*
   Generated class for the Home page.
@@ -56,12 +57,22 @@ export class HomePage {
   }
 
   openMenu(index) {
-    switch(index) {
-      case 0: this.navCtrl.setRoot(SchoolsPage)
-      case 1: this.navCtrl.setRoot(SchoolsPage)
-      case 2: this.navCtrl.setRoot(SchoolsPage)
-      case 3: this.navCtrl.setRoot(SchoolsPage)
-      case 4: this.navCtrl.setRoot(SchoolsPage)
+    switch (index) {
+      case 0:
+        this.navCtrl.setRoot(PhotographyPage);
+        break;
+      case 1:
+        this.navCtrl.setRoot(SchoolsPage)
+        break;
+      case 2:
+        this.navCtrl.setRoot(SchoolsPage)
+        break;
+      case 3:
+        this.navCtrl.setRoot(SchoolsPage)
+        break;
+      case 4:
+        this.navCtrl.setRoot(SchoolsPage)
+        break;
     }
     
   }

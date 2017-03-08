@@ -15,6 +15,7 @@ import { UserData } from '../providers/user-data';
 import { ChatService } from '../providers/chat-service';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { Storage } from '@ionic/storage';
+import { PhotographyPage } from '../pages/photography/photography';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { Storage } from '@ionic/storage';
     OrderYearbookPage,
     RegisterPage,
     LoginPage,
-    ContactUsPage
+    ContactUsPage,
+    PhotographyPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -46,7 +48,8 @@ import { Storage } from '@ionic/storage';
     OrderYearbookPage,
     RegisterPage,
     LoginPage,
-    ContactUsPage
+    ContactUsPage,
+    PhotographyPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage]
 })

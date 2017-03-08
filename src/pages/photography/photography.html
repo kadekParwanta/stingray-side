@@ -1,0 +1,45 @@
+<!--
+  Generated template for the Photography page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Photography</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngFor="let photography of photographies">
+    <ion-card>
+
+  <ion-item>
+    <h2>{{photography.name}}</h2>
+    <p>{{photography.location}}</p>
+  </ion-item>
+
+  <div *ngIf="photography.photos.length > 0"><img [src]="photography.photos[0].url" /></div>
+
+  <ion-card-content>
+    <p>{{photography.description}}</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col pull-right>
+      <ion-note>
+        {{photography.createdDate | date: 'dd/MM/yyyy'}}
+      </ion-note>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+  </div>
+
+</ion-content>
