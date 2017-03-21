@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Photography, Media } from '../../app/shared/sdk/models';
 import { PhotographyApi } from '../../app/shared/sdk/services';
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the Photography page.
@@ -32,10 +33,10 @@ export class PhotographyPage {
           var photos = photographyData.photos
           if (photos.length > 0) {
             var photo = photos[0].url
-            photographyData.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com'+photo
+            photographyData.photos[0].url = AppSettings.API_ENDPOINT+photo
           } else {
             var media = new Media()
-            media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
             photographyData.photos = medias

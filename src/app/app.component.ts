@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserData } from '../providers/user-data';
+import { AppSettings } from '../providers/app-setting';
 import { PhotographyPage } from '../pages/photography/photography';
 
 export interface PageInterface {
@@ -64,7 +65,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
-      LoopBackConfig.setBaseURL('http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com');
+      LoopBackConfig.setBaseURL(AppSettings.API_ENDPOINT);
       LoopBackConfig.setApiVersion('api');
     });
   }

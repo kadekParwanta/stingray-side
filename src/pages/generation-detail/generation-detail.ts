@@ -4,6 +4,7 @@ import { Generation, Media } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ZBar } from 'ionic-native';
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the GenerationDetail page.
@@ -73,11 +74,11 @@ export class GenerationDetailPage {
         if (photos.length > 0) {
           for (var i = 0; i < photos.length; i++) {
             let photo = photos[i]
-            this.generation.photos[i].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+            this.generation.photos[i].url = AppSettings.API_ENDPOINT + photo.url
           }
         } else {
           var media = new Media()
-          media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
           var medias = new Array<Media>()
           medias.push(media)
           this.generation.photos = medias
@@ -90,11 +91,11 @@ export class GenerationDetailPage {
           if (classPhotos.length > 0) {
             for (var k = 0; k < classPhotos.length; k++) {
               let photo = classPhotos[k]
-              classRoom.photos[k].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+              classRoom.photos[k].url = AppSettings.API_ENDPOINT + photo.url
             }
           } else {
             var media = new Media()
-            media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
             classRoom.photos = medias
@@ -106,10 +107,10 @@ export class GenerationDetailPage {
             let student = students[j]
             let photo = student.photo
             if (photo) {
-              classRoom.students[j].photo.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo.url
+              classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
             } else {
               let media = new Media()
-              media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+              media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
               classRoom.students[j].photo = media
             }
 

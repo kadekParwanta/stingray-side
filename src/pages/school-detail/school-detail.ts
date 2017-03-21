@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { School, Generation, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';  
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the SchoolDetail page.
@@ -36,10 +37,10 @@ export class SchoolDetailPage {
           var photos = generationData.photos
           if (photos.length > 0) {
             var photo = photos[0].url
-            generationData.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com'+photo
+            generationData.photos[0].url = AppSettings.API_ENDPOINT+photo
           } else {
             var media = new Media()
-            media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
             generationData.photos = medias

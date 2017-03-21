@@ -4,6 +4,7 @@ import { School, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
 import { ZBar } from 'ionic-native';
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the Schools page.
@@ -36,10 +37,10 @@ export class SchoolsPage {
         var photos = schoolData.photos
         if (photos.length > 0) {
           var photo = photos[0].url
-          schoolData.photos[0].url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com' + photo
+          schoolData.photos[0].url = AppSettings.API_ENDPOINT + photo
         } else {
           var media = new Media()
-          media.url = 'http://ec2-35-160-136-100.us-west-2.compute.amazonaws.com/storages/missing/placeholder.jpg'
+          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
           var medias = new Array<Media>()
           medias.push(media)
           schoolData.photos = medias

@@ -13,6 +13,7 @@ import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { UserData } from '../providers/user-data';
 import { ChatService } from '../providers/chat-service';
+import { AppSettings } from '../providers/app-setting';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { Storage } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
@@ -51,6 +52,6 @@ import { PhotographyPage } from '../pages/photography/photography';
     ContactUsPage,
     PhotographyPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings]
 })
 export class AppModule {}
