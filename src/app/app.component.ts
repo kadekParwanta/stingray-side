@@ -12,6 +12,7 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { UserData } from '../providers/user-data';
 import { AppSettings } from '../providers/app-setting';
 import { PhotographyPage } from '../pages/photography/photography';
+import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 
 export interface PageInterface {
   title: string;
@@ -32,8 +33,9 @@ export class MyApp {
   pages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
-    { title: 'Photography', component: PhotographyPage, index: 1, icon: 'camera' },
-    { title: 'Chat Us', component: ContactUsPage, index: 1, icon: 'chatbubbles' },
+    { title: 'Photography', component: PhotographyPage, index: 2, icon: 'camera' },
+    { title: 'Events', component: EventOrganizerPage, index: 3, icon: 'key' },
+    { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
   ]
 
   footerPage: PageInterface;

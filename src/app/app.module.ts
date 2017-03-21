@@ -17,6 +17,7 @@ import { AppSettings } from '../providers/app-setting';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { Storage } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
+import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PhotographyPage } from '../pages/photography/photography';
     RegisterPage,
     LoginPage,
     ContactUsPage,
-    PhotographyPage
+    PhotographyPage,
+    EventOrganizerPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -50,7 +52,8 @@ import { PhotographyPage } from '../pages/photography/photography';
     RegisterPage,
     LoginPage,
     ContactUsPage,
-    PhotographyPage
+    PhotographyPage,
+    EventOrganizerPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings]
 })

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Slides } from 'ionic-angular';
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
+import { EventOrganizerPage } from '../event-organizer/event-organizer';
 
 /*
   Generated class for the Home page.
@@ -62,7 +63,7 @@ export class HomePage {
         this.navCtrl.setRoot(PhotographyPage);
         break;
       case 1:
-        this.navCtrl.setRoot(SchoolsPage)
+        this.navCtrl.setRoot(EventOrganizerPage)
         break;
       case 2:
         this.navCtrl.setRoot(SchoolsPage)
