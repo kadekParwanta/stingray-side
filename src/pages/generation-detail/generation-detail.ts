@@ -18,7 +18,7 @@ import { AppSettings } from '../../providers/app-setting';
   templateUrl: 'generation-detail.html'
 })
 export class GenerationDetailPage {
-  generation: Generation
+  generation = new Generation()
   generationId: String
   school: School = new School()
   private shownItem
@@ -26,10 +26,10 @@ export class GenerationDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
     this.generationId = navParams.get('generationId');
     this.school.name = "";    
+    this.getGenerationDetails(this.generationId);
   }
 
   ionViewDidLoad() {
-    this.getGenerationDetails(this.generationId)
     console.log('ionViewDidLoad GenerationDetailPage');
   }
 
