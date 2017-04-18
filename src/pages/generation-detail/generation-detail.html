@@ -59,7 +59,7 @@
           </ion-list>
         </ion-col>
       </ion-row>-->
-      <ion-card>
+      <ion-card (click)="goToClassDetails(class)">
         <img [src]="class.photos[0].url"/>
         <div class="card-title">{{class.name}}</div>
         <div class="card-subtitle">{{class.students.length}} Siswa</div>

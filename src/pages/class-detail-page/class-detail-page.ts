@@ -1,0 +1,94 @@
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { Class, Media, Generation } from '../../app/shared/sdk/models';
+import { ClassApi } from '../../app/shared/sdk/services';
+import { AppSettings } from '../../providers/app-setting';
+
+/*
+  Generated class for the ClassDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
+@Component({
+  selector: 'page-class-detail-page',
+  templateUrl: 'class-detail-page.html'
+})
+export class ClassDetailPage {
+  classRoom = new Class()
+  generation = new Generation()
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public classApi: ClassApi) {
+    let classRoomId = navParams.get('classRoomId');
+    this.getClassDetails(classRoomId);
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ClassDetailPage');
+  }
+
+  getClassDetails(classRoomId) {
+      this.classApi.findById(classRoomId, {
+      include: [
+        {
+          relation: 'photos'
+        },
+        {
+          relation: 'students', scope: {
+            include: {relation:"photo"}
+          }
+        },
+        {
+          relation: 'generation', scope: {
+            include: {relation: 'school'}
+          }
+        }
+      ]
+    }).subscribe(
+      (classRoom: Class) => {
+        this.classRoom = classRoom
+        this.generation = classRoom.generation;
+
+        let photos = classRoom.photos
+        if (photos.length > 0) {
+          for (var i = 0; i < photos.length; i++) {
+            let photo = photos[i]
+            this.classRoom.photos[i].url = AppSettings.API_ENDPOINT + photo.url
+          }
+        } else {
+          var media = new Media()
+          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+          var medias = new Array<Media>()
+          medias.push(media)
+          this.classRoom.photos = medias
+        }
+
+        
+          let students = classRoom.students
+
+          for (var j = 0; j < students.length; j++) {
+            let student = students[j]
+            let photo = student.photo
+            if (photo) {
+              classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
+            } else {
+              let media = new Media()
+              media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+              classRoom.students[j].photo = media
+            }
+
+          }
+
+      },
+      err => {
+        if (err.status == 404) {
+          console.log('This class does not have students. :(');
+        } else {
+          console.error(err);
+        }
+      },
+      () => console.log('getDetails completed')
+    )
+  }
+
+}

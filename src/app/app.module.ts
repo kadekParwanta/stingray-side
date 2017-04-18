@@ -1,8 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 import { SDKBrowserModule } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
@@ -19,12 +17,11 @@ import { Storage } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { ClassDetailPage } from '../pages/class-detail-page/class-detail-page';
 
 @NgModule({
   declarations: [
     MyApp,
-    Page1,
-    Page2,
     SchoolsPage,
     HomePage,
     SchoolDetailPage,
@@ -34,7 +31,8 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     LoginPage,
     ContactUsPage,
     PhotographyPage,
-    EventOrganizerPage
+    EventOrganizerPage,
+    ClassDetailPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -44,8 +42,6 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Page1,
-    Page2,
     SchoolsPage,
     HomePage,
     SchoolDetailPage,
@@ -55,7 +51,8 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     LoginPage,
     ContactUsPage,
     PhotographyPage,
-    EventOrganizerPage
+    EventOrganizerPage,
+    ClassDetailPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings]
 })

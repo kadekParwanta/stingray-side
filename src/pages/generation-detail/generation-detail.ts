@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
+import { ClassDetailPage } from '../class-detail-page/class-detail-page';
 import { ZBar } from 'ionic-native';
 import { AppSettings } from '../../providers/app-setting';
 
@@ -191,6 +192,10 @@ export class GenerationDetailPage {
 
   goToStudentDetails(student) {
       this.order();
+  }
+
+  goToClassDetails(classRoom) {
+    this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
   }
 
 }
