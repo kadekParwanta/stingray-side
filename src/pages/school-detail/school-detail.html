@@ -26,13 +26,8 @@
     </ion-row>
     <ion-row>
       <ion-col width-90>
-        <h4>Profil</h4>
+        <h4>Profil Singkat</h4>
         <p>{{school.profile}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row class="pictureRow">
-      <ion-col offset-67>
-        <h4>Angkatan:</h4>
       </ion-col>
     </ion-row>
     <ion-row wrap>
@@ -42,7 +37,7 @@
             <ion-thumbnail item-left>
               <img *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url" />
             </ion-thumbnail>
-            <h2>Angkatan {{generation.name}}</h2>
+            <h2>{{generation.name}}</h2>
             <p>Tahun {{generation.year}}</p>
           </ion-item>
         </ion-list>

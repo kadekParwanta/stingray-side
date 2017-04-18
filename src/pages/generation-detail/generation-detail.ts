@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Generation, Media } from '../../app/shared/sdk/models';
+import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ZBar } from 'ionic-native';
@@ -18,10 +18,12 @@ import { AppSettings } from '../../providers/app-setting';
 })
 export class GenerationDetailPage {
   generation: Generation
+  school: School = new School()
   private shownItem
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
     this.generation = navParams.get('generation');
+    this.school.name = "";    
   }
 
   ionViewDidLoad() {
@@ -36,31 +38,56 @@ export class GenerationDetailPage {
   };
 
   getGenerationDetails(generation) {
-    // this.generationApi.findById(generation.id, {include:['photos', {classes:[{students:'photo'}, 'photos']}]}).subscribe(
-    this.generationApi.findById(generation.id, {
+    // this.generationApi.findById(generation.id, {
+    //   include: [
+    //     {
+    //       relation: 'photos', scope: {
+    //         skip: 0,
+    //         limit: 2,
+    //       }
+    //     },
+    //     {
+    //       relation: 'classes', scope: {
+    //         skip: 0,
+    //         limit: 2,
+    //         include: [
+    //           {
+    //             relation: 'students', scope: {
+    //               skip: 0,
+    //               limit: 5,
+    //               include: { relation: 'photo' }
+    //             }
+    //           },
+    //           {
+    //             relation: 'photos', scope: {
+    //               skip: 0,
+    //               limit: 2,
+    //             }
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   ]
+    // }).subscribe(
+
+      this.generationApi.findById(generation.id, {
       include: [
         {
-          relation: 'photos', scope: {
-            skip: 0,
-            limit: 2,
-          }
+          relation: 'photos'
+        },
+        {
+          relation: 'school'
         },
         {
           relation: 'classes', scope: {
-            skip: 0,
-            limit: 2,
             include: [
               {
-                relation: 'students', scope: {
-                  skip: 0,
-                  limit: 5,
-                  include: { relation: 'photo' }
-                }
+                relation: 'students'
               },
               {
                 relation: 'photos', scope: {
                   skip: 0,
-                  limit: 2,
+                  limit: 1,
                 }
               }
             ]
@@ -69,7 +96,12 @@ export class GenerationDetailPage {
       ]
     }).subscribe(
       (generation: Generation) => {
+        let school = generation.school
+        if (school) {
+          this.school = school
+        }
         this.generation = generation
+
         let photos = generation.photos
         if (photos.length > 0) {
           for (var i = 0; i < photos.length; i++) {

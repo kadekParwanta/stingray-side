@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <ion-title>Angkatan {{generation.name}}</ion-title>
+    <ion-title>{{generation.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,6 +24,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
+        <h4>{{school.name}}</h4>
         <p>Tahun {{generation.year}}</p>
       </ion-col>
     </ion-row>
@@ -33,7 +34,7 @@
       </ion-col>
     </ion-row>
     <div *ngFor="let class of generation.classes">
-      <ion-row class="pictureRow">
+      <!--<ion-row class="pictureRow">
         <ion-col>
           <h4>{{ class.name }}</h4>
           <div *ngIf="class.photos.length > 0">
@@ -57,7 +58,12 @@
             </ion-item>
           </ion-list>
         </ion-col>
-      </ion-row>
+      </ion-row>-->
+      <ion-card>
+        <img [src]="class.photos[0].url"/>
+        <div class="card-title">{{class.name}}</div>
+        <div class="card-subtitle">{{class.students.length}} Siswa</div>
+      </ion-card>
     </div>
   </ion-grid>
 
