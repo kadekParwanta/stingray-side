@@ -18,6 +18,7 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { Storage } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    SDKBrowserModule.forRoot()
+    SDKBrowserModule.forRoot(),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
