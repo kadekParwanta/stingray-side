@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, ViewController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { Page1 } from '../pages/page1/page1';
@@ -58,6 +58,18 @@ export class MyApp {
     });
 
     this.listenToLoginEvents();
+    this.platform.registerBackButtonAction(()=>{
+      let activeView: ViewController = this.nav.getActive();
+      if (activeView != null) {
+        if (this.nav.canGoBack()) {
+          this.nav.pop();
+        } else if (typeof activeView.instance.backButtonAction === 'function') {
+          activeView.instance.backButtonAction();
+        } else {
+          this.nav.parent.select(0);
+        }
+      }
+    })
 
   }
 

@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EventOrganizer, Media } from '../../app/shared/sdk/models';
 import { EventOrganizerApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
+import { HomePage } from '../home/home';
 
 /*
   Generated class for the EventOrganizer page.
@@ -23,6 +24,10 @@ export class EventOrganizerPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventOrganizerPage');
     this.getEvents();
+  }
+  
+  backButtonAction() {
+    this.navCtrl.setRoot(HomePage);
   }
 
   getEvents() {

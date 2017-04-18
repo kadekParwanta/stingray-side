@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Photography, Media } from '../../app/shared/sdk/models';
 import { PhotographyApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
+import { HomePage } from '../home/home';
 
 /*
   Generated class for the Photography page.
@@ -23,6 +24,10 @@ export class PhotographyPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotographyPage');
     this.getPhotographies();
+  }
+
+  backButtonAction() {
+    this.navCtrl.setRoot(HomePage);
   }
 
   getPhotographies() {

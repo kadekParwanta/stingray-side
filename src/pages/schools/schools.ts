@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { School, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
+import { HomePage } from '../home/home';
 import { ZBar } from 'ionic-native';
 import { AppSettings } from '../../providers/app-setting';
 
@@ -106,6 +107,10 @@ export class SchoolsPage {
 
   goToDetails(school) {
     this.navCtrl.push(SchoolDetailPage, { school: school });
+  }
+
+  backButtonAction() {
+    this.navCtrl.setRoot(HomePage);
   }
 
   scan() {

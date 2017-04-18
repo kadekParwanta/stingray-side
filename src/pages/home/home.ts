@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Slides } from 'ionic-angular';
+import { NavController, NavParams, Slides, Platform } from 'ionic-angular';
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
 import { EventOrganizerPage } from '../event-organizer/event-organizer';
@@ -42,7 +42,7 @@ export class HomePage {
     pager: true
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
@@ -51,6 +51,10 @@ export class HomePage {
   onSlideChanged() {
     // let currentIndex = this.slider.getActiveIndex();
     // console.log("Current index is", currentIndex);
+  }
+
+  backButtonAction() {
+    this.platform.exitApp();
   }
 
   ngAfterViewInit() {
