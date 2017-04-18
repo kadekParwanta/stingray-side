@@ -61,7 +61,7 @@ export class SchoolDetailPage {
   }
 
   goToDetails(generation) {
-    this.navCtrl.push(GenerationDetailPage, { generation: generation });
+    this.navCtrl.push(GenerationDetailPage, { generationId: generation.id });
   }
 
 }

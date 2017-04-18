@@ -38,6 +38,7 @@ export class ClassDetailPage {
         },
         {
           relation: 'students', scope: {
+            order: "name ASC",
             include: {relation:"photo"}
           }
         },

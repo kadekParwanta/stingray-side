@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { School, Media } from '../../app/shared/sdk/models';
-import { SchoolApi } from '../../app/shared/sdk/services';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { School, Media, Generation } from '../../app/shared/sdk/models';
+import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
+import { GenerationDetailPage } from '../generation-detail/generation-detail';
 import { HomePage } from '../home/home';
 import { ZBar } from 'ionic-native';
 import { AppSettings } from '../../providers/app-setting';
@@ -26,7 +27,12 @@ export class SchoolsPage {
   perpage:number = 10
   private start:number=0
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private schoolApi: SchoolApi) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private schoolApi: SchoolApi,
+    private generationApi: GenerationApi,
+    public alertController: AlertController) {
     this.getSchools(this.start).then((schools: Array<School>) => {
       this.populateSchools(schools)
     })
@@ -122,6 +128,48 @@ export class SchoolsPage {
     ZBar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
+        this.generationApi.findByBarcode(result).subscribe(
+          (generation: Generation) => {
+            if (generation) {
+              this.navCtrl.push(GenerationDetailPage, { generationId: generation.id });
+            } else {
+              let errorAlert = this.alertController.create({
+                title: 'Error',
+                message: 'Data tidak ditemukan',
+                buttons: [
+                  {
+                    text: 'OK',
+                    handler: () => {
+                      console.log('OK');
+                    }
+                  }
+                ]
+              });
+              errorAlert.present();
+            }
+            
+          },
+          err => {
+            if (err.status == 404) {
+              console.log('This generation is not exist. :(');
+              let errorAlert = this.alertController.create({
+                title: 'Error',
+                message: 'Data tidak ditemukan',
+                buttons: [
+                  {
+                    text: 'OK',
+                    handler: () => {
+                      console.log('OK');
+                    }
+                  }
+                ]
+              });
+              errorAlert.present();
+            } else {
+              console.error(err);
+            }
+          },
+          () => console.log('getDetails completed'))
       })
       .catch(error => {
         console.log(error); // Error message

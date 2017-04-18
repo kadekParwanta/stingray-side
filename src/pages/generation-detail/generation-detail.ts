@@ -19,16 +19,17 @@ import { AppSettings } from '../../providers/app-setting';
 })
 export class GenerationDetailPage {
   generation: Generation
+  generationId: String
   school: School = new School()
   private shownItem
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
-    this.generation = navParams.get('generation');
+    this.generationId = navParams.get('generationId');
     this.school.name = "";    
   }
 
   ionViewDidLoad() {
-    this.getGenerationDetails(this.generation)
+    this.getGenerationDetails(this.generationId)
     console.log('ionViewDidLoad GenerationDetailPage');
   }
 
@@ -38,7 +39,7 @@ export class GenerationDetailPage {
     pager: true
   };
 
-  getGenerationDetails(generation) {
+  getGenerationDetails(generationId) {
     // this.generationApi.findById(generation.id, {
     //   include: [
     //     {
@@ -71,7 +72,7 @@ export class GenerationDetailPage {
     //   ]
     // }).subscribe(
 
-      this.generationApi.findById(generation.id, {
+      this.generationApi.findById(generationId, {
       include: [
         {
           relation: 'photos'
