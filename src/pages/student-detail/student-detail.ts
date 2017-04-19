@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Student, Media } from '../../app/shared/sdk/models';
 import { StudentApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
+import { ColorGenerator } from '../../app/widgets/text-img/color-generator';
 
 /*
   Generated class for the StudentDetail page.
@@ -12,14 +13,17 @@ import { AppSettings } from '../../providers/app-setting';
 */
 @Component({
   selector: 'page-student-detail',
-  templateUrl: 'student-detail.html'
+  templateUrl: 'student-detail.html',
+  providers:[ColorGenerator]
 })
 export class StudentDetailPage {
   student = new Student()
+  color: String
+  style = {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public studentApi: StudentApi) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  public studentApi: StudentApi, public colorGenerator: ColorGenerator) {
     let studentId = navParams.get('studentId');
-    console.log("studentId= " + studentId);
     let media = new Media()
     media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
     this.student.photo = media
@@ -39,6 +43,11 @@ export class StudentDetailPage {
       ]
     }).subscribe((student: Student) => {
       this.student = student;
+      this.student.phonenumber = student.phonenumber.replace(/\s+/g,'');
+      let color = this.colorGenerator.getColor(student.name);
+      this.style = {
+        'background-color' : color
+      }
       let photo = student.photo
       if (photo) {
         this.student.photo.url = AppSettings.API_ENDPOINT + photo.url

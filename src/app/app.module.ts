@@ -20,6 +20,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ClassDetailPage } from '../pages/class-detail/class-detail';
 import { StudentDetailPage } from '../pages/student-detail/student-detail';
 import { TextImage } from './widgets/text-img/text-img';
+import { ColorGenerator } from './widgets/text-img/color-generator';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,6 @@ import { TextImage } from './widgets/text-img/text-img';
     ClassDetailPage,
     StudentDetailPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings, ColorGenerator]
 })
 export class AppModule {}

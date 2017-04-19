@@ -12,7 +12,8 @@ export class TextImage {
     @Input()
     set text(txt: string) {
         this.element.nativeElement.style.backgroundColor = this.colorGenerator.getColor(txt);
-        this.element.nativeElement.setAttribute("value", txt.charAt(0));
+        let matches = txt.match(/\b(\w)/g);
+        this.element.nativeElement.setAttribute("value", matches.join(''));
     } 
  
 }

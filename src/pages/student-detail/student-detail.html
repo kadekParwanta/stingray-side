@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
     <ion-title>{{student.name}}</ion-title>
   </ion-navbar>
 
@@ -14,16 +14,40 @@
 
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-
-        <div text-center>
-          <ion-item>
-            <ion-thumbnail><img [src]="student.photo.url"></ion-thumbnail>
-          </ion-item>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div *ngIf="student" class="selection">
+    <ion-card>
+      <ion-card-content [ngStyle]="style">
+        <img [src]="student.photo.url">
+        <h2>{{student.name}}</h2>
+        <h3>{{student.motto}}</h3>
+      </ion-card-content>
+      <ion-list>
+        <a href="tel:{{student.phonenumber}}" ion-item>
+          <ion-icon name="call" item-left></ion-icon>
+          <p>Call Mobile</p>
+          <h2>{{student.phonenumber || '-'}}</h2>
+        </a>
+        <a href="sms:{{student.phonenumber}}" ion-item>
+          <ion-icon name="text" item-left></ion-icon>
+          <p>Text</p>
+          <h2>{{student.phonenumber || '-'}}</h2>
+        </a>
+        <a href="mailto:{{student.email}}" ion-item>
+          <ion-icon name="mail" item-left></ion-icon>
+          <p>Email</p>
+          <h2>{{student.email || '-'}}</h2>
+        </a>
+        <a href="instagram://user?username={{student.instagram}}" ion-item>
+          <ion-icon name="logo-instagram" item-left></ion-icon>
+          <p>Instagram</p>
+          <h2>{{student.instagram || '-'}}</h2>
+        </a>
+        <a ion-item>
+          <ion-icon name="line" item-left></ion-icon>
+          <p>Line</p>
+          <h2>{{student.line || '-'}}</h2>
+        </a>
+      </ion-list>
+    </ion-card>
+  </div>
 </ion-content>
