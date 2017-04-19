@@ -34,7 +34,8 @@
     <ion-list *ngFor="let student of classRoom.students">
       <ion-item (click)="goToStudentDetails(student)" detail-push>
         <ion-avatar item-left>
-          <img [src]="student.photo.url">
+          <div *ngIf="student.photo"><img [src]="student.photo.url"></div>
+          <div *ngIf="!student.photo"><text-img [text]="student.name"></text-img></div>
         </ion-avatar>
         <h2>{{student.name}}</h2>
         <p>{{student.motto}}</p>

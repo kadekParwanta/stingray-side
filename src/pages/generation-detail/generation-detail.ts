@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
-import { ClassDetailPage } from '../class-detail-page/class-detail-page';
+import { ClassDetailPage } from '../class-detail/class-detail';
 import { ZBar } from 'ionic-native';
 import { AppSettings } from '../../providers/app-setting';
 

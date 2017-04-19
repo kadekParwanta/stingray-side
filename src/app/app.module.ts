@@ -17,7 +17,9 @@ import { Storage } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
-import { ClassDetailPage } from '../pages/class-detail-page/class-detail-page';
+import { ClassDetailPage } from '../pages/class-detail/class-detail';
+import { StudentDetailPage } from '../pages/student-detail/student-detail';
+import { TextImage } from './widgets/text-img/text-img';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ClassDetailPage } from '../pages/class-detail-page/class-detail-page';
     ContactUsPage,
     PhotographyPage,
     EventOrganizerPage,
-    ClassDetailPage
+    ClassDetailPage,
+    StudentDetailPage,
+    TextImage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -52,7 +56,8 @@ import { ClassDetailPage } from '../pages/class-detail-page/class-detail-page';
     ContactUsPage,
     PhotographyPage,
     EventOrganizerPage,
-    ClassDetailPage
+    ClassDetailPage,
+    StudentDetailPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings]
 })

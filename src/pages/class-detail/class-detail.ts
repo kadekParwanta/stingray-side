@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Class, Media, Generation, School } from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
+import { StudentDetailPage } from '../student-detail/student-detail';
 
 /*
   Generated class for the ClassDetail page.
@@ -11,9 +12,10 @@ import { AppSettings } from '../../providers/app-setting';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-class-detail-page',
-  templateUrl: 'class-detail-page.html'
+  selector: 'page-class-detail',
+  templateUrl: 'class-detail.html'
 })
+
 export class ClassDetailPage {
   classRoom = new Class()
   generation = new Generation()
@@ -78,10 +80,6 @@ export class ClassDetailPage {
             let photo = student.photo
             if (photo) {
               classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
-            } else {
-              let media = new Media()
-              media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
-              classRoom.students[j].photo = media
             }
 
           }
@@ -120,6 +118,10 @@ export class ClassDetailPage {
 
       rowNum++; //go on to the next row
     }
+  }
+
+  goToStudentDetails(student) {
+    this.navCtrl.push(StudentDetailPage, {studentId: student.id});
   }
 
 }

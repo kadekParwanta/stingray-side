@@ -1,0 +1,38 @@
+page-class-detail {
+    .content {
+        background-image: url("../assets/img/home-bg.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+
+    p {
+        font-size: 16px;
+        color: #d3d3d3;
+    }
+
+    h4 {
+        color: #FFFFFF;
+    }
+
+    $text-image-size: 4.5rem !default;
+
+text-img {
+    background-color: red;
+    color: white;
+}
+
+text-img, text-img::after {
+    width: $text-image-size;
+    height: $text-image-size;
+    border-radius: $text-image-size / 2;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size: font-size(xxx-large);
+}
+
+text-img::after {
+    content: attr(value);
+}
+}
