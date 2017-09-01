@@ -87,10 +87,11 @@ export class GenerationDetailPage {
                 relation: 'students'
               },
               {
-                relation: 'photos', scope: {
-                  skip: 0,
-                  limit: 1,
-                }
+                relation: 'photos'
+                // , scope: {
+                //   skip: 0,
+                //   limit: 1,
+                // }
               }
             ]
           }
