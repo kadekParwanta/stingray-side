@@ -1,6 +1,6 @@
 {
-  "name": "stingray-side",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+  "name": "Stingray",
+  "app_id": "810d5ff4",
+  "integrations": {},
+  "type": "ionic-angular"
 }
