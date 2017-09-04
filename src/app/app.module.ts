@@ -27,6 +27,7 @@ import { StudentDetailPage } from '../pages/student-detail/student-detail';
 import { TextImage } from './widgets/text-img/text-img';
 import { ColorGenerator } from './widgets/text-img/color-generator';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { ZBar } from '@ionic-native/zbar';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { IonicImageLoader } from 'ionic-image-loader';
     UserData, 
     ChatService,
     AppSettings, 
-    ColorGenerator]
+    ColorGenerator,
+    ZBar]
 })
 export class AppModule {}
