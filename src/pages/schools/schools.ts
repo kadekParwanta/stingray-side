@@ -5,8 +5,9 @@ import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';
 import { HomePage } from '../home/home';
-import { ZBar } from 'ionic-native';
+import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
+
 
 /*
   Generated class for the Schools page.
@@ -32,7 +33,8 @@ export class SchoolsPage {
     public navParams: NavParams,
     private schoolApi: SchoolApi,
     private generationApi: GenerationApi,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    private zbar: ZBar) {
     this.getSchools(this.start).then((schools: Array<School>) => {
       this.populateSchools(schools)
     })
@@ -125,7 +127,7 @@ export class SchoolsPage {
       drawSight: false
     };
 
-    ZBar.scan(zBarOptions)
+    this.zbar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
         this.generationApi.findByBarcode(result).subscribe(

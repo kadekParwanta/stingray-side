@@ -1,6 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { SDKBrowserModule } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
@@ -13,7 +18,7 @@ import { UserData } from '../providers/user-data';
 import { ChatService } from '../providers/chat-service';
 import { AppSettings } from '../providers/app-setting';
 import { ContactUsPage } from '../pages/contact-us/contact-us';
-import { Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
@@ -21,6 +26,7 @@ import { ClassDetailPage } from '../pages/class-detail/class-detail';
 import { StudentDetailPage } from '../pages/student-detail/student-detail';
 import { TextImage } from './widgets/text-img/text-img';
 import { ColorGenerator } from './widgets/text-img/color-generator';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,10 @@ import { ColorGenerator } from './widgets/text-img/color-generator';
   imports: [
     IonicModule.forRoot(MyApp),
     SDKBrowserModule.forRoot(),
-    IonicImageViewerModule
+    IonicImageLoader.forRoot(),
+    BrowserModule,
+    IonicImageViewerModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -60,6 +69,13 @@ import { ColorGenerator } from './widgets/text-img/color-generator';
     ClassDetailPage,
     StudentDetailPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserData, ChatService, Storage, AppSettings, ColorGenerator]
+  providers: [
+    StatusBar,
+    SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    UserData, 
+    ChatService,
+    AppSettings, 
+    ColorGenerator]
 })
 export class AppModule {}

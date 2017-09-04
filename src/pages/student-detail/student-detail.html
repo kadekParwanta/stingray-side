@@ -22,27 +22,27 @@
         <h3>{{student.motto}}</h3>
       </ion-card-content>
       <ion-list>
-        <a href="tel:{{student.phonenumber}}" ion-item>
+        <a href="tel:{{student.phonenumber}}" item-start>
           <ion-icon name="call" item-left></ion-icon>
           <p>Call Mobile</p>
           <h2>{{student.phonenumber || '-'}}</h2>
         </a>
-        <a href="sms:{{student.phonenumber}}" ion-item>
+        <a href="sms:{{student.phonenumber}}" item-start>
           <ion-icon name="text" item-left></ion-icon>
           <p>Text</p>
           <h2>{{student.phonenumber || '-'}}</h2>
         </a>
-        <a href="mailto:{{student.email}}" ion-item>
+        <a href="mailto:{{student.email}}" item-start>
           <ion-icon name="mail" item-left></ion-icon>
           <p>Email</p>
           <h2>{{student.email || '-'}}</h2>
         </a>
-        <a href="instagram://user?username={{student.instagram}}" ion-item>
+        <a href="instagram://user?username={{student.instagram}}" item-start>
           <ion-icon name="logo-instagram" item-left></ion-icon>
           <p>Instagram</p>
           <h2>{{student.instagram || '-'}}</h2>
         </a>
-        <a ion-item>
+        <a item-start>
           <ion-icon name="line" item-left></ion-icon>
           <p>Line</p>
           <h2>{{student.line || '-'}}</h2>

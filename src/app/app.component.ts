@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Events, ViewController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
@@ -43,7 +44,12 @@ export class MyApp {
   loggedInPage: PageInterface = { title: 'Logout', component: HomePage, icon: 'log-out', logsOut: true };
   loggedOutPage: PageInterface = { title: 'Login', component: LoginPage, icon: 'log-in' };
 
-  constructor(public platform: Platform, public userData: UserData, public events: Events) {
+  constructor(
+    public platform: Platform, 
+    public userData: UserData, 
+    public events: Events,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen) {
     this.initializeApp();
 
     this.footerPage = this.loggedOutPage;
@@ -77,8 +83,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       LoopBackConfig.setBaseURL(AppSettings.API_ENDPOINT);
       LoopBackConfig.setApiVersion('api');
     });

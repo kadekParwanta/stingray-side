@@ -4,7 +4,7 @@ import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ClassDetailPage } from '../class-detail/class-detail';
-import { ZBar } from 'ionic-native';
+import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
 
 /*
@@ -23,7 +23,11 @@ export class GenerationDetailPage {
   school: School = new School()
   private shownItem
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public generationApi: GenerationApi,
+    private zbar: ZBar) {
     this.generationId = navParams.get('generationId');
     this.school.name = "";    
     this.getGenerationDetails(this.generationId);
@@ -183,7 +187,7 @@ export class GenerationDetailPage {
       drawSight: false
     };
 
-    ZBar.scan(zBarOptions)
+    this.zbar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
       })

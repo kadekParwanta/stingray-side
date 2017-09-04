@@ -20,10 +20,10 @@
   <div *ngFor="let event of events">
     <ion-card>
 
-  <ion-item>
+  <item-start>
     <h2>{{event.name}}</h2>
     <p>{{event.location}}</p>
-  </ion-item>
+  </item-start>
 
   <div *ngIf="event.photos.length > 0"><img [src]="event.photos[0].url" /></div>
 
