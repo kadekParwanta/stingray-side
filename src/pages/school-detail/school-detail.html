@@ -21,7 +21,7 @@
         <p>{{school.address}}</p>
       </ion-col>
       <ion-col col-4>
-        <img [src]="school.photos[0].url" imageViewer>
+        <img-loader [src]="school.photos[0].url" imageViewer></img-loader>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -35,7 +35,7 @@
         <ion-list *ngFor="let generation of generations">
           <ion-item (click)="goToDetails(generation)" detail-push>
             <ion-thumbnail item-start>
-              <img *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url" />
+              <img-loader *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url" ></img-loader>
             </ion-thumbnail>
             <h2>{{generation.name}}</h2>
             <p>Tahun {{generation.year}}</p>

@@ -25,7 +25,7 @@
     <p>{{event.location}}</p>
   </ion-item>
 
-  <div *ngIf="event.photos.length > 0"><img [src]="event.photos[0].url" /></div>
+  <div *ngIf="event.photos.length > 0"><img-loader [src]="event.photos[0].url" ></img-loader></div>
 
   <ion-card-content>
     <p>{{event.description}}</p>
