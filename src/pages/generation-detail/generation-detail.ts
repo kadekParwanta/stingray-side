@@ -117,7 +117,7 @@ export class GenerationDetailPage {
           }
         } else {
           var media = new Media()
-          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+          media.url = 'assets/img/placeholder.jpg'
           var medias = new Array<Media>()
           medias.push(media)
           this.generation.photos = medias
@@ -134,7 +134,7 @@ export class GenerationDetailPage {
             }
           } else {
             var media = new Media()
-            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+            media.url = 'assets/img/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
             classRoom.photos = medias
@@ -149,7 +149,7 @@ export class GenerationDetailPage {
               classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
             } else {
               let media = new Media()
-              media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+              media.url = 'assets/img/placeholder.jpg'
               classRoom.students[j].photo = media
             }
 

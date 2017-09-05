@@ -41,7 +41,7 @@ export class EventOrganizerPage {
             eventData.photos[0].url = AppSettings.API_ENDPOINT+photo
           } else {
             var media = new Media()
-            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+            media.url = 'assets/img/placeholder.jpg'
             var medias = new Array<Media>()
             medias.push(media)
             eventData.photos = medias

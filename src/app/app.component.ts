@@ -14,6 +14,7 @@ import { UserData } from '../providers/user-data';
 import { AppSettings } from '../providers/app-setting';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
+import { ImageLoaderConfig } from 'ionic-image-loader';
 
 export interface PageInterface {
   title: string;
@@ -49,7 +50,8 @@ export class MyApp {
     public userData: UserData, 
     public events: Events,
     private statusBar: StatusBar,
-    private splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen,
+    private imageLoaderConfig: ImageLoaderConfig) {
     this.initializeApp();
 
     this.footerPage = this.loggedOutPage;
@@ -87,6 +89,8 @@ export class MyApp {
       this.splashScreen.hide();
       LoopBackConfig.setBaseURL(AppSettings.API_ENDPOINT);
       LoopBackConfig.setApiVersion('api');
+      this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg'); 
+      this.imageLoaderConfig.useImageTag(true);
     });
   }
 
