@@ -25,7 +25,7 @@
     <p>{{photography.location}}</p>
   </ion-item>
 
-  <div *ngIf="photography.photos.length > 0"><img-loader [src]="photography.photos[0].url" ></img-loader></div>
+  <div *ngIf="photography.photos.length > 0"><img-loader useImg [src]="photography.photos[0].url" ></img-loader></div>
 
   <ion-card-content>
     <p>{{photography.description}}</p>

@@ -17,7 +17,7 @@
 
   <ion-slides #slider mySlideOptions class="slider">
     <ion-slide *ngFor="let photo of generation.photos">
-      <img-loader [src]="photo.url" class="slide-image" imageViewer></img-loader>
+      <img-loader useImg[src]="photo.url" class="slide-image" imageViewer></img-loader>
     </ion-slide>
   </ion-slides>
 
@@ -42,7 +42,7 @@
             <ion-grid>
               <ion-row wrap *ngFor="let photo of class.photos">
                 <ion-col width-33>
-                  <img-loader [src]="photo.url" imageViewer>
+                  <img-loader useImg[src]="photo.url" imageViewer>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -51,7 +51,7 @@
           <ion-list *ngFor="let student of class.students">
             <ion-item (click)="goToStudentDetails(student)" detail-push>
               <ion-avatar item-left>
-                <img-loader [src]="student.photo.url">
+                <img-loader useImg[src]="student.photo.url">
               </ion-avatar>
               <h2>{{student.name}}</h2>
               <p>{{student.motto}}</p>
@@ -60,7 +60,7 @@
         </ion-col>
       </ion-row>-->
       <ion-card (click)="goToClassDetails(class)">
-        <img-loader [src]="class.photos[0].url"></img-loader>
+        <img-loader useImg [src]="class.photos[0].url"></img-loader>
         <div class="card-title">{{class.name}}</div>
         <div class="card-subtitle">{{class.students.length}} Siswa</div>
       </ion-card>

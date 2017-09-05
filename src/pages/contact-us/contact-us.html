@@ -19,7 +19,7 @@
 <ion-content>
   <div class="messages">
     <div class="message" *ngFor="let m of messages" [ngClass]="{'me': m.sender.id === me.id}">
-      <img-loader [src]="m.sender.profilePicture" class="avatar" *ngIf="m.sender.id !== me.id"></img-loader>
+      <img-loader useImg [src]="m.sender.profilePicture" class="avatar" *ngIf="m.sender.id !== me.id"></img-loader>
       {{ m.text }}
       <span class="date">{{ m.createdDate | date:'medium' }}</span>
     </div>
