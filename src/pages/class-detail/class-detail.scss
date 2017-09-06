@@ -1,4 +1,8 @@
 page-class-detail {
+    ion-content {
+        background-color: transparent !important;
+    }
+    
     .content {
         background-image: url("../assets/img/home-bg.png");
         background-repeat: no-repeat;

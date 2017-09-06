@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
 import { Class, Media, Generation, School } from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
@@ -24,23 +24,27 @@ export class ClassDetailPage {
   school = new School()
   grid: Array<Array<Media>>
   photos = new Array<Media>()
+  classRoomId
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public toastCtrl: ToastController,
     public classApi: ClassApi,
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader) {
-      let classRoomId = navParams.get('classRoomId');
-      this.getClassDetails(classRoomId);
+       this.classRoomId = navParams.get('classRoomId');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClassDetailPage');
+    this.getClassDetails(this.classRoomId).then((classRoom:Class) => {
+      this.populateClassRoom(classRoom)
+    })
   }
 
   getClassDetails(classRoomId) {
-      this.classApi.findById(classRoomId, {
+    return this.classApi.findById(classRoomId, {
       include: [
         {
           relation: 'photos'
@@ -57,53 +61,107 @@ export class ClassDetailPage {
           }
         }
       ]
-    }).subscribe(
-      (classRoom: Class) => {
-        this.classRoom = classRoom
-        this.generation = classRoom.generation;
-        this.school = this.generation.school;
+    })
+    .map((classRoom: Class) => { return classRoom})
+    .toPromise()
 
-        let photos = classRoom.photos
-        if (photos.length > 0) {
-          for (var i = 0; i < photos.length; i++) {
-            let photo = photos[i]
-            this.classRoom.photos[i].url = AppSettings.API_ENDPOINT + photo.url
-          }
-        } else {
-          var media = new Media()
-          media.url = 'assets/img/placeholder.jpg'
-          var medias = new Array<Media>()
-          medias.push(media)
-          this.classRoom.photos = medias
-        }
+    //   this.classApi.findById(classRoomId, {
+    //   include: [
+    //     {
+    //       relation: 'photos'
+    //     },
+    //     {
+    //       relation: 'students', scope: {
+    //         order: "name ASC",
+    //         include: {relation:"photo"}
+    //       }
+    //     },
+    //     {
+    //       relation: 'generation', scope: {
+    //         include: {relation: 'school'}
+    //       }
+    //     }
+    //   ]
+    // }).subscribe(
+    //   (classRoom: Class) => {
+    //     this.classRoom = classRoom
+    //     this.generation = classRoom.generation;
+    //     this.school = this.generation.school;
 
-        this.photos = this.classRoom.photos;
+    //     let photos = classRoom.photos
+    //     if (photos.length > 0) {
+    //       for (var i = 0; i < photos.length; i++) {
+    //         let photo = photos[i]
+    //         this.classRoom.photos[i].url = AppSettings.API_ENDPOINT + photo.url
+    //       }
+    //     } else {
+    //       var media = new Media()
+    //       media.url = 'assets/img/placeholder.jpg'
+    //       var medias = new Array<Media>()
+    //       medias.push(media)
+    //       this.classRoom.photos = medias
+    //     }
+
+    //     this.photos = this.classRoom.photos;
 
         
-          let students = classRoom.students
+    //       let students = classRoom.students
 
-          for (var j = 0; j < students.length; j++) {
-            let student = students[j]
-            let photo = student.photo
-            if (photo) {
-              classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
-            }
+    //       for (var j = 0; j < students.length; j++) {
+    //         let student = students[j]
+    //         let photo = student.photo
+    //         if (photo) {
+    //           classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
+    //         }
 
-          }
+    //       }
 
-      },
-      err => {
-        if (err.status == 404) {
-          console.log('This class does not have students. :(');
-        } else {
-          console.error(err);
-        }
-      },
-      () => {
-        console.log('getDetails completed');
-        this.iteratePhotos();
+    //   },
+    //   err => {
+    //     if (err.status == 404) {
+    //       console.log('This class does not have students. :(');
+    //     } else {
+    //       console.error(err);
+    //     }
+    //   },
+    //   () => {
+    //     console.log('getDetails completed');
+    //     this.iteratePhotos();
+    //   }
+    // )
+  }
+
+  populateClassRoom(classRoom:Class) {
+    this.classRoom = classRoom
+    this.generation = classRoom.generation;
+    this.school = this.generation.school;
+
+    let photos = classRoom.photos
+    if (photos.length > 0) {
+      for (var i = 0; i < photos.length; i++) {
+        let photo = photos[i]
+        this.classRoom.photos[i].url = AppSettings.API_ENDPOINT + photo.url
       }
-    )
+    } else {
+      var media = new Media()
+      media.url = 'assets/img/placeholder.jpg'
+      var medias = new Array<Media>()
+      medias.push(media)
+      this.classRoom.photos = medias
+    }
+
+    this.photos = this.classRoom.photos;
+    let students = classRoom.students
+
+      for (var j = 0; j < students.length; j++) {
+        let student = students[j]
+        let photo = student.photo
+        if (photo) {
+          classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
+        }
+
+      }
+      this.iteratePhotos();
   }
 
   iteratePhotos() {
@@ -136,6 +194,18 @@ export class ClassDetailPage {
         path => {this.imageViewer.show(path)},
         fallbackPath => {this.imageViewer.show(fallbackPath)}
       )
+    }
+
+    doRefresh(refresher: Refresher) {
+      this.getClassDetails(this.classRoomId).then((classRoom:Class) => {
+        this.populateClassRoom(classRoom)
+        refresher.complete()
+              const toast = this.toastCtrl.create({
+                message: 'Data sudah diperbaharui',
+                duration: 3000
+              })
+              toast.present()
+      })
     }
 
 }

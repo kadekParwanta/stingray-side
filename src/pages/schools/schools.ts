@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, Refresher } from 'ionic-angular';
 import { School, Media, Generation } from '../../app/shared/sdk/models';
 import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
@@ -31,13 +31,12 @@ export class SchoolsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     private schoolApi: SchoolApi,
     private generationApi: GenerationApi,
     public alertController: AlertController,
     private zbar: ZBar) {
-    this.getSchools(this.start).then((schools: Array<School>) => {
-      this.populateSchools(schools)
-    })
+    
   }
 
   populateSchools(schools: Array<School>) {
@@ -63,9 +62,13 @@ export class SchoolsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolsPage');
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+    })
   }
 
   getSchools(start: number = 0) {
+    this.schools.length = 0
     return new Promise(resolve => {
       this.schoolApi.find({ skip: start, limit: this.perpage, include: ['photos', 'generations'] }).subscribe(
         (schools: Array<School>) => {
@@ -187,6 +190,20 @@ export class SchoolsPage {
        this.populateSchools(schools)
        infiniteScroll.complete();
      });
+  }
+
+  doRefresh(refresher: Refresher) {
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+      refresher.complete()
+
+      const toast = this.toastCtrl.create({
+        message: 'Data sudah diperbaharui',
+        duration: 3000
+      })
+
+      toast.present()
+    })
   }
 
 }
