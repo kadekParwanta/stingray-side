@@ -22,7 +22,6 @@ import { ContactUsPage } from '../pages/contact-us/contact-us';
 import { IonicStorageModule } from '@ionic/storage';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
-import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ClassDetailPage } from '../pages/class-detail/class-detail';
 import { StudentDetailPage } from '../pages/student-detail/student-detail';
 import { TextImage } from './widgets/text-img/text-img';
@@ -54,7 +53,6 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     SDKBrowserModule.forRoot(),
     IonicImageLoader.forRoot(),
     BrowserModule,
-    IonicImageViewerModule,
     IonicStorageModule.forRoot(),
     BrowserAnimationsModule
   ],

@@ -104,8 +104,10 @@ export class SchoolsPage {
       this.filteredSchools = this.schools.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
-      this.iterateSchool()
+    } else {
+      this.filteredSchools = this.schools
     }
+    this.iterateSchool()
   }
 
   OnClearSearch(event:any){
