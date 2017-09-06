@@ -17,7 +17,7 @@
   <div *ngIf="student" class="selection">
     <ion-card>
       <ion-card-content [ngStyle]="style">
-        <img-loader useImg [src]="student.photo.url"></img-loader>
+        <img-loader useImg [src]="student.photo.url" (click)="openPhotoViewer(student.photo.url)"></img-loader>
         <h2>{{student.name}}</h2>
         <h3>{{student.motto}}</h3>
       </ion-card-content>

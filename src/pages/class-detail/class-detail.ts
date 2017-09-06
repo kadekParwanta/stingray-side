@@ -4,6 +4,8 @@ import { Class, Media, Generation, School } from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { StudentDetailPage } from '../student-detail/student-detail';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ImageLoader } from 'ionic-image-loader';
 
 /*
   Generated class for the ClassDetail page.
@@ -23,9 +25,14 @@ export class ClassDetailPage {
   grid: Array<Array<Media>>
   photos = new Array<Media>()
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public classApi: ClassApi) {
-    let classRoomId = navParams.get('classRoomId');
-    this.getClassDetails(classRoomId);
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public classApi: ClassApi,
+    public imageViewer: PhotoViewer,
+    public imgLoader: ImageLoader) {
+      let classRoomId = navParams.get('classRoomId');
+      this.getClassDetails(classRoomId);
   }
 
   ionViewDidLoad() {
@@ -123,5 +130,12 @@ export class ClassDetailPage {
   goToStudentDetails(student) {
     this.navCtrl.push(StudentDetailPage, {studentId: student.id});
   }
+  
+    openPhotoViewer(url) {
+      this.imgLoader.getImagePath(url).then(
+        path => {this.imageViewer.show(path)},
+        fallbackPath => {this.imageViewer.show(fallbackPath)}
+      )
+    }
 
 }

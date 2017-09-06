@@ -17,7 +17,7 @@
 
 
 <ion-content padding class="content">
-  <ion-slides #slider mySlideOptions class="slider">
+  <ion-slides autoplay=2000 loop="true" pager="true" class="slider">
     <ion-slide *ngFor="let slide of sliders">
       <img [src]="slide.image" class="slide-image"/>
     </ion-slide>

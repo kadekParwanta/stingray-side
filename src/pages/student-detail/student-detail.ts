@@ -4,6 +4,8 @@ import { Student, Media } from '../../app/shared/sdk/models';
 import { StudentApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { ColorGenerator } from '../../app/widgets/text-img/color-generator';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ImageLoader } from 'ionic-image-loader';
 
 /*
   Generated class for the StudentDetail page.
@@ -21,13 +23,18 @@ export class StudentDetailPage {
   color: String
   style = {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-  public studentApi: StudentApi, public colorGenerator: ColorGenerator) {
-    let studentId = navParams.get('studentId');
-    let media = new Media()
-    media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
-    this.student.photo = media
-    this.getStudentDetail(studentId);
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public studentApi: StudentApi, 
+    public colorGenerator: ColorGenerator,
+    public imageViewer: PhotoViewer,
+    public imgLoader: ImageLoader) {
+      let studentId = navParams.get('studentId');
+      let media = new Media()
+      media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
+      this.student.photo = media
+      this.getStudentDetail(studentId);
   }
 
   ionViewDidLoad() {
@@ -68,5 +75,12 @@ export class StudentDetailPage {
         console.log('getDetails completed');
       })
   }
+  
+    openPhotoViewer(url) {
+      this.imgLoader.getImagePath(url).then(
+        path => {this.imageViewer.show(path)},
+        fallbackPath => {this.imageViewer.show(fallbackPath)}
+      )
+    }
 
 }

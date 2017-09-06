@@ -6,6 +6,8 @@ import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ClassDetailPage } from '../class-detail/class-detail';
 import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ImageLoader } from 'ionic-image-loader';
 
 /*
   Generated class for the GenerationDetail page.
@@ -27,10 +29,12 @@ export class GenerationDetailPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public generationApi: GenerationApi,
-    private zbar: ZBar) {
-    this.generationId = navParams.get('generationId');
-    this.school.name = "";    
-    this.getGenerationDetails(this.generationId);
+    public zbar: ZBar,
+    public imageViewer: PhotoViewer,
+    public imgLoader: ImageLoader) {
+      this.generationId = navParams.get('generationId');
+      this.school.name = "";    
+      this.getGenerationDetails(this.generationId);
   }
 
   ionViewDidLoad() {
@@ -133,9 +137,9 @@ export class GenerationDetailPage {
               classRoom.photos[k].url = AppSettings.API_ENDPOINT + photo.url
             }
           } else {
-            var media = new Media()
+            media = new Media()
             media.url = 'assets/img/placeholder.jpg'
-            var medias = new Array<Media>()
+            medias = new Array<Media>()
             medias.push(media)
             classRoom.photos = medias
           }
@@ -202,6 +206,13 @@ export class GenerationDetailPage {
 
   goToClassDetails(classRoom) {
     this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+  }
+
+  openPhotoViewer(url) {
+    this.imgLoader.getImagePath(url).then(
+      path => {this.imageViewer.show(path)},
+      fallbackPath => {this.imageViewer.show(fallbackPath)}
+    )
   }
 
 }

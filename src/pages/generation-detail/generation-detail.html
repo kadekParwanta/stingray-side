@@ -15,9 +15,9 @@
 
 <ion-content padding class="content">
 
-  <ion-slides #slider mySlideOptions class="slider">
-    <ion-slide *ngFor="let photo of generation.photos">
-      <img-loader useImg [src]="photo.url" class="slide-image" imageViewer></img-loader>
+  <ion-slides class="slider">
+    <ion-slide *ngFor="let photo of generation.photos" (click)="openPhotoViewer(photo.url)">
+      <img-loader useImg [src]="photo.url" class="slide-image"></img-loader>
     </ion-slide>
   </ion-slides>
 

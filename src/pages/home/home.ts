@@ -16,8 +16,6 @@ import { EventOrganizerPage } from '../event-organizer/event-organizer';
 })
 export class HomePage {
 
-  @ViewChild('slider') slider: Slides;
-
   sliders = [
     {
       title: "Welcome to the Docs!",
@@ -36,47 +34,32 @@ export class HomePage {
     }
   ];
 
-  mySlideOptions = {
-    autoplay: 2000,
-    loop: true,
-    pager: true
-  };
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
 
-  onSlideChanged() {
-    // let currentIndex = this.slider.getActiveIndex();
-    // console.log("Current index is", currentIndex);
-  }
-
   backButtonAction() {
     this.platform.exitApp();
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit My slider: ' + this.slider);
   }
 
   openMenu(index) {
     switch (index) {
       case 0:
-        this.navCtrl.setRoot(PhotographyPage);
+        this.navCtrl.push(PhotographyPage);
         break;
       case 1:
-        this.navCtrl.setRoot(EventOrganizerPage)
+        this.navCtrl.push(EventOrganizerPage)
         break;
       case 2:
-        this.navCtrl.setRoot(SchoolsPage)
+        this.navCtrl.push(SchoolsPage)
         break;
       case 3:
-        this.navCtrl.setRoot(SchoolsPage)
+        this.navCtrl.push(SchoolsPage)
         break;
       case 4:
-        this.navCtrl.setRoot(SchoolsPage)
+        this.navCtrl.push(SchoolsPage)
         break;
     }
     

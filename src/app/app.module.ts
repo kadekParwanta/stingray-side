@@ -29,6 +29,8 @@ import { TextImage } from './widgets/text-img/text-img';
 import { ColorGenerator } from './widgets/text-img/color-generator';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { ZBar } from '@ionic-native/zbar';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { ZBar } from '@ionic-native/zbar';
     ChatService,
     AppSettings, 
     ColorGenerator,
-    ZBar]
+    ZBar,
+    PhotoViewer]
 })
 export class AppModule {}

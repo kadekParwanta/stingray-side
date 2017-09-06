@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Generation, Media } from '../../app/shared/sdk/models';
+import { Generation } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 
 /*
