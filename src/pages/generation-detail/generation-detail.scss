@@ -58,7 +58,8 @@ page-generation-detail {
 
     .card-title {
         position: absolute;
-        top: 36%;
+        top: 0%;
+        background-color: cadetblue;
         font-size: 2.0em;
         width: 100%;
         font-weight: bold;
@@ -68,7 +69,8 @@ page-generation-detail {
     .card-subtitle {
         font-size: 1.0em;
         position: absolute;
-        top: 52%;
+        top: 14%;
+        background-color: cadetblue;
         width: 100%;
         color: #fff;
     } 
