@@ -17,33 +17,34 @@
   <div *ngIf="student" class="selection">
     <ion-card>
       <ion-card-content [ngStyle]="style">
-        <img [src]="student.photo.url">
+        <img-loader useImg [src]="student.photo.url" (click)="openPhotoViewer(student.photo.url)"></img-loader>
         <h2>{{student.name}}</h2>
         <h3>{{student.motto}}</h3>
       </ion-card-content>
       <ion-list>
-        <a href="tel:{{student.phonenumber}}" ion-item>
-          <ion-icon name="call" item-left></ion-icon>
-          <p>Call Mobile</p>
-          <h2>{{student.phonenumber || '-'}}</h2>
-        </a>
+            <a href="tel:{{student.phonenumber}}" ion-item>
+                <ion-icon name="call" item-start></ion-icon>
+                <p>Call Mobile</p>
+                <h2>{{student.phonenumber || '-'}}</h2>
+              </a>
+        
         <a href="sms:{{student.phonenumber}}" ion-item>
-          <ion-icon name="text" item-left></ion-icon>
+          <ion-icon name="text" item-start></ion-icon>
           <p>Text</p>
           <h2>{{student.phonenumber || '-'}}</h2>
         </a>
         <a href="mailto:{{student.email}}" ion-item>
-          <ion-icon name="mail" item-left></ion-icon>
+          <ion-icon name="mail" item-start></ion-icon>
           <p>Email</p>
           <h2>{{student.email || '-'}}</h2>
         </a>
         <a href="instagram://user?username={{student.instagram}}" ion-item>
-          <ion-icon name="logo-instagram" item-left></ion-icon>
+          <ion-icon name="logo-instagram" item-start></ion-icon>
           <p>Instagram</p>
           <h2>{{student.instagram || '-'}}</h2>
         </a>
         <a ion-item>
-          <ion-icon name="line" item-left></ion-icon>
+          <ion-icon name="line" item-start></ion-icon>
           <p>Line</p>
           <h2>{{student.line || '-'}}</h2>
         </a>

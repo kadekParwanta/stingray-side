@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, Refresher } from 'ionic-angular';
 import { School, Media, Generation } from '../../app/shared/sdk/models';
 import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';
 import { HomePage } from '../home/home';
-import { ZBar } from 'ionic-native';
+import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
+
 
 /*
   Generated class for the Schools page.
@@ -30,12 +31,12 @@ export class SchoolsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     private schoolApi: SchoolApi,
     private generationApi: GenerationApi,
-    public alertController: AlertController) {
-    this.getSchools(this.start).then((schools: Array<School>) => {
-      this.populateSchools(schools)
-    })
+    public alertController: AlertController,
+    private zbar: ZBar) {
+    
   }
 
   populateSchools(schools: Array<School>) {
@@ -47,7 +48,7 @@ export class SchoolsPage {
           schoolData.photos[0].url = AppSettings.API_ENDPOINT + photo
         } else {
           var media = new Media()
-          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
+          media.url = 'assets/img/placeholder.jpg'
           var medias = new Array<Media>()
           medias.push(media)
           schoolData.photos = medias
@@ -61,9 +62,13 @@ export class SchoolsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolsPage');
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+    })
   }
 
   getSchools(start: number = 0) {
+    this.schools.length = 0
     return new Promise(resolve => {
       this.schoolApi.find({ skip: start, limit: this.perpage, include: ['photos', 'generations'] }).subscribe(
         (schools: Array<School>) => {
@@ -102,8 +107,10 @@ export class SchoolsPage {
       this.filteredSchools = this.schools.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
-      this.iterateSchool()
+    } else {
+      this.filteredSchools = this.schools
     }
+    this.iterateSchool()
   }
 
   OnClearSearch(event:any){
@@ -125,7 +132,7 @@ export class SchoolsPage {
       drawSight: false
     };
 
-    ZBar.scan(zBarOptions)
+    this.zbar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
         this.generationApi.findByBarcode(result).subscribe(
@@ -183,6 +190,20 @@ export class SchoolsPage {
        this.populateSchools(schools)
        infiniteScroll.complete();
      });
+  }
+
+  doRefresh(refresher: Refresher) {
+    this.getSchools(this.start).then((schools: Array<School>) => {
+      this.populateSchools(schools)
+      refresher.complete()
+
+      const toast = this.toastCtrl.create({
+        message: 'Data sudah diperbaharui',
+        duration: 3000
+      })
+
+      toast.present()
+    })
   }
 
 }

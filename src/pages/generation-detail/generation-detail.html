@@ -8,16 +8,28 @@
 
   <ion-navbar color="dark">
     <ion-title>{{generation.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="content">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing.."></ion-refresher-content>
+      </ion-refresher>
 
-  <ion-slides #slider [options]="mySlideOptions" class="slider">
-    <ion-slide *ngFor="let photo of generation.photos">
-      <img [src]="photo.url" class="slide-image" imageViewer/>
+  <ion-slides class="slider">
+    <ion-slide *ngFor="let photo of generation.photos" (click)="openPhotoViewer(photo.url)">
+      <img-loader useImg [src]="photo.url" class="slide-image"></img-loader>
     </ion-slide>
   </ion-slides>
 
@@ -42,7 +54,7 @@
             <ion-grid>
               <ion-row wrap *ngFor="let photo of class.photos">
                 <ion-col width-33>
-                  <img [src]="photo.url" imageViewer>
+                  <img-loader useImg [src]="photo.url" imageViewer>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -51,7 +63,7 @@
           <ion-list *ngFor="let student of class.students">
             <ion-item (click)="goToStudentDetails(student)" detail-push>
               <ion-avatar item-left>
-                <img [src]="student.photo.url">
+                <img-loader useImg [src]="student.photo.url">
               </ion-avatar>
               <h2>{{student.name}}</h2>
               <p>{{student.motto}}</p>
@@ -60,7 +72,7 @@
         </ion-col>
       </ion-row>-->
       <ion-card (click)="goToClassDetails(class)">
-        <img [src]="class.photos[0].url"/>
+        <img-loader useImg [src]="class.photos[0].url"></img-loader>
         <div class="card-title">{{class.name}}</div>
         <div class="card-subtitle">{{class.students.length}} Siswa</div>
       </ion-card>

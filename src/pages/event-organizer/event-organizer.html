@@ -7,9 +7,6 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Events</ion-title>
   </ion-navbar>
 
@@ -25,7 +22,7 @@
     <p>{{event.location}}</p>
   </ion-item>
 
-  <div *ngIf="event.photos.length > 0"><img [src]="event.photos[0].url" /></div>
+  <div *ngIf="event.photos.length > 0"><img-loader useImg [src]="event.photos[0].url" ></img-loader></div>
 
   <ion-card-content>
     <p>{{event.description}}</p>

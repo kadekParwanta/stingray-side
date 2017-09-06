@@ -7,9 +7,6 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Photography</ion-title>
   </ion-navbar>
 
@@ -25,7 +22,7 @@
     <p>{{photography.location}}</p>
   </ion-item>
 
-  <div *ngIf="photography.photos.length > 0"><img [src]="photography.photos[0].url" /></div>
+  <div *ngIf="photography.photos.length > 0"><img-loader useImg [src]="photography.photos[0].url" ></img-loader></div>
 
   <ion-card-content>
     <p>{{photography.description}}</p>

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
 import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ClassDetailPage } from '../class-detail/class-detail';
-import { ZBar } from 'ionic-native';
+import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ImageLoader } from 'ionic-image-loader';
 
 /*
   Generated class for the GenerationDetail page.
@@ -23,14 +25,23 @@ export class GenerationDetailPage {
   school: School = new School()
   private shownItem
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public generationApi: GenerationApi) {
-    this.generationId = navParams.get('generationId');
-    this.school.name = "";    
-    this.getGenerationDetails(this.generationId);
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    public generationApi: GenerationApi,
+    public zbar: ZBar,
+    public imageViewer: PhotoViewer,
+    public imgLoader: ImageLoader) {
+      this.generationId = navParams.get('generationId');
+      this.school.name = "";   
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GenerationDetailPage');
+    console.log('ionViewDidLoad GenerationDetailPage'); 
+    this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
+      this.populateGenerationDetails(generation)
+    })
   }
 
   mySlideOptions = {
@@ -40,6 +51,34 @@ export class GenerationDetailPage {
   };
 
   getGenerationDetails(generationId) {
+    return this.generationApi.findById(generationId, {
+      include: [
+        {
+          relation: 'photos'
+        },
+        {
+          relation: 'school'
+        },
+        {
+          relation: 'classes', scope: {
+            include: [
+              {
+                relation: 'students'
+              },
+              {
+                relation: 'photos'
+                // , scope: {
+                //   skip: 0,
+                //   limit: 1,
+                // }
+              }
+            ]
+          }
+        }
+      ]
+    })
+    .map((generation: Generation) => { return generation})
+    .toPromise()
     // this.generationApi.findById(generation.id, {
     //   include: [
     //     {
@@ -72,96 +111,151 @@ export class GenerationDetailPage {
     //   ]
     // }).subscribe(
 
-      this.generationApi.findById(generationId, {
-      include: [
-        {
-          relation: 'photos'
-        },
-        {
-          relation: 'school'
-        },
-        {
-          relation: 'classes', scope: {
-            include: [
-              {
-                relation: 'students'
-              },
-              {
-                relation: 'photos'
-                // , scope: {
-                //   skip: 0,
-                //   limit: 1,
-                // }
-              }
-            ]
-          }
-        }
-      ]
-    }).subscribe(
-      (generation: Generation) => {
-        let school = generation.school
-        if (school) {
-          this.school = school
-        }
-        this.generation = generation
+    //   this.generationApi.findById(generationId, {
+    //   include: [
+    //     {
+    //       relation: 'photos'
+    //     },
+    //     {
+    //       relation: 'school'
+    //     },
+    //     {
+    //       relation: 'classes', scope: {
+    //         include: [
+    //           {
+    //             relation: 'students'
+    //           },
+    //           {
+    //             relation: 'photos'
+    //             // , scope: {
+    //             //   skip: 0,
+    //             //   limit: 1,
+    //             // }
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   ]
+    // }).subscribe(
+    //   (generation: Generation) => {
+    //     let school = generation.school
+    //     if (school) {
+    //       this.school = school
+    //     }
+    //     this.generation = generation
 
-        let photos = generation.photos
-        if (photos.length > 0) {
-          for (var i = 0; i < photos.length; i++) {
-            let photo = photos[i]
-            this.generation.photos[i].url = AppSettings.API_ENDPOINT + photo.url
-          }
+    //     let photos = generation.photos
+    //     if (photos.length > 0) {
+    //       for (var i = 0; i < photos.length; i++) {
+    //         let photo = photos[i]
+    //         this.generation.photos[i].url = AppSettings.API_ENDPOINT + photo.url
+    //       }
+    //     } else {
+    //       var media = new Media()
+    //       media.url = 'assets/img/placeholder.jpg'
+    //       var medias = new Array<Media>()
+    //       medias.push(media)
+    //       this.generation.photos = medias
+    //     }
+
+    //     let classes = generation.classes
+    //     for (var l = 0; l < classes.length; l++) {
+    //       let classRoom = classes[l]
+    //       let classPhotos = classRoom.photos
+    //       if (classPhotos.length > 0) {
+    //         for (var k = 0; k < classPhotos.length; k++) {
+    //           let photo = classPhotos[k]
+    //           classRoom.photos[k].url = AppSettings.API_ENDPOINT + photo.url
+    //         }
+    //       } else {
+    //         media = new Media()
+    //         media.url = 'assets/img/placeholder.jpg'
+    //         medias = new Array<Media>()
+    //         medias.push(media)
+    //         classRoom.photos = medias
+    //       }
+
+    //       let students = classRoom.students
+
+    //       for (var j = 0; j < students.length; j++) {
+    //         let student = students[j]
+    //         let photo = student.photo
+    //         if (photo) {
+    //           classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
+    //         } else {
+    //           let media = new Media()
+    //           media.url = 'assets/img/placeholder.jpg'
+    //           classRoom.students[j].photo = media
+    //         }
+
+    //       }
+    //     }
+
+    //   },
+    //   err => {
+    //     if (err.status == 404) {
+    //       console.log('This school does not have a generations. :(');
+    //     } else {
+    //       console.error(err);
+    //     }
+    //   },
+    //   () => console.log('getDetails completed')
+    // )
+  }
+
+  populateGenerationDetails(generation: Generation) {
+    let school = generation.school
+    if (school) {
+      this.school = school
+    }
+    this.generation = generation
+
+    let photos = generation.photos
+    if (photos.length > 0) {
+      for (var i = 0; i < photos.length; i++) {
+        let photo = photos[i]
+        this.generation.photos[i].url = AppSettings.API_ENDPOINT + photo.url
+      }
+    } else {
+      var media = new Media()
+      media.url = 'assets/img/placeholder.jpg'
+      var medias = new Array<Media>()
+      medias.push(media)
+      this.generation.photos = medias
+    }
+
+    let classes = generation.classes
+    for (var l = 0; l < classes.length; l++) {
+      let classRoom = classes[l]
+      let classPhotos = classRoom.photos
+      if (classPhotos.length > 0) {
+        for (var k = 0; k < classPhotos.length; k++) {
+          let photo = classPhotos[k]
+          classRoom.photos[k].url = AppSettings.API_ENDPOINT + photo.url
+        }
+      } else {
+        media = new Media()
+        media.url = 'assets/img/placeholder.jpg'
+        medias = new Array<Media>()
+        medias.push(media)
+        classRoom.photos = medias
+      }
+
+      let students = classRoom.students
+
+      for (var j = 0; j < students.length; j++) {
+        let student = students[j]
+        let photo = student.photo
+        if (photo) {
+          classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
         } else {
-          var media = new Media()
-          media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
-          var medias = new Array<Media>()
-          medias.push(media)
-          this.generation.photos = medias
+          let media = new Media()
+          media.url = 'assets/img/placeholder.jpg'
+          classRoom.students[j].photo = media
         }
 
-        let classes = generation.classes
-        for (var l = 0; l < classes.length; l++) {
-          let classRoom = classes[l]
-          let classPhotos = classRoom.photos
-          if (classPhotos.length > 0) {
-            for (var k = 0; k < classPhotos.length; k++) {
-              let photo = classPhotos[k]
-              classRoom.photos[k].url = AppSettings.API_ENDPOINT + photo.url
-            }
-          } else {
-            var media = new Media()
-            media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
-            var medias = new Array<Media>()
-            medias.push(media)
-            classRoom.photos = medias
-          }
-
-          let students = classRoom.students
-
-          for (var j = 0; j < students.length; j++) {
-            let student = students[j]
-            let photo = student.photo
-            if (photo) {
-              classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
-            } else {
-              let media = new Media()
-              media.url = AppSettings.API_ENDPOINT+'/storages/missing/placeholder.jpg'
-              classRoom.students[j].photo = media
-            }
-
-          }
-        }
-
-      },
-      err => {
-        if (err.status == 404) {
-          console.log('This school does not have a generations. :(');
-        } else {
-          console.error(err);
-        }
-      },
-      () => console.log('getDetails completed')
-    )
+      }
+    }
   }
 
   toggleItem(classRoom) {
@@ -183,7 +277,7 @@ export class GenerationDetailPage {
       drawSight: false
     };
 
-    ZBar.scan(zBarOptions)
+    this.zbar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
       })
@@ -198,6 +292,29 @@ export class GenerationDetailPage {
 
   goToClassDetails(classRoom) {
     this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+  }
+
+  openPhotoViewer(url) {
+    this.imgLoader.getImagePath(url).then(
+      path => {this.imageViewer.show(path)},
+      fallbackPath => {this.imageViewer.show(fallbackPath)}
+    )
+  }
+
+  doRefresh(refresher: Refresher) {
+    this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
+      this.populateGenerationDetails(generation)
+      refresher.complete()
+            const toast = this.toastCtrl.create({
+              message: 'Data sudah diperbaharui',
+              duration: 3000
+            })
+            toast.present()
+    })
+  }
+
+  goToHome() {
+    this.navCtrl.popToRoot()
   }
 
 }

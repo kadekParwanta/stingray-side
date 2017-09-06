@@ -8,12 +8,24 @@
 
   <ion-navbar color="dark">
     <ion-title>{{classRoom.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToHome()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing.."></ion-refresher-content>
+      </ion-refresher>
 
   <ion-grid>
     <ion-row>
@@ -26,7 +38,7 @@
     <p>Foto Kelas</p>
     <ion-row *ngFor="let row of grid">
       <ion-col width-50 *ngFor="let media of row">
-        <img [src]="media.url" imageViewer>
+        <img-loader useImg [src]="media.url" (click)="openPhotoViewer(media.url)"></img-loader>
       </ion-col>
     </ion-row>
 
@@ -34,7 +46,7 @@
     <ion-list *ngFor="let student of classRoom.students">
       <ion-item (click)="goToStudentDetails(student)" detail-push>
         <ion-avatar item-left>
-          <div *ngIf="student.photo"><img [src]="student.photo.url"></div>
+          <div *ngIf="student.photo"><img-loader useImg [src]="student.photo.url"></img-loader></div>
           <div *ngIf="!student.photo"><text-img [text]="student.name"></text-img></div>
         </ion-avatar>
         <h2>{{student.name}}</h2>
