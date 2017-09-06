@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
-import { Class, Media, Generation, School } from '../../app/shared/sdk/models';
+import { Class, Media, Generation, School , Student} from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { StudentDetailPage } from '../student-detail/student-detail';
@@ -24,6 +24,7 @@ export class ClassDetailPage {
   school = new School()
   grid: Array<Array<Media>>
   photos = new Array<Media>()
+  studentGroups = []
   classRoomId
 
   constructor(
@@ -159,8 +160,9 @@ export class ClassDetailPage {
         if (photo) {
           classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
         }
-
+        
       }
+      this.groupStudents(students)
       this.iteratePhotos();
   }
 
@@ -211,5 +213,49 @@ export class ClassDetailPage {
     goToHome() {
       this.navCtrl.popToRoot()
     }
+
+    groupStudents(students: Array<Student>){
+             let sortedStudents = students.sort(
+               (a: Student, b:Student) : number => {
+                var ra = a.name.match(/\D+|\d+/g);
+                var rb = b.name.match(/\D+|\d+/g);
+                var r = 0;
+                
+                    while(!r && ra.length && rb.length) {
+                        var x = ra.shift(), y = rb.shift(),
+                            nx = parseInt(x), ny = parseInt(y);
+                
+                        if(isNaN(nx) || isNaN(ny))
+                            r = x > y ? 1 : (x < y ? -1 : 0);
+                        else
+                            r = nx - ny;
+                    }
+                    return r || ra.length - rb.length;
+               }
+             )
+             let currentLetter = "";
+             let currentStudents = [];
+      
+             sortedStudents.forEach((value, index) => {
+      
+                 if(value.name.charAt(0) != currentLetter){
+      
+                     currentLetter = value.name.charAt(0);
+      
+                     let newGroup = {
+                         letter: currentLetter,
+                         students: []
+                     };
+      
+                     currentStudents = newGroup.students
+                     this.studentGroups.push(newGroup);
+      
+                 } 
+      
+                 currentStudents.push(value);
+      
+             });
+      
+         }
 
 }

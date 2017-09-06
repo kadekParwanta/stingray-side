@@ -43,7 +43,7 @@
     </ion-row>
 
     <p>Daftar Siswa</p>
-    <ion-list *ngFor="let student of classRoom.students">
+    <!-- <ion-list *ngFor="let student of classRoom.students">
       <ion-item (click)="goToStudentDetails(student)" detail-push>
         <ion-avatar item-left>
           <div *ngIf="student.photo"><img-loader useImg [src]="student.photo.url"></img-loader></div>
@@ -52,6 +52,25 @@
         <h2>{{student.name}}</h2>
         <p>{{student.motto}}</p>
       </ion-item>
+    </ion-list> -->
+    <ion-list>
+    <ion-item-group *ngFor="let group of studentGroups">
+        
+        <ion-item-divider sticky>
+            <ion-label>
+              {{group.letter}}
+            </ion-label>
+          </ion-item-divider>
+             <ion-item *ngFor="let student of group.students" (click)="goToStudentDetails(student)" detail-push>
+                <ion-avatar item-left>
+                    <div *ngIf="student.photo"><img-loader useImg [src]="student.photo.url"></img-loader></div>
+                    <div *ngIf="!student.photo"><text-img [text]="student.name"></text-img></div>
+                  </ion-avatar>
+                  <h2>{{student.name}}</h2>
+                  <p>{{student.motto}}</p>
+              </ion-item>
+        
+           </ion-item-group>
     </ion-list>
   </ion-grid>
 </ion-content>
