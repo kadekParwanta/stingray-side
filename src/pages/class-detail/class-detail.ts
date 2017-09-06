@@ -208,4 +208,8 @@ export class ClassDetailPage {
       })
     }
 
+    goToHome() {
+      this.navCtrl.popToRoot()
+    }
+
 }

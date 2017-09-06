@@ -313,4 +313,8 @@ export class GenerationDetailPage {
     })
   }
 
+  goToHome() {
+    this.navCtrl.popToRoot()
+  }
+
 }
