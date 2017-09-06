@@ -72,8 +72,9 @@
         </ion-col>
       </ion-row>-->
       <ion-card (click)="goToClassDetails(class)">
+          <div class="skewed"><span>{{class.name}}</span></div>
         <img-loader useImg [src]="class.photos[0].url"></img-loader>
-        <div class="card-title">{{class.name}}</div>
+        
         <!-- <div class="card-subtitle">{{class.students.length}} Siswa</div> -->
       </ion-card>
     </div>
