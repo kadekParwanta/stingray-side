@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher} from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher, Events} from 'ionic-angular';
 import { School, Generation, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';  
@@ -19,17 +19,21 @@ export class SchoolDetailPage {
 
   public school: School;
   private generations = new Array<Generation>()
+  private isConnected: Boolean = true
+  private isLoading: Boolean = false
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public toastCtrl: ToastController,
+    public events: Events,
     public schoolApi: SchoolApi) {
       this.school = navParams.get('school');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolDetailPage');
+    this.listenToNetworkEvents()
     this.getGenerations(this.school).then(
       (generations: Array<Generation>) => {
         this.populateGenerations(generations)
@@ -109,6 +113,20 @@ export class SchoolDetailPage {
               toast.present()
       }
     )
+  }
+
+  listenToNetworkEvents() {
+    this.events.subscribe('network:disconnected', () => {
+      this.isConnected = false;
+    });
+
+    this.events.subscribe('network:connected', () => {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.isConnected = true;
+      }, 3000);
+    });
   }
 
 }

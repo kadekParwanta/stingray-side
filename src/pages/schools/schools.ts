@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, Refresher } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, Refresher, Events} from 'ionic-angular';
 import { School, Media, Generation } from '../../app/shared/sdk/models';
 import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
@@ -27,6 +27,8 @@ export class SchoolsPage {
   searchQuery: string = ''
   perpage:number = 10
   private start:number=0
+  private isConnected: Boolean = true
+  private isLoading: Boolean = false
 
   constructor(
     public navCtrl: NavController,
@@ -35,6 +37,7 @@ export class SchoolsPage {
     private schoolApi: SchoolApi,
     private generationApi: GenerationApi,
     public alertController: AlertController,
+    public events: Events,
     private zbar: ZBar) {
     
   }
@@ -62,6 +65,7 @@ export class SchoolsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchoolsPage');
+    this.listenToNetworkEvents();
     this.getSchools(this.start).then((schools: Array<School>) => {
       this.populateSchools(schools)
     })
@@ -204,6 +208,20 @@ export class SchoolsPage {
 
       toast.present()
     })
+  }
+
+  listenToNetworkEvents() {
+    this.events.subscribe('network:disconnected', () => {
+      this.isConnected = false;
+    });
+
+    this.events.subscribe('network:connected', () => {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.isConnected = true;
+      }, 3000);
+    });
   }
 
 }

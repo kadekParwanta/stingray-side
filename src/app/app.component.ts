@@ -15,8 +15,8 @@ import { AppSettings } from '../providers/app-setting';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { ImageLoaderConfig } from 'ionic-image-loader';
-
 import { AppUpdate } from '@ionic-native/app-update';
+import { Network } from '@ionic-native/network';
 
 export interface PageInterface {
   title: string;
@@ -56,7 +56,8 @@ export class MyApp {
     private imageLoaderConfig: ImageLoaderConfig,
     private appUpdate: AppUpdate,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private network: Network) {
     this.initializeApp();
 
     this.footerPage = this.loggedOutPage;
@@ -104,6 +105,23 @@ export class MyApp {
       //App Update
       const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
       this.appUpdate.checkAppUpdate(updateUrl);
+
+      //Network
+      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+        console.log('network was disconnected :-(');
+        this.events.publish('network:disconnected');
+      });
+
+      let connectSubscription = this.network.onConnect().subscribe(() => {
+        console.log('network connected!');
+        // We just got a connection but we need to wait briefly
+         // before we determine the connection type. Might need to wait.
+        // prior to doing any api requests as well.
+        // setTimeout(() => {
+        //   this.events.publish('network:connected');
+        // }, 3000);
+        this.events.publish('network:connected');
+      });
     });
   }
 

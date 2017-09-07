@@ -30,6 +30,7 @@ import { IonicImageLoader } from 'ionic-image-loader';
 import { ZBar } from '@ionic-native/zbar';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AppUpdate } from '@ionic-native/app-update';
+import { Network } from '@ionic-native/network';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { AppUpdate } from '@ionic-native/app-update';
     ColorGenerator,
     ZBar,
     PhotoViewer,
-    AppUpdate]
+    AppUpdate,
+    Network]
 })
 export class AppModule {}
