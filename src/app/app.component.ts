@@ -82,9 +82,6 @@ export class MyApp {
       }
     })
 
-    const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
-    this.appUpdate.checkAppUpdate(updateUrl);
-
   }
 
   initializeApp() {
@@ -93,10 +90,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      //Loopback
       LoopBackConfig.setBaseURL(AppSettings.API_ENDPOINT);
       LoopBackConfig.setApiVersion('api');
+
+      //Image Loader
       this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg'); 
       this.imageLoaderConfig.useImageTag(true);
+
+      //App Update
+      const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
+      this.appUpdate.checkAppUpdate(updateUrl);
     });
   }
 
