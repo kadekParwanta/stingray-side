@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Slides, Platform } from 'ionic-angular';
+import { NavController, NavParams, Slides, Platform, ToastController } from 'ionic-angular';
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
 import { EventOrganizerPage } from '../event-organizer/event-organizer';
@@ -15,6 +15,9 @@ import { EventOrganizerPage } from '../event-organizer/event-organizer';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  private lastTimeBackPress = 0;
+  private timePeriodToExit = 2000;
 
   sliders = [
     {
@@ -34,14 +37,30 @@ export class HomePage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform) { }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public platform: Platform,
+    public toastCtrl: ToastController) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
 
   backButtonAction() {
-    this.platform.exitApp();
+    var time = new Date().getTime();
+    if (time - this.lastTimeBackPress < this.timePeriodToExit) {
+      this.platform.exitApp();
+    } else {
+      let toast = this.toastCtrl.create({
+        message: 'Tekan back sekali lagi untuk keluar',
+        duration: 3000,
+        position: 'bottom'
+      })
+
+      toast.present();
+      this.lastTimeBackPress = new Date().getTime();
+    }
   }
 
   openMenu(index) {
