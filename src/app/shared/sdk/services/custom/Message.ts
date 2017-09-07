@@ -48,7 +48,7 @@ export class MessageApi extends BaseLoopBackApi {
    * This usually means the response is a `Message` object.)
    * </em>
    */
-  public getSender(id: any, refresh: any = {}): Observable<any> {
+  public getSender(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Messages/:id/sender";
@@ -57,8 +57,8 @@ export class MessageApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (refresh) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

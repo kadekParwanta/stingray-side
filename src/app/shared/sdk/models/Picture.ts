@@ -5,12 +5,12 @@ import {
 
 declare var Object: any;
 export interface PictureInterface {
-  id?: any;
+  "id"?: any;
   media?: Media[];
 }
 
 export class Picture implements PictureInterface {
-  id: any;
+  "id": any;
   media: Media[];
   constructor(data?: PictureInterface) {
     Object.assign(this, data);
@@ -30,7 +30,7 @@ export class Picture implements PictureInterface {
   **/
   public static factory(data: PictureInterface): Picture{
     return new Picture(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -42,8 +42,9 @@ export class Picture implements PictureInterface {
     return {
       name: 'Picture',
       plural: 'Pictures',
+      path: 'Pictures',
       properties: {
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

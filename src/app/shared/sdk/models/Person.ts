@@ -5,18 +5,18 @@ import {
 
 declare var Object: any;
 export interface PersonInterface {
-  name: string;
-  phonenumber?: string;
-  address?: string;
-  id?: any;
+  "name": string;
+  "phonenumber"?: string;
+  "address"?: string;
+  "id"?: any;
   photo?: Media;
 }
 
 export class Person implements PersonInterface {
-  name: string;
-  phonenumber: string;
-  address: string;
-  id: any;
+  "name": string;
+  "phonenumber": string;
+  "address": string;
+  "id": any;
   photo: Media;
   constructor(data?: PersonInterface) {
     Object.assign(this, data);
@@ -36,7 +36,7 @@ export class Person implements PersonInterface {
   **/
   public static factory(data: PersonInterface): Person{
     return new Person(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -48,20 +48,21 @@ export class Person implements PersonInterface {
     return {
       name: 'Person',
       plural: 'People',
+      path: 'People',
       properties: {
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        phonenumber: {
+        "phonenumber": {
           name: 'phonenumber',
           type: 'string'
         },
-        address: {
+        "address": {
           name: 'address',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

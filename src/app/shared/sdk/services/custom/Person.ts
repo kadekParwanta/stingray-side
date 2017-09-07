@@ -48,7 +48,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public getPhoto(id: any, refresh: any = {}): Observable<any> {
+  public getPhoto(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -57,8 +57,8 @@ export class PersonApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (refresh) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -80,7 +80,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public createPhoto(id: any, data: Media = new Media()): Observable<any> {
+  public createPhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -91,7 +91,7 @@ export class PersonApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -113,7 +113,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public updatePhoto(id: any, data: Media = new Media()): Observable<any> {
+  public updatePhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -124,7 +124,7 @@ export class PersonApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -139,7 +139,7 @@ export class PersonApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyPhoto(id: any): Observable<any> {
+  public destroyPhoto(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -148,7 +148,7 @@ export class PersonApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -170,7 +170,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public createManyPhoto(id: any, data: Media[] = new Array<Media>()): Observable<any> {
+  public createManyPhoto(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -181,7 +181,7 @@ export class PersonApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

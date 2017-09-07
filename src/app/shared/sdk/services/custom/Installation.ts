@@ -49,17 +49,17 @@ export class InstallationApi extends BaseLoopBackApi {
    * This usually means the response is a `Installation` object.)
    * </em>
    */
-  public findByApp(deviceType: any = {}, appId: any = {}, appVersion: any = {}): Observable<Installation> {
+  public findByApp(deviceType: any = {}, appId: any = {}, appVersion: any = {}, customHeaders?: Function): Observable<Installation> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/installations/byApp";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (deviceType) _urlParams.deviceType = deviceType;
-    if (appId) _urlParams.appId = appId;
-    if (appVersion) _urlParams.appVersion = appVersion;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof deviceType !== 'undefined' && deviceType !== null) _urlParams.deviceType = deviceType;
+    if (typeof appId !== 'undefined' && appId !== null) _urlParams.appId = appId;
+    if (typeof appVersion !== 'undefined' && appVersion !== null) _urlParams.appVersion = appVersion;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result.map((instance: Installation) => new Installation(instance));
   }
 
@@ -79,16 +79,16 @@ export class InstallationApi extends BaseLoopBackApi {
    * This usually means the response is a `Installation` object.)
    * </em>
    */
-  public findByUser(deviceType: any = {}, userId: any = {}): Observable<Installation> {
+  public findByUser(deviceType: any = {}, userId: any = {}, customHeaders?: Function): Observable<Installation> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/installations/byUser";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (deviceType) _urlParams.deviceType = deviceType;
-    if (userId) _urlParams.userId = userId;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof deviceType !== 'undefined' && deviceType !== null) _urlParams.deviceType = deviceType;
+    if (typeof userId !== 'undefined' && userId !== null) _urlParams.userId = userId;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result.map((instance: Installation) => new Installation(instance));
   }
 
@@ -108,16 +108,16 @@ export class InstallationApi extends BaseLoopBackApi {
    * This usually means the response is a `Installation` object.)
    * </em>
    */
-  public findBySubscriptions(deviceType: any = {}, subscriptions: any = {}): Observable<Installation> {
+  public findBySubscriptions(deviceType: any = {}, subscriptions: any = {}, customHeaders?: Function): Observable<Installation> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/installations/bySubscriptions";
     let _routeParams: any = {};
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (deviceType) _urlParams.deviceType = deviceType;
-    if (subscriptions) _urlParams.subscriptions = subscriptions;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof deviceType !== 'undefined' && deviceType !== null) _urlParams.deviceType = deviceType;
+    if (typeof subscriptions !== 'undefined' && subscriptions !== null) _urlParams.subscriptions = subscriptions;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result.map((instance: Installation) => new Installation(instance));
   }
 

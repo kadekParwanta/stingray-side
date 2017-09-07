@@ -2,33 +2,33 @@
 
 declare var Object: any;
 export interface InstallationInterface {
-  appId: string;
-  appVersion?: string;
-  badge?: number;
-  created?: Date;
-  deviceToken: string;
-  deviceType: string;
-  modified?: Date;
-  status?: string;
-  subscriptions?: Array<string>;
-  timeZone?: string;
-  userId?: string;
-  id?: any;
+  "appId": string;
+  "appVersion"?: string;
+  "badge"?: number;
+  "created"?: Date;
+  "deviceToken": string;
+  "deviceType": string;
+  "modified"?: Date;
+  "status"?: string;
+  "subscriptions"?: Array<any>;
+  "timeZone"?: string;
+  "userId"?: string;
+  "id"?: any;
 }
 
 export class Installation implements InstallationInterface {
-  appId: string;
-  appVersion: string;
-  badge: number;
-  created: Date;
-  deviceToken: string;
-  deviceType: string;
-  modified: Date;
-  status: string;
-  subscriptions: Array<string>;
-  timeZone: string;
-  userId: string;
-  id: any;
+  "appId": string;
+  "appVersion": string;
+  "badge": number;
+  "created": Date;
+  "deviceToken": string;
+  "deviceType": string;
+  "modified": Date;
+  "status": string;
+  "subscriptions": Array<any>;
+  "timeZone": string;
+  "userId": string;
+  "id": any;
   constructor(data?: InstallationInterface) {
     Object.assign(this, data);
   }
@@ -47,7 +47,7 @@ export class Installation implements InstallationInterface {
   **/
   public static factory(data: InstallationInterface): Installation{
     return new Installation(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -59,52 +59,53 @@ export class Installation implements InstallationInterface {
     return {
       name: 'Installation',
       plural: 'Installations',
+      path: 'Installations',
       properties: {
-        appId: {
+        "appId": {
           name: 'appId',
           type: 'string'
         },
-        appVersion: {
+        "appVersion": {
           name: 'appVersion',
           type: 'string'
         },
-        badge: {
+        "badge": {
           name: 'badge',
           type: 'number'
         },
-        created: {
+        "created": {
           name: 'created',
           type: 'Date'
         },
-        deviceToken: {
+        "deviceToken": {
           name: 'deviceToken',
           type: 'string'
         },
-        deviceType: {
+        "deviceType": {
           name: 'deviceType',
           type: 'string'
         },
-        modified: {
+        "modified": {
           name: 'modified',
           type: 'Date'
         },
-        status: {
+        "status": {
           name: 'status',
           type: 'string'
         },
-        subscriptions: {
+        "subscriptions": {
           name: 'subscriptions',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        timeZone: {
+        "timeZone": {
           name: 'timeZone',
           type: 'string'
         },
-        userId: {
+        "userId": {
           name: 'userId',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

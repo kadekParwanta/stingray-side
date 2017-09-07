@@ -2,11 +2,11 @@
 
 declare var Object: any;
 export interface PushNotificationInterface {
-  id?: any;
+  "id"?: any;
 }
 
 export class PushNotification implements PushNotificationInterface {
-  id: any;
+  "id": any;
   constructor(data?: PushNotificationInterface) {
     Object.assign(this, data);
   }
@@ -25,7 +25,7 @@ export class PushNotification implements PushNotificationInterface {
   **/
   public static factory(data: PushNotificationInterface): PushNotification{
     return new PushNotification(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -37,8 +37,9 @@ export class PushNotification implements PushNotificationInterface {
     return {
       name: 'PushNotification',
       plural: 'PushNotifications',
+      path: 'PushNotifications',
       properties: {
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

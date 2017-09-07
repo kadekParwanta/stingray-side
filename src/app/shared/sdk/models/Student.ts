@@ -6,45 +6,45 @@ import {
 
 declare var Object: any;
 export interface StudentInterface {
-  motto?: string;
-  NIS?: string;
-  noAbsen?: number;
-  noFotoIn?: number;
-  panggilan?: string;
-  ttl?: string;
-  email?: string;
-  instagram?: string;
-  line?: string;
-  hobi?: string;
-  citacita?: string;
-  quote?: string;
-  name: string;
-  phonenumber?: string;
-  address?: string;
-  id?: any;
-  classId?: any;
+  "motto"?: string;
+  "NIS"?: string;
+  "noAbsen"?: number;
+  "noFotoIn"?: number;
+  "panggilan"?: string;
+  "ttl"?: string;
+  "email"?: string;
+  "instagram"?: string;
+  "line"?: string;
+  "hobi"?: string;
+  "citacita"?: string;
+  "quote"?: string;
+  "name": string;
+  "phonenumber"?: string;
+  "address"?: string;
+  "id"?: any;
+  "classId"?: any;
   photo?: Media;
   class?: Class;
 }
 
 export class Student implements StudentInterface {
-  motto: string;
-  NIS: string;
-  noAbsen: number;
-  noFotoIn: number;
-  panggilan: string;
-  ttl: string;
-  email: string;
-  instagram: string;
-  line: string;
-  hobi: string;
-  citacita: string;
-  quote: string;
-  name: string;
-  phonenumber: string;
-  address: string;
-  id: any;
-  classId: any;
+  "motto": string;
+  "NIS": string;
+  "noAbsen": number;
+  "noFotoIn": number;
+  "panggilan": string;
+  "ttl": string;
+  "email": string;
+  "instagram": string;
+  "line": string;
+  "hobi": string;
+  "citacita": string;
+  "quote": string;
+  "name": string;
+  "phonenumber": string;
+  "address": string;
+  "id": any;
+  "classId": any;
   photo: Media;
   class: Class;
   constructor(data?: StudentInterface) {
@@ -65,7 +65,7 @@ export class Student implements StudentInterface {
   **/
   public static factory(data: StudentInterface): Student{
     return new Student(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -77,72 +77,73 @@ export class Student implements StudentInterface {
     return {
       name: 'Student',
       plural: 'Students',
+      path: 'Students',
       properties: {
-        motto: {
+        "motto": {
           name: 'motto',
           type: 'string'
         },
-        NIS: {
+        "NIS": {
           name: 'NIS',
           type: 'string'
         },
-        noAbsen: {
+        "noAbsen": {
           name: 'noAbsen',
           type: 'number'
         },
-        noFotoIn: {
+        "noFotoIn": {
           name: 'noFotoIn',
           type: 'number'
         },
-        panggilan: {
+        "panggilan": {
           name: 'panggilan',
           type: 'string'
         },
-        ttl: {
+        "ttl": {
           name: 'ttl',
           type: 'string'
         },
-        email: {
+        "email": {
           name: 'email',
           type: 'string'
         },
-        instagram: {
+        "instagram": {
           name: 'instagram',
           type: 'string'
         },
-        line: {
+        "line": {
           name: 'line',
           type: 'string'
         },
-        hobi: {
+        "hobi": {
           name: 'hobi',
           type: 'string'
         },
-        citacita: {
+        "citacita": {
           name: 'citacita',
           type: 'string'
         },
-        quote: {
+        "quote": {
           name: 'quote',
           type: 'string'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        phonenumber: {
+        "phonenumber": {
           name: 'phonenumber',
           type: 'string'
         },
-        address: {
+        "address": {
           name: 'address',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        classId: {
+        "classId": {
           name: 'classId',
           type: 'any'
         },

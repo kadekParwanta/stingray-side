@@ -5,20 +5,20 @@ import {
 
 declare var Object: any;
 export interface YearbookInterface {
-  coverUrl?: string;
-  price?: number;
-  name?: string;
-  id?: any;
-  generationId?: any;
+  "coverUrl"?: string;
+  "price"?: number;
+  "name"?: string;
+  "id"?: any;
+  "generationId"?: any;
   epub?: Epub;
 }
 
 export class Yearbook implements YearbookInterface {
-  coverUrl: string;
-  price: number;
-  name: string;
-  id: any;
-  generationId: any;
+  "coverUrl": string;
+  "price": number;
+  "name": string;
+  "id": any;
+  "generationId": any;
   epub: Epub;
   constructor(data?: YearbookInterface) {
     Object.assign(this, data);
@@ -38,7 +38,7 @@ export class Yearbook implements YearbookInterface {
   **/
   public static factory(data: YearbookInterface): Yearbook{
     return new Yearbook(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -50,24 +50,25 @@ export class Yearbook implements YearbookInterface {
     return {
       name: 'Yearbook',
       plural: 'Yearbooks',
+      path: 'Yearbooks',
       properties: {
-        coverUrl: {
+        "coverUrl": {
           name: 'coverUrl',
           type: 'string'
         },
-        price: {
+        "price": {
           name: 'price',
           type: 'number'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        generationId: {
+        "generationId": {
           name: 'generationId',
           type: 'any'
         },

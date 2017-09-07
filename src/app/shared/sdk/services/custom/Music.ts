@@ -48,7 +48,7 @@ export class MusicApi extends BaseLoopBackApi {
    * This usually means the response is a `Music` object.)
    * </em>
    */
-  public findByIdPhotos(id: any, fk: any): Observable<any> {
+  public findByIdPhotos(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos/:fk";
@@ -58,7 +58,7 @@ export class MusicApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -75,7 +75,7 @@ export class MusicApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdPhotos(id: any, fk: any): Observable<any> {
+  public destroyByIdPhotos(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos/:fk";
@@ -85,7 +85,7 @@ export class MusicApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -109,7 +109,7 @@ export class MusicApi extends BaseLoopBackApi {
    * This usually means the response is a `Music` object.)
    * </em>
    */
-  public updateByIdPhotos(id: any, fk: any, data: Media = new Media()): Observable<any> {
+  public updateByIdPhotos(id: any, fk: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos/:fk";
@@ -121,7 +121,7 @@ export class MusicApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -141,7 +141,7 @@ export class MusicApi extends BaseLoopBackApi {
    * This usually means the response is a `Music` object.)
    * </em>
    */
-  public getPhotos(id: any, filter: LoopBackFilter = {}): Observable<any> {
+  public getPhotos(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos";
@@ -150,8 +150,8 @@ export class MusicApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (filter) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -173,7 +173,7 @@ export class MusicApi extends BaseLoopBackApi {
    * This usually means the response is a `Music` object.)
    * </em>
    */
-  public createPhotos(id: any, data: Media = new Media()): Observable<any> {
+  public createPhotos(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos";
@@ -184,7 +184,7 @@ export class MusicApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -199,7 +199,7 @@ export class MusicApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deletePhotos(id: any): Observable<any> {
+  public deletePhotos(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos";
@@ -208,7 +208,7 @@ export class MusicApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -227,7 +227,7 @@ export class MusicApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countPhotos(id: any, where: any = {}): Observable<any> {
+  public countPhotos(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos/count";
@@ -236,8 +236,8 @@ export class MusicApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (where) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -259,7 +259,7 @@ export class MusicApi extends BaseLoopBackApi {
    * This usually means the response is a `Music` object.)
    * </em>
    */
-  public createManyPhotos(id: any, data: Media[] = new Array<Media>()): Observable<any> {
+  public createManyPhotos(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Music/:id/photos";
@@ -270,7 +270,7 @@ export class MusicApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

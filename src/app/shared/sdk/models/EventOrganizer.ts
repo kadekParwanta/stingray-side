@@ -5,26 +5,26 @@ import {
 
 declare var Object: any;
 export interface EventOrganizerInterface {
-  location?: string;
-  topic?: string;
-  artists?: Array<string>;
-  name?: string;
-  description?: string;
-  createdDate?: Date;
-  finishDate?: Date;
-  id?: any;
+  "location"?: string;
+  "topic"?: string;
+  "artists"?: Array<any>;
+  "name"?: string;
+  "description"?: string;
+  "createdDate"?: Date;
+  "finishDate"?: Date;
+  "id"?: any;
   photos?: Media[];
 }
 
 export class EventOrganizer implements EventOrganizerInterface {
-  location: string;
-  topic: string;
-  artists: Array<string>;
-  name: string;
-  description: string;
-  createdDate: Date;
-  finishDate: Date;
-  id: any;
+  "location": string;
+  "topic": string;
+  "artists": Array<any>;
+  "name": string;
+  "description": string;
+  "createdDate": Date;
+  "finishDate": Date;
+  "id": any;
   photos: Media[];
   constructor(data?: EventOrganizerInterface) {
     Object.assign(this, data);
@@ -44,7 +44,7 @@ export class EventOrganizer implements EventOrganizerInterface {
   **/
   public static factory(data: EventOrganizerInterface): EventOrganizer{
     return new EventOrganizer(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -56,36 +56,37 @@ export class EventOrganizer implements EventOrganizerInterface {
     return {
       name: 'EventOrganizer',
       plural: 'EventOrganizers',
+      path: 'EventOrganizers',
       properties: {
-        location: {
+        "location": {
           name: 'location',
           type: 'string'
         },
-        topic: {
+        "topic": {
           name: 'topic',
           type: 'string'
         },
-        artists: {
+        "artists": {
           name: 'artists',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        description: {
+        "description": {
           name: 'description',
           type: 'string'
         },
-        createdDate: {
+        "createdDate": {
           name: 'createdDate',
           type: 'Date'
         },
-        finishDate: {
+        "finishDate": {
           name: 'finishDate',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

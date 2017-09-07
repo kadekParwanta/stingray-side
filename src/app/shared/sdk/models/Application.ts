@@ -2,57 +2,57 @@
 
 declare var Object: any;
 export interface ApplicationInterface {
-  id?: string;
-  realm?: string;
-  name: string;
-  description?: string;
-  icon?: string;
-  owner?: string;
-  collaborators?: Array<string>;
-  email?: string;
-  emailVerified?: boolean;
-  url?: string;
-  callbackUrls?: Array<string>;
-  permissions?: Array<string>;
-  clientKey?: string;
-  javaScriptKey?: string;
-  restApiKey?: string;
-  windowsKey?: string;
-  masterKey?: string;
-  pushSettings?: any;
-  authenticationEnabled?: boolean;
-  anonymousAllowed?: boolean;
-  authenticationSchemes?: Array<any>;
-  status?: string;
-  created?: Date;
-  modified?: Date;
+  "id"?: string;
+  "realm"?: string;
+  "name": string;
+  "description"?: string;
+  "icon"?: string;
+  "owner"?: string;
+  "collaborators"?: Array<any>;
+  "email"?: string;
+  "emailVerified"?: boolean;
+  "url"?: string;
+  "callbackUrls"?: Array<any>;
+  "permissions"?: Array<any>;
+  "clientKey"?: string;
+  "javaScriptKey"?: string;
+  "restApiKey"?: string;
+  "windowsKey"?: string;
+  "masterKey"?: string;
+  "pushSettings"?: any;
+  "authenticationEnabled"?: boolean;
+  "anonymousAllowed"?: boolean;
+  "authenticationSchemes"?: Array<any>;
+  "status"?: string;
+  "created"?: Date;
+  "modified"?: Date;
 }
 
 export class Application implements ApplicationInterface {
-  id: string;
-  realm: string;
-  name: string;
-  description: string;
-  icon: string;
-  owner: string;
-  collaborators: Array<string>;
-  email: string;
-  emailVerified: boolean;
-  url: string;
-  callbackUrls: Array<string>;
-  permissions: Array<string>;
-  clientKey: string;
-  javaScriptKey: string;
-  restApiKey: string;
-  windowsKey: string;
-  masterKey: string;
-  pushSettings: any;
-  authenticationEnabled: boolean;
-  anonymousAllowed: boolean;
-  authenticationSchemes: Array<any>;
-  status: string;
-  created: Date;
-  modified: Date;
+  "id": string;
+  "realm": string;
+  "name": string;
+  "description": string;
+  "icon": string;
+  "owner": string;
+  "collaborators": Array<any>;
+  "email": string;
+  "emailVerified": boolean;
+  "url": string;
+  "callbackUrls": Array<any>;
+  "permissions": Array<any>;
+  "clientKey": string;
+  "javaScriptKey": string;
+  "restApiKey": string;
+  "windowsKey": string;
+  "masterKey": string;
+  "pushSettings": any;
+  "authenticationEnabled": boolean;
+  "anonymousAllowed": boolean;
+  "authenticationSchemes": Array<any>;
+  "status": string;
+  "created": Date;
+  "modified": Date;
   constructor(data?: ApplicationInterface) {
     Object.assign(this, data);
   }
@@ -71,7 +71,7 @@ export class Application implements ApplicationInterface {
   **/
   public static factory(data: ApplicationInterface): Application{
     return new Application(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -83,104 +83,105 @@ export class Application implements ApplicationInterface {
     return {
       name: 'Application',
       plural: 'Applications',
+      path: 'Applications',
       properties: {
-        id: {
+        "id": {
           name: 'id',
           type: 'string'
         },
-        realm: {
+        "realm": {
           name: 'realm',
           type: 'string'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        description: {
+        "description": {
           name: 'description',
           type: 'string'
         },
-        icon: {
+        "icon": {
           name: 'icon',
           type: 'string'
         },
-        owner: {
+        "owner": {
           name: 'owner',
           type: 'string'
         },
-        collaborators: {
+        "collaborators": {
           name: 'collaborators',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        email: {
+        "email": {
           name: 'email',
           type: 'string'
         },
-        emailVerified: {
+        "emailVerified": {
           name: 'emailVerified',
           type: 'boolean'
         },
-        url: {
+        "url": {
           name: 'url',
           type: 'string'
         },
-        callbackUrls: {
+        "callbackUrls": {
           name: 'callbackUrls',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        permissions: {
+        "permissions": {
           name: 'permissions',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        clientKey: {
+        "clientKey": {
           name: 'clientKey',
           type: 'string'
         },
-        javaScriptKey: {
+        "javaScriptKey": {
           name: 'javaScriptKey',
           type: 'string'
         },
-        restApiKey: {
+        "restApiKey": {
           name: 'restApiKey',
           type: 'string'
         },
-        windowsKey: {
+        "windowsKey": {
           name: 'windowsKey',
           type: 'string'
         },
-        masterKey: {
+        "masterKey": {
           name: 'masterKey',
           type: 'string'
         },
-        pushSettings: {
+        "pushSettings": {
           name: 'pushSettings',
           type: 'any'
         },
-        authenticationEnabled: {
+        "authenticationEnabled": {
           name: 'authenticationEnabled',
           type: 'boolean',
           default: true
         },
-        anonymousAllowed: {
+        "anonymousAllowed": {
           name: 'anonymousAllowed',
           type: 'boolean',
           default: true
         },
-        authenticationSchemes: {
+        "authenticationSchemes": {
           name: 'authenticationSchemes',
           type: 'Array&lt;any&gt;'
         },
-        status: {
+        "status": {
           name: 'status',
           type: 'string',
           default: 'sandbox'
         },
-        created: {
+        "created": {
           name: 'created',
           type: 'Date',
           default: new Date(0)
         },
-        modified: {
+        "modified": {
           name: 'modified',
           type: 'Date',
           default: new Date(0)

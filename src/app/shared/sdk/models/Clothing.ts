@@ -5,24 +5,24 @@ import {
 
 declare var Object: any;
 export interface ClothingInterface {
-  type?: string;
-  price?: number;
-  name?: string;
-  description?: string;
-  createdDate?: Date;
-  finishDate?: Date;
-  id?: any;
+  "type"?: string;
+  "price"?: number;
+  "name"?: string;
+  "description"?: string;
+  "createdDate"?: Date;
+  "finishDate"?: Date;
+  "id"?: any;
   photos?: Media[];
 }
 
 export class Clothing implements ClothingInterface {
-  type: string;
-  price: number;
-  name: string;
-  description: string;
-  createdDate: Date;
-  finishDate: Date;
-  id: any;
+  "type": string;
+  "price": number;
+  "name": string;
+  "description": string;
+  "createdDate": Date;
+  "finishDate": Date;
+  "id": any;
   photos: Media[];
   constructor(data?: ClothingInterface) {
     Object.assign(this, data);
@@ -42,7 +42,7 @@ export class Clothing implements ClothingInterface {
   **/
   public static factory(data: ClothingInterface): Clothing{
     return new Clothing(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -54,32 +54,33 @@ export class Clothing implements ClothingInterface {
     return {
       name: 'Clothing',
       plural: 'Clothings',
+      path: 'Clothings',
       properties: {
-        type: {
+        "type": {
           name: 'type',
           type: 'string'
         },
-        price: {
+        "price": {
           name: 'price',
           type: 'number'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        description: {
+        "description": {
           name: 'description',
           type: 'string'
         },
-        createdDate: {
+        "createdDate": {
           name: 'createdDate',
           type: 'Date'
         },
-        finishDate: {
+        "finishDate": {
           name: 'finishDate',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

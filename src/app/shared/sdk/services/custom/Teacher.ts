@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Rx';
 import { Teacher } from '../../models/Teacher';
 import { SocketConnection } from '../../sockets/socket.connections';
 import { Media } from '../../models/Media';
-import { School } from '../../models/School';
+import { Generation } from '../../models/Generation';
 
 
 /**
@@ -49,7 +49,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public getPhoto(id: any, refresh: any = {}): Observable<any> {
+  public getPhoto(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/photo";
@@ -58,8 +58,8 @@ export class TeacherApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (refresh) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -81,7 +81,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public createPhoto(id: any, data: Media = new Media()): Observable<any> {
+  public createPhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/photo";
@@ -92,7 +92,7 @@ export class TeacherApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -114,7 +114,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public updatePhoto(id: any, data: Media = new Media()): Observable<any> {
+  public updatePhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/photo";
@@ -125,7 +125,7 @@ export class TeacherApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -140,7 +140,7 @@ export class TeacherApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyPhoto(id: any): Observable<any> {
+  public destroyPhoto(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/photo";
@@ -149,12 +149,12 @@ export class TeacherApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
   /**
-   * Fetches belongsTo relation school.
+   * Fetches belongsTo relation generation.
    *
    * @param {any} id Person id
    *
@@ -169,17 +169,17 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public getSchool(id: any, refresh: any = {}): Observable<any> {
+  public getGeneration(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Teachers/:id/school";
+    "/Teachers/:id/generation";
     let _routeParams: any = {
       id: id
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (refresh) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -201,7 +201,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public upload(id: any, options: any = {}): Observable<any> {
+  public upload(id: any, options: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/upload";
@@ -210,8 +210,8 @@ export class TeacherApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (options) _urlParams.options = options;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof options !== 'undefined' && options !== null) _urlParams.options = options;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -233,7 +233,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public reupload(id: any, options: any = {}): Observable<any> {
+  public reupload(id: any, options: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/reupload";
@@ -242,8 +242,8 @@ export class TeacherApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (options) _urlParams.options = options;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof options !== 'undefined' && options !== null) _urlParams.options = options;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -265,7 +265,7 @@ export class TeacherApi extends BaseLoopBackApi {
    * This usually means the response is a `Teacher` object.)
    * </em>
    */
-  public createManyPhoto(id: any, data: Media[] = new Array<Media>()): Observable<any> {
+  public createManyPhoto(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Teachers/:id/photo";
@@ -276,7 +276,7 @@ export class TeacherApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

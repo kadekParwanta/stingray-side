@@ -2,47 +2,47 @@
 
 declare var Object: any;
 export interface MediaInterface {
-  url: string;
-  name?: string;
-  type?: string;
-  format?: string;
-  isProfilePicture?: string;
-  dateCreated?: Date;
-  userId?: any;
-  container?: string;
-  id?: any;
-  pictureId?: any;
-  personId?: any;
-  classId?: any;
-  generationId?: any;
-  schoolId?: any;
-  projectId?: any;
-  photographyId?: any;
-  eventOrganizerId?: any;
-  clothingId?: any;
-  musicId?: any;
+  "url": string;
+  "name"?: string;
+  "type"?: string;
+  "format"?: string;
+  "isProfilePicture"?: string;
+  "dateCreated"?: Date;
+  "userId"?: any;
+  "container"?: string;
+  "id"?: any;
+  "pictureId"?: any;
+  "personId"?: any;
+  "classId"?: any;
+  "generationId"?: any;
+  "schoolId"?: any;
+  "projectId"?: any;
+  "photographyId"?: any;
+  "eventOrganizerId"?: any;
+  "clothingId"?: any;
+  "musicId"?: any;
 }
 
 export class Media implements MediaInterface {
-  url: string;
-  name: string;
-  type: string;
-  format: string;
-  isProfilePicture: string;
-  dateCreated: Date;
-  userId: any;
-  container: string;
-  id: any;
-  pictureId: any;
-  personId: any;
-  classId: any;
-  generationId: any;
-  schoolId: any;
-  projectId: any;
-  photographyId: any;
-  eventOrganizerId: any;
-  clothingId: any;
-  musicId: any;
+  "url": string;
+  "name": string;
+  "type": string;
+  "format": string;
+  "isProfilePicture": string;
+  "dateCreated": Date;
+  "userId": any;
+  "container": string;
+  "id": any;
+  "pictureId": any;
+  "personId": any;
+  "classId": any;
+  "generationId": any;
+  "schoolId": any;
+  "projectId": any;
+  "photographyId": any;
+  "eventOrganizerId": any;
+  "clothingId": any;
+  "musicId": any;
   constructor(data?: MediaInterface) {
     Object.assign(this, data);
   }
@@ -61,7 +61,7 @@ export class Media implements MediaInterface {
   **/
   public static factory(data: MediaInterface): Media{
     return new Media(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -73,80 +73,81 @@ export class Media implements MediaInterface {
     return {
       name: 'Media',
       plural: 'Media',
+      path: 'Media',
       properties: {
-        url: {
+        "url": {
           name: 'url',
           type: 'string'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        type: {
+        "type": {
           name: 'type',
           type: 'string'
         },
-        format: {
+        "format": {
           name: 'format',
           type: 'string'
         },
-        isProfilePicture: {
+        "isProfilePicture": {
           name: 'isProfilePicture',
           type: 'string'
         },
-        dateCreated: {
+        "dateCreated": {
           name: 'dateCreated',
           type: 'Date'
         },
-        userId: {
+        "userId": {
           name: 'userId',
           type: 'any'
         },
-        container: {
+        "container": {
           name: 'container',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        pictureId: {
+        "pictureId": {
           name: 'pictureId',
           type: 'any'
         },
-        personId: {
+        "personId": {
           name: 'personId',
           type: 'any'
         },
-        classId: {
+        "classId": {
           name: 'classId',
           type: 'any'
         },
-        generationId: {
+        "generationId": {
           name: 'generationId',
           type: 'any'
         },
-        schoolId: {
+        "schoolId": {
           name: 'schoolId',
           type: 'any'
         },
-        projectId: {
+        "projectId": {
           name: 'projectId',
           type: 'any'
         },
-        photographyId: {
+        "photographyId": {
           name: 'photographyId',
           type: 'any'
         },
-        eventOrganizerId: {
+        "eventOrganizerId": {
           name: 'eventOrganizerId',
           type: 'any'
         },
-        clothingId: {
+        "clothingId": {
           name: 'clothingId',
           type: 'any'
         },
-        musicId: {
+        "musicId": {
           name: 'musicId',
           type: 'any'
         },

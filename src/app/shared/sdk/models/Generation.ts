@@ -2,31 +2,36 @@
 import {
   Class,
   Media,
+  Teacher,
   School,
   Yearbook
 } from '../index';
 
 declare var Object: any;
 export interface GenerationInterface {
-  name?: string;
-  year?: number;
-  barcode?: string;
-  id?: any;
-  schoolId?: any;
+  "name"?: string;
+  "year"?: number;
+  "barcode"?: string;
+  "id"?: any;
+  "userId"?: any;
+  "schoolId"?: any;
   classes?: Class[];
   photos?: Media[];
+  teachers?: Teacher[];
   school?: School;
   yearbook?: Yearbook;
 }
 
 export class Generation implements GenerationInterface {
-  name: string;
-  year: number;
-  barcode: string;
-  id: any;
-  schoolId: any;
+  "name": string;
+  "year": number;
+  "barcode": string;
+  "id": any;
+  "userId": any;
+  "schoolId": any;
   classes: Class[];
   photos: Media[];
+  teachers: Teacher[];
   school: School;
   yearbook: Yearbook;
   constructor(data?: GenerationInterface) {
@@ -47,7 +52,7 @@ export class Generation implements GenerationInterface {
   **/
   public static factory(data: GenerationInterface): Generation{
     return new Generation(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -59,24 +64,29 @@ export class Generation implements GenerationInterface {
     return {
       name: 'Generation',
       plural: 'Generations',
+      path: 'Generations',
       properties: {
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        year: {
+        "year": {
           name: 'year',
           type: 'number'
         },
-        barcode: {
+        "barcode": {
           name: 'barcode',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        schoolId: {
+        "userId": {
+          name: 'userId',
+          type: 'any'
+        },
+        "schoolId": {
           name: 'schoolId',
           type: 'any'
         },
@@ -91,6 +101,11 @@ export class Generation implements GenerationInterface {
           name: 'photos',
           type: 'Media[]',
           model: 'Media'
+        },
+        teachers: {
+          name: 'teachers',
+          type: 'Teacher[]',
+          model: 'Teacher'
         },
         school: {
           name: 'school',

@@ -5,24 +5,24 @@ import {
 
 declare var Object: any;
 export interface MusicInterface {
-  artist?: string;
-  length?: number;
-  name?: string;
-  description?: string;
-  createdDate?: Date;
-  finishDate?: Date;
-  id?: any;
+  "artist"?: string;
+  "length"?: number;
+  "name"?: string;
+  "description"?: string;
+  "createdDate"?: Date;
+  "finishDate"?: Date;
+  "id"?: any;
   photos?: Media[];
 }
 
 export class Music implements MusicInterface {
-  artist: string;
-  length: number;
-  name: string;
-  description: string;
-  createdDate: Date;
-  finishDate: Date;
-  id: any;
+  "artist": string;
+  "length": number;
+  "name": string;
+  "description": string;
+  "createdDate": Date;
+  "finishDate": Date;
+  "id": any;
   photos: Media[];
   constructor(data?: MusicInterface) {
     Object.assign(this, data);
@@ -42,7 +42,7 @@ export class Music implements MusicInterface {
   **/
   public static factory(data: MusicInterface): Music{
     return new Music(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -54,32 +54,33 @@ export class Music implements MusicInterface {
     return {
       name: 'Music',
       plural: 'Music',
+      path: 'Music',
       properties: {
-        artist: {
+        "artist": {
           name: 'artist',
           type: 'string'
         },
-        length: {
+        "length": {
           name: 'length',
           type: 'number'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        description: {
+        "description": {
           name: 'description',
           type: 'string'
         },
-        createdDate: {
+        "createdDate": {
           name: 'createdDate',
           type: 'Date'
         },
-        finishDate: {
+        "finishDate": {
           name: 'finishDate',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

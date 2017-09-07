@@ -2,11 +2,11 @@
 
 declare var Object: any;
 export interface ContainerInterface {
-  id?: number;
+  "id"?: number;
 }
 
 export class Container implements ContainerInterface {
-  id: number;
+  "id": number;
   constructor(data?: ContainerInterface) {
     Object.assign(this, data);
   }
@@ -25,7 +25,7 @@ export class Container implements ContainerInterface {
   **/
   public static factory(data: ContainerInterface): Container{
     return new Container(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -37,8 +37,9 @@ export class Container implements ContainerInterface {
     return {
       name: 'Container',
       plural: 'Containers',
+      path: 'Containers',
       properties: {
-        id: {
+        "id": {
           name: 'id',
           type: 'number'
         },

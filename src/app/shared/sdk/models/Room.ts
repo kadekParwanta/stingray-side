@@ -2,13 +2,13 @@
 
 declare var Object: any;
 export interface RoomInterface {
-  name: string;
-  id?: any;
+  "name": string;
+  "id"?: any;
 }
 
 export class Room implements RoomInterface {
-  name: string;
-  id: any;
+  "name": string;
+  "id": any;
   constructor(data?: RoomInterface) {
     Object.assign(this, data);
   }
@@ -27,7 +27,7 @@ export class Room implements RoomInterface {
   **/
   public static factory(data: RoomInterface): Room{
     return new Room(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -39,12 +39,13 @@ export class Room implements RoomInterface {
     return {
       name: 'Room',
       plural: 'Rooms',
+      path: 'Rooms',
       properties: {
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

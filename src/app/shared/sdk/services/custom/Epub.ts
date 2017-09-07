@@ -48,7 +48,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public findByIdEpubpages(id: any, fk: any): Observable<any> {
+  public findByIdEpubpages(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/:fk";
@@ -58,7 +58,7 @@ export class EpubApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -75,7 +75,7 @@ export class EpubApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdEpubpages(id: any, fk: any): Observable<any> {
+  public destroyByIdEpubpages(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/:fk";
@@ -85,7 +85,7 @@ export class EpubApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -109,7 +109,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public updateByIdEpubpages(id: any, fk: any, data: Epubpage = new Epubpage()): Observable<any> {
+  public updateByIdEpubpages(id: any, fk: any, data: Epubpage = new Epubpage(), customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/:fk";
@@ -121,7 +121,7 @@ export class EpubApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -141,7 +141,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public getEpubpages(id: any, filter: LoopBackFilter = {}): Observable<any> {
+  public getEpubpages(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -150,8 +150,8 @@ export class EpubApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (filter) _urlParams.filter = filter;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -173,7 +173,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createEpubpages(id: any, data: Epubpage = new Epubpage()): Observable<any> {
+  public createEpubpages(id: any, data: Epubpage = new Epubpage(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -184,7 +184,7 @@ export class EpubApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -199,7 +199,7 @@ export class EpubApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteEpubpages(id: any): Observable<any> {
+  public deleteEpubpages(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -208,7 +208,7 @@ export class EpubApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -227,7 +227,7 @@ export class EpubApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countEpubpages(id: any, where: any = {}): Observable<any> {
+  public countEpubpages(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/count";
@@ -236,8 +236,8 @@ export class EpubApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (where) _urlParams.where = where;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -259,7 +259,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createManyEpubpages(id: any, data: Epubpage[] = new Array<Epubpage>()): Observable<any> {
+  public createManyEpubpages(id: any, data: Epubpage[] = new Array<Epubpage>(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -270,7 +270,7 @@ export class EpubApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

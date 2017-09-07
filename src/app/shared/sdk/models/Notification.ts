@@ -2,43 +2,43 @@
 
 declare var Object: any;
 export interface NotificationInterface {
-  alert?: any;
-  badge?: number;
-  category?: string;
-  collapseKey?: string;
-  contentAvailable?: boolean;
-  created?: Date;
-  delayWhileIdle?: boolean;
-  deviceToken: string;
-  deviceType: string;
-  expirationInterval?: number;
-  expirationTime?: Date;
-  modified?: Date;
-  scheduledTime?: Date;
-  sound?: string;
-  status?: string;
-  urlArgs?: Array<string>;
-  id?: any;
+  "alert"?: any;
+  "badge"?: number;
+  "category"?: string;
+  "collapseKey"?: string;
+  "contentAvailable"?: boolean;
+  "created"?: Date;
+  "delayWhileIdle"?: boolean;
+  "deviceToken": string;
+  "deviceType": string;
+  "expirationInterval"?: number;
+  "expirationTime"?: Date;
+  "modified"?: Date;
+  "scheduledTime"?: Date;
+  "sound"?: string;
+  "status"?: string;
+  "urlArgs"?: Array<any>;
+  "id"?: any;
 }
 
 export class Notification implements NotificationInterface {
-  alert: any;
-  badge: number;
-  category: string;
-  collapseKey: string;
-  contentAvailable: boolean;
-  created: Date;
-  delayWhileIdle: boolean;
-  deviceToken: string;
-  deviceType: string;
-  expirationInterval: number;
-  expirationTime: Date;
-  modified: Date;
-  scheduledTime: Date;
-  sound: string;
-  status: string;
-  urlArgs: Array<string>;
-  id: any;
+  "alert": any;
+  "badge": number;
+  "category": string;
+  "collapseKey": string;
+  "contentAvailable": boolean;
+  "created": Date;
+  "delayWhileIdle": boolean;
+  "deviceToken": string;
+  "deviceType": string;
+  "expirationInterval": number;
+  "expirationTime": Date;
+  "modified": Date;
+  "scheduledTime": Date;
+  "sound": string;
+  "status": string;
+  "urlArgs": Array<any>;
+  "id": any;
   constructor(data?: NotificationInterface) {
     Object.assign(this, data);
   }
@@ -57,7 +57,7 @@ export class Notification implements NotificationInterface {
   **/
   public static factory(data: NotificationInterface): Notification{
     return new Notification(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -69,72 +69,73 @@ export class Notification implements NotificationInterface {
     return {
       name: 'Notification',
       plural: 'Notifications',
+      path: 'Notifications',
       properties: {
-        alert: {
+        "alert": {
           name: 'alert',
           type: 'any'
         },
-        badge: {
+        "badge": {
           name: 'badge',
           type: 'number'
         },
-        category: {
+        "category": {
           name: 'category',
           type: 'string'
         },
-        collapseKey: {
+        "collapseKey": {
           name: 'collapseKey',
           type: 'string'
         },
-        contentAvailable: {
+        "contentAvailable": {
           name: 'contentAvailable',
           type: 'boolean'
         },
-        created: {
+        "created": {
           name: 'created',
           type: 'Date'
         },
-        delayWhileIdle: {
+        "delayWhileIdle": {
           name: 'delayWhileIdle',
           type: 'boolean'
         },
-        deviceToken: {
+        "deviceToken": {
           name: 'deviceToken',
           type: 'string'
         },
-        deviceType: {
+        "deviceType": {
           name: 'deviceType',
           type: 'string'
         },
-        expirationInterval: {
+        "expirationInterval": {
           name: 'expirationInterval',
           type: 'number'
         },
-        expirationTime: {
+        "expirationTime": {
           name: 'expirationTime',
           type: 'Date'
         },
-        modified: {
+        "modified": {
           name: 'modified',
           type: 'Date'
         },
-        scheduledTime: {
+        "scheduledTime": {
           name: 'scheduledTime',
           type: 'Date'
         },
-        sound: {
+        "sound": {
           name: 'sound',
           type: 'string'
         },
-        status: {
+        "status": {
           name: 'status',
           type: 'string'
         },
-        urlArgs: {
+        "urlArgs": {
           name: 'urlArgs',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

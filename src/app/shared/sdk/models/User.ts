@@ -1,65 +1,72 @@
 /* tslint:disable */
 import {
   Media,
+  Class,
+  Generation,
+  School,
   Message,
   Room
 } from '../index';
 
 declare var Object: any;
 export interface UserInterface {
-  firstName?: string;
-  lastName?: string;
-  dateOfBirth?: Date;
-  phoneNumber?: string;
-  address?: string;
-  profilePicture?: string;
-  roleName?: Array<string>;
-  realm?: string;
-  username?: string;
-  password: string;
-  challenges?: any;
-  email: string;
-  emailVerified?: boolean;
-  verificationToken?: string;
-  status?: string;
-  created?: Date;
-  lastUpdated?: Date;
-  id?: any;
-  creatorId?: any;
+  "firstName"?: string;
+  "lastName"?: string;
+  "dateOfBirth"?: Date;
+  "phoneNumber"?: string;
+  "address"?: string;
+  "profilePicture"?: string;
+  "roleName"?: Array<any>;
+  "realm"?: string;
+  "username"?: string;
+  "challenges"?: any;
+  "email": string;
+  "emailVerified"?: boolean;
+  "status"?: string;
+  "created"?: Date;
+  "lastUpdated"?: Date;
+  "id"?: any;
+  "creatorId"?: any;
+  "password"?: string;
   accessTokens?: any[];
   Role?: any[];
   roleMapping?: any[];
   creator?: User;
   media?: Media;
+  class?: Class;
+  generation?: Generation;
+  school?: School;
   messages?: Message[];
   rooms?: Room[];
 }
 
 export class User implements UserInterface {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date;
-  phoneNumber: string;
-  address: string;
-  profilePicture: string;
-  roleName: Array<string>;
-  realm: string;
-  username: string;
-  password: string;
-  challenges: any;
-  email: string;
-  emailVerified: boolean;
-  verificationToken: string;
-  status: string;
-  created: Date;
-  lastUpdated: Date;
-  id: any;
-  creatorId: any;
+  "firstName": string;
+  "lastName": string;
+  "dateOfBirth": Date;
+  "phoneNumber": string;
+  "address": string;
+  "profilePicture": string;
+  "roleName": Array<any>;
+  "realm": string;
+  "username": string;
+  "challenges": any;
+  "email": string;
+  "emailVerified": boolean;
+  "status": string;
+  "created": Date;
+  "lastUpdated": Date;
+  "id": any;
+  "creatorId": any;
+  "password": string;
   accessTokens: any[];
   Role: any[];
   roleMapping: any[];
   creator: User;
   media: Media;
+  class: Class;
+  generation: Generation;
+  school: School;
   messages: Message[];
   rooms: Room[];
   constructor(data?: UserInterface) {
@@ -80,7 +87,7 @@ export class User implements UserInterface {
   **/
   public static factory(data: UserInterface): User{
     return new User(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -92,86 +99,83 @@ export class User implements UserInterface {
     return {
       name: 'User',
       plural: 'Users',
+      path: 'Users',
       properties: {
-        firstName: {
+        "firstName": {
           name: 'firstName',
           type: 'string'
         },
-        lastName: {
+        "lastName": {
           name: 'lastName',
           type: 'string'
         },
-        dateOfBirth: {
+        "dateOfBirth": {
           name: 'dateOfBirth',
           type: 'Date'
         },
-        phoneNumber: {
+        "phoneNumber": {
           name: 'phoneNumber',
           type: 'string'
         },
-        address: {
+        "address": {
           name: 'address',
           type: 'string'
         },
-        profilePicture: {
+        "profilePicture": {
           name: 'profilePicture',
           type: 'string'
         },
-        roleName: {
+        "roleName": {
           name: 'roleName',
-          type: 'Array&lt;string&gt;'
+          type: 'Array&lt;any&gt;'
         },
-        realm: {
+        "realm": {
           name: 'realm',
           type: 'string'
         },
-        username: {
+        "username": {
           name: 'username',
           type: 'string'
         },
-        password: {
-          name: 'password',
-          type: 'string'
-        },
-        credentials: {
+        "credentials": {
           name: 'credentials',
           type: 'any'
         },
-        challenges: {
+        "challenges": {
           name: 'challenges',
           type: 'any'
         },
-        email: {
+        "email": {
           name: 'email',
           type: 'string'
         },
-        emailVerified: {
+        "emailVerified": {
           name: 'emailVerified',
           type: 'boolean'
         },
-        verificationToken: {
-          name: 'verificationToken',
-          type: 'string'
-        },
-        status: {
+        "status": {
           name: 'status',
           type: 'string'
         },
-        created: {
+        "created": {
           name: 'created',
           type: 'Date'
         },
-        lastUpdated: {
+        "lastUpdated": {
           name: 'lastUpdated',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        creatorId: {
+        "creatorId": {
           name: 'creatorId',
           type: 'any'
+        },
+        "password": {
+          name: 'password',
+          type: 'string'
         },
       },
       relations: {
@@ -199,6 +203,21 @@ export class User implements UserInterface {
           name: 'media',
           type: 'Media',
           model: 'Media'
+        },
+        class: {
+          name: 'class',
+          type: 'Class',
+          model: 'Class'
+        },
+        generation: {
+          name: 'generation',
+          type: 'Generation',
+          model: 'Generation'
+        },
+        school: {
+          name: 'school',
+          type: 'School',
+          model: 'School'
         },
         messages: {
           name: 'messages',

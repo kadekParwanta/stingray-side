@@ -5,18 +5,18 @@ import {
 
 declare var Object: any;
 export interface MessageInterface {
-  text: string;
-  createdDate: Date;
-  id?: any;
-  userId?: any;
+  "text": string;
+  "createdDate": Date;
+  "id"?: any;
+  "userId"?: any;
   sender?: User;
 }
 
 export class Message implements MessageInterface {
-  text: string;
-  createdDate: Date;
-  id: any;
-  userId: any;
+  "text": string;
+  "createdDate": Date;
+  "id": any;
+  "userId": any;
   sender: User;
   constructor(data?: MessageInterface) {
     Object.assign(this, data);
@@ -36,7 +36,7 @@ export class Message implements MessageInterface {
   **/
   public static factory(data: MessageInterface): Message{
     return new Message(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -48,20 +48,21 @@ export class Message implements MessageInterface {
     return {
       name: 'Message',
       plural: 'Messages',
+      path: 'Messages',
       properties: {
-        text: {
+        "text": {
           name: 'text',
           type: 'string'
         },
-        createdDate: {
+        "createdDate": {
           name: 'createdDate',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        userId: {
+        "userId": {
           name: 'userId',
           type: 'any'
         },

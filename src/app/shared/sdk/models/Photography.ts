@@ -5,24 +5,24 @@ import {
 
 declare var Object: any;
 export interface PhotographyInterface {
-  location?: string;
-  topic?: string;
-  name?: string;
-  description?: string;
-  createdDate?: Date;
-  finishDate?: Date;
-  id?: any;
+  "location"?: string;
+  "topic"?: string;
+  "name"?: string;
+  "description"?: string;
+  "createdDate"?: Date;
+  "finishDate"?: Date;
+  "id"?: any;
   photos?: Media[];
 }
 
 export class Photography implements PhotographyInterface {
-  location: string;
-  topic: string;
-  name: string;
-  description: string;
-  createdDate: Date;
-  finishDate: Date;
-  id: any;
+  "location": string;
+  "topic": string;
+  "name": string;
+  "description": string;
+  "createdDate": Date;
+  "finishDate": Date;
+  "id": any;
   photos: Media[];
   constructor(data?: PhotographyInterface) {
     Object.assign(this, data);
@@ -42,7 +42,7 @@ export class Photography implements PhotographyInterface {
   **/
   public static factory(data: PhotographyInterface): Photography{
     return new Photography(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -54,32 +54,33 @@ export class Photography implements PhotographyInterface {
     return {
       name: 'Photography',
       plural: 'Photographies',
+      path: 'Photographies',
       properties: {
-        location: {
+        "location": {
           name: 'location',
           type: 'string'
         },
-        topic: {
+        "topic": {
           name: 'topic',
           type: 'string'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        description: {
+        "description": {
           name: 'description',
           type: 'string'
         },
-        createdDate: {
+        "createdDate": {
           name: 'createdDate',
           type: 'Date'
         },
-        finishDate: {
+        "finishDate": {
           name: 'finishDate',
           type: 'Date'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

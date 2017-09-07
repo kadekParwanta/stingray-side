@@ -7,18 +7,20 @@ import {
 
 declare var Object: any;
 export interface ClassInterface {
-  name: string;
-  id?: any;
-  generationId?: any;
+  "name": string;
+  "id"?: any;
+  "userId"?: any;
+  "generationId"?: any;
   students?: Student[];
   photos?: Media[];
   generation?: Generation;
 }
 
 export class Class implements ClassInterface {
-  name: string;
-  id: any;
-  generationId: any;
+  "name": string;
+  "id": any;
+  "userId": any;
+  "generationId": any;
   students: Student[];
   photos: Media[];
   generation: Generation;
@@ -40,7 +42,7 @@ export class Class implements ClassInterface {
   **/
   public static factory(data: ClassInterface): Class{
     return new Class(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -52,16 +54,21 @@ export class Class implements ClassInterface {
     return {
       name: 'Class',
       plural: 'Classes',
+      path: 'Classes',
       properties: {
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        generationId: {
+        "userId": {
+          name: 'userId',
+          type: 'any'
+        },
+        "generationId": {
           name: 'generationId',
           type: 'any'
         },

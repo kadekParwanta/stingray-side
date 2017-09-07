@@ -2,11 +2,11 @@
 
 declare var Object: any;
 export interface PushInterface {
-  id?: number;
+  "id"?: number;
 }
 
 export class Push implements PushInterface {
-  id: number;
+  "id": number;
   constructor(data?: PushInterface) {
     Object.assign(this, data);
   }
@@ -25,7 +25,7 @@ export class Push implements PushInterface {
   **/
   public static factory(data: PushInterface): Push{
     return new Push(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -37,8 +37,9 @@ export class Push implements PushInterface {
     return {
       name: 'Push',
       plural: 'Push',
+      path: 'Push',
       properties: {
-        id: {
+        "id": {
           name: 'id',
           type: 'number'
         },

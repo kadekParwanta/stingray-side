@@ -1,30 +1,30 @@
 /* tslint:disable */
 import {
   Media,
-  School
+  Generation
 } from '../index';
 
 declare var Object: any;
 export interface TeacherInterface {
-  NIK?: string;
-  name: string;
-  phonenumber?: string;
-  address?: string;
-  id?: any;
-  schoolId?: any;
+  "NIK"?: string;
+  "name": string;
+  "phonenumber"?: string;
+  "address"?: string;
+  "id"?: any;
+  "generationId"?: any;
   photo?: Media;
-  school?: School;
+  generation?: Generation;
 }
 
 export class Teacher implements TeacherInterface {
-  NIK: string;
-  name: string;
-  phonenumber: string;
-  address: string;
-  id: any;
-  schoolId: any;
+  "NIK": string;
+  "name": string;
+  "phonenumber": string;
+  "address": string;
+  "id": any;
+  "generationId": any;
   photo: Media;
-  school: School;
+  generation: Generation;
   constructor(data?: TeacherInterface) {
     Object.assign(this, data);
   }
@@ -43,7 +43,7 @@ export class Teacher implements TeacherInterface {
   **/
   public static factory(data: TeacherInterface): Teacher{
     return new Teacher(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -55,29 +55,30 @@ export class Teacher implements TeacherInterface {
     return {
       name: 'Teacher',
       plural: 'Teachers',
+      path: 'Teachers',
       properties: {
-        NIK: {
+        "NIK": {
           name: 'NIK',
           type: 'string'
         },
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        phonenumber: {
+        "phonenumber": {
           name: 'phonenumber',
           type: 'string'
         },
-        address: {
+        "address": {
           name: 'address',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        schoolId: {
-          name: 'schoolId',
+        "generationId": {
+          name: 'generationId',
           type: 'any'
         },
       },
@@ -87,10 +88,10 @@ export class Teacher implements TeacherInterface {
           type: 'Media',
           model: 'Media'
         },
-        school: {
-          name: 'school',
-          type: 'School',
-          model: 'School'
+        generation: {
+          name: 'generation',
+          type: 'Generation',
+          model: 'Generation'
         },
       }
     }

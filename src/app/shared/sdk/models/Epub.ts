@@ -5,18 +5,18 @@ import {
 
 declare var Object: any;
 export interface EpubInterface {
-  author?: string;
-  publisher?: string;
-  id?: any;
-  yearbookId?: any;
+  "author"?: string;
+  "publisher"?: string;
+  "id"?: any;
+  "yearbookId"?: any;
   epubpages?: Epubpage[];
 }
 
 export class Epub implements EpubInterface {
-  author: string;
-  publisher: string;
-  id: any;
-  yearbookId: any;
+  "author": string;
+  "publisher": string;
+  "id": any;
+  "yearbookId": any;
   epubpages: Epubpage[];
   constructor(data?: EpubInterface) {
     Object.assign(this, data);
@@ -36,7 +36,7 @@ export class Epub implements EpubInterface {
   **/
   public static factory(data: EpubInterface): Epub{
     return new Epub(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -48,20 +48,21 @@ export class Epub implements EpubInterface {
     return {
       name: 'Epub',
       plural: 'Epubs',
+      path: 'Epubs',
       properties: {
-        author: {
+        "author": {
           name: 'author',
           type: 'string'
         },
-        publisher: {
+        "publisher": {
           name: 'publisher',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        yearbookId: {
+        "yearbookId": {
           name: 'yearbookId',
           type: 'any'
         },

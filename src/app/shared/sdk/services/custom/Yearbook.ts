@@ -48,7 +48,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public getEpub(id: any, refresh: any = {}): Observable<any> {
+  public getEpub(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -57,8 +57,8 @@ export class YearbookApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (refresh) _urlParams.refresh = refresh;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -80,7 +80,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createEpub(id: any, data: Epub = new Epub()): Observable<any> {
+  public createEpub(id: any, data: Epub = new Epub(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -91,7 +91,7 @@ export class YearbookApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -113,7 +113,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public updateEpub(id: any, data: Epub = new Epub()): Observable<any> {
+  public updateEpub(id: any, data: Epub = new Epub(), customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -124,7 +124,7 @@ export class YearbookApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -139,7 +139,7 @@ export class YearbookApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyEpub(id: any): Observable<any> {
+  public destroyEpub(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -148,7 +148,7 @@ export class YearbookApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -168,7 +168,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public generateEpub(id: any, options: any = {}): Observable<any> {
+  public generateEpub(id: any, options: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/generateEpub";
@@ -177,8 +177,8 @@ export class YearbookApi extends BaseLoopBackApi {
     };
     let _postBody: any = {};
     let _urlParams: any = {};
-    if (options) _urlParams.options = options;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof options !== 'undefined' && options !== null) _urlParams.options = options;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -200,7 +200,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createManyEpub(id: any, data: Epub[] = new Array<Epub>()): Observable<any> {
+  public createManyEpub(id: any, data: Epub[] = new Array<Epub>(), customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -211,7 +211,7 @@ export class YearbookApi extends BaseLoopBackApi {
       data: data
     };
     let _urlParams: any = {};
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

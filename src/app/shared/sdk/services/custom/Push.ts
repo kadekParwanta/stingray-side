@@ -38,7 +38,7 @@ export class PushApi extends BaseLoopBackApi {
    *
    * @param {object} data Request data.
    *
-   * This method expects a subset of model properties as request parameters.
+   *  - `notification` – `{object}` - Notification
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -49,7 +49,7 @@ export class PushApi extends BaseLoopBackApi {
    * This usually means the response is a `Push` object.)
    * </em>
    */
-  public notifyByQuery(deviceQuery: any = {}, notification: any = {}): Observable<any> {
+  public notifyByQuery(deviceQuery: any = {}, notification: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Push";
@@ -58,8 +58,8 @@ export class PushApi extends BaseLoopBackApi {
       notification: notification
     };
     let _urlParams: any = {};
-    if (deviceQuery) _urlParams.deviceQuery = deviceQuery;
-    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody);
+    if (typeof deviceQuery !== 'undefined' && deviceQuery !== null) _urlParams.deviceQuery = deviceQuery;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 

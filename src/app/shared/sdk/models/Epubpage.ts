@@ -2,27 +2,27 @@
 
 declare var Object: any;
 export interface EpubpageInterface {
-  pageNo: string;
-  title?: string;
-  data: string;
-  author?: string;
-  excludeFromToc?: string;
-  beforeToc?: string;
-  filename?: string;
-  id?: any;
-  epubId?: any;
+  "pageNo": string;
+  "title"?: string;
+  "data": string;
+  "author"?: string;
+  "excludeFromToc"?: string;
+  "beforeToc"?: string;
+  "filename"?: string;
+  "id"?: any;
+  "epubId"?: any;
 }
 
 export class Epubpage implements EpubpageInterface {
-  pageNo: string;
-  title: string;
-  data: string;
-  author: string;
-  excludeFromToc: string;
-  beforeToc: string;
-  filename: string;
-  id: any;
-  epubId: any;
+  "pageNo": string;
+  "title": string;
+  "data": string;
+  "author": string;
+  "excludeFromToc": string;
+  "beforeToc": string;
+  "filename": string;
+  "id": any;
+  "epubId": any;
   constructor(data?: EpubpageInterface) {
     Object.assign(this, data);
   }
@@ -41,7 +41,7 @@ export class Epubpage implements EpubpageInterface {
   **/
   public static factory(data: EpubpageInterface): Epubpage{
     return new Epubpage(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -53,40 +53,41 @@ export class Epubpage implements EpubpageInterface {
     return {
       name: 'Epubpage',
       plural: 'Epubpages',
+      path: 'Epubpages',
       properties: {
-        pageNo: {
+        "pageNo": {
           name: 'pageNo',
           type: 'string'
         },
-        title: {
+        "title": {
           name: 'title',
           type: 'string'
         },
-        data: {
+        "data": {
           name: 'data',
           type: 'string'
         },
-        author: {
+        "author": {
           name: 'author',
           type: 'string'
         },
-        excludeFromToc: {
+        "excludeFromToc": {
           name: 'excludeFromToc',
           type: 'string'
         },
-        beforeToc: {
+        "beforeToc": {
           name: 'beforeToc',
           type: 'string'
         },
-        filename: {
+        "filename": {
           name: 'filename',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },
-        epubId: {
+        "epubId": {
           name: 'epubId',
           type: 'any'
         },

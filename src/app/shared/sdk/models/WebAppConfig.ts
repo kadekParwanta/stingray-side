@@ -2,29 +2,29 @@
 
 declare var Object: any;
 export interface WebAppConfigInterface {
-  webName: string;
-  companyName: string;
-  initial: string;
-  webVersion: string;
-  disableSignUp: boolean;
-  disableResetPassword: boolean;
-  disableForgotPassword: boolean;
-  copyright: string;
-  formDefinition: any;
-  id?: any;
+  "webName": string;
+  "companyName": string;
+  "initial": string;
+  "webVersion": string;
+  "disableSignUp": boolean;
+  "disableResetPassword": boolean;
+  "disableForgotPassword": boolean;
+  "copyright": string;
+  "formDefinition": any;
+  "id"?: any;
 }
 
 export class WebAppConfig implements WebAppConfigInterface {
-  webName: string;
-  companyName: string;
-  initial: string;
-  webVersion: string;
-  disableSignUp: boolean;
-  disableResetPassword: boolean;
-  disableForgotPassword: boolean;
-  copyright: string;
-  formDefinition: any;
-  id: any;
+  "webName": string;
+  "companyName": string;
+  "initial": string;
+  "webVersion": string;
+  "disableSignUp": boolean;
+  "disableResetPassword": boolean;
+  "disableForgotPassword": boolean;
+  "copyright": string;
+  "formDefinition": any;
+  "id": any;
   constructor(data?: WebAppConfigInterface) {
     Object.assign(this, data);
   }
@@ -43,7 +43,7 @@ export class WebAppConfig implements WebAppConfigInterface {
   **/
   public static factory(data: WebAppConfigInterface): WebAppConfig{
     return new WebAppConfig(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -55,44 +55,45 @@ export class WebAppConfig implements WebAppConfigInterface {
     return {
       name: 'WebAppConfig',
       plural: 'WebAppConfigs',
+      path: 'WebAppConfigs',
       properties: {
-        webName: {
+        "webName": {
           name: 'webName',
           type: 'string'
         },
-        companyName: {
+        "companyName": {
           name: 'companyName',
           type: 'string'
         },
-        initial: {
+        "initial": {
           name: 'initial',
           type: 'string'
         },
-        webVersion: {
+        "webVersion": {
           name: 'webVersion',
           type: 'string'
         },
-        disableSignUp: {
+        "disableSignUp": {
           name: 'disableSignUp',
           type: 'boolean'
         },
-        disableResetPassword: {
+        "disableResetPassword": {
           name: 'disableResetPassword',
           type: 'boolean'
         },
-        disableForgotPassword: {
+        "disableForgotPassword": {
           name: 'disableForgotPassword',
           type: 'boolean'
         },
-        copyright: {
+        "copyright": {
           name: 'copyright',
           type: 'string'
         },
-        formDefinition: {
+        "formDefinition": {
           name: 'formDefinition',
           type: 'any'
         },
-        id: {
+        "id": {
           name: 'id',
           type: 'any'
         },

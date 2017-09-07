@@ -1,30 +1,29 @@
 /* tslint:disable */
 import {
   Generation,
-  Teacher,
   Media
 } from '../index';
 
 declare var Object: any;
 export interface SchoolInterface {
-  name: string;
-  address?: string;
-  profile?: string;
-  hymne?: string;
-  id?: any;
+  "name": string;
+  "address"?: string;
+  "profile"?: string;
+  "hymne"?: string;
+  "id"?: any;
+  "userId"?: any;
   generations?: Generation[];
-  teachers?: Teacher[];
   photos?: Media[];
 }
 
 export class School implements SchoolInterface {
-  name: string;
-  address: string;
-  profile: string;
-  hymne: string;
-  id: any;
+  "name": string;
+  "address": string;
+  "profile": string;
+  "hymne": string;
+  "id": any;
+  "userId": any;
   generations: Generation[];
-  teachers: Teacher[];
   photos: Media[];
   constructor(data?: SchoolInterface) {
     Object.assign(this, data);
@@ -44,7 +43,7 @@ export class School implements SchoolInterface {
   **/
   public static factory(data: SchoolInterface): School{
     return new School(data);
-  }  
+  }
   /**
   * @method getModelDefinition
   * @author Julien Ledun
@@ -56,25 +55,30 @@ export class School implements SchoolInterface {
     return {
       name: 'School',
       plural: 'Schools',
+      path: 'Schools',
       properties: {
-        name: {
+        "name": {
           name: 'name',
           type: 'string'
         },
-        address: {
+        "address": {
           name: 'address',
           type: 'string'
         },
-        profile: {
+        "profile": {
           name: 'profile',
           type: 'string'
         },
-        hymne: {
+        "hymne": {
           name: 'hymne',
           type: 'string'
         },
-        id: {
+        "id": {
           name: 'id',
+          type: 'any'
+        },
+        "userId": {
+          name: 'userId',
           type: 'any'
         },
       },
@@ -83,11 +87,6 @@ export class School implements SchoolInterface {
           name: 'generations',
           type: 'Generation[]',
           model: 'Generation'
-        },
-        teachers: {
-          name: 'teachers',
-          type: 'Teacher[]',
-          model: 'Teacher'
         },
         photos: {
           name: 'photos',
