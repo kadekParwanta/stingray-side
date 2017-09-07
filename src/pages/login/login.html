@@ -16,44 +16,47 @@
 </ion-header>
 
 
-<ion-content>
- 
-  <div padding [@flyInBottomFast]="cloudState" id="cloud-layer">
- 
-    <ion-row>
-      <ion-col>
-        <img [@flyInBottomSlow]="logoState" src="assets/img/stingray.jpg" />
-      </ion-col>
-    </ion-row>
-    
+<ion-content class="login-content" padding>
+    <ion-row class="logo-row">
+        <ion-col>
+          <img src="assets/img/icon.png" />
+        </ion-col>
+      </ion-row>
+  <div id="cloud-layer" class="login-box">
     <form #loginForm="ngForm" novalidate>
     <ion-row>
       <ion-col>
-        <ion-list inset [@bounceInBottom]="formState">
+        <ion-list inset >
  
-          <ion-item>
+          <!-- <ion-item>
             <ion-label>Username</ion-label>
             <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"required>
             </ion-input>
+          </ion-item> -->
+          <ion-item>
+              <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="login.username" required></ion-input>
           </ion-item>
-          <p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
+          <!-- <p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
 				    Username is required
-			    </p>
+          </p> -->
+          <ion-item>
+              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="login.password" required></ion-input>
+            </ion-item>
  
-          <ion-item style="margin-top:10px">
+          <!-- <ion-item style="margin-top:10px">
             <ion-label>Password</ion-label>
             <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
 				    </ion-input>
-          </ion-item>
-          <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+          </ion-item> -->
+          <!-- <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
 				    Password is required
-			  </p>
+			  </p> -->
  
         </ion-list>
       </ion-col>
     </ion-row>
  
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <button ion-button class="login-button" [@fadeIn]="loginState" (click)="onLogin(loginForm)" type="submit">Login</button>
       </ion-col>
@@ -64,7 +67,14 @@
         <p color="primary" [@fadeIn]="registerState"> Or </p>
         <button ion-button class="register-button" [@fadeIn]="registerState" (click)="onSignup()">Register</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
+
+    <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="onLogin(loginForm)" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+          <button ion-button class="register-btn" block clear (click)="onSignup()">Create New Account</button>
+        </ion-col>
+      </ion-row>
     </form>
  
   </div>

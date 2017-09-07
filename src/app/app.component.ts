@@ -103,12 +103,15 @@ export class MyApp {
   openPage(page: PageInterface) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+    
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
         this.userData.logout();
       }, 1000);
+      this.nav.setRoot(page.component);
+    } else {
+      this.nav.push(page.component);
     }
   }
 
