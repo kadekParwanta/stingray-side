@@ -16,6 +16,8 @@ import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { ImageLoaderConfig } from 'ionic-image-loader';
 
+import { AppUpdate } from '@ionic-native/app-update';
+
 export interface PageInterface {
   title: string;
   component: any;
@@ -51,7 +53,8 @@ export class MyApp {
     public events: Events,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private imageLoaderConfig: ImageLoaderConfig) {
+    private imageLoaderConfig: ImageLoaderConfig,
+    private appUpdate: AppUpdate) {
     this.initializeApp();
 
     this.footerPage = this.loggedOutPage;
@@ -78,6 +81,9 @@ export class MyApp {
         }
       }
     })
+
+    const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
+    this.appUpdate.checkAppUpdate(updateUrl);
 
   }
 

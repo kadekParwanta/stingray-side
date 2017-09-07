@@ -29,6 +29,7 @@ import { ColorGenerator } from './widgets/text-img/color-generator';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { ZBar } from '@ionic-native/zbar';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { AppUpdate } from '@ionic-native/app-update';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     AppSettings, 
     ColorGenerator,
     ZBar,
-    PhotoViewer]
+    PhotoViewer,
+    AppUpdate]
 })
 export class AppModule {}
