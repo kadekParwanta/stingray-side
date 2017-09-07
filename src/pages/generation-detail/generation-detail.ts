@@ -317,4 +317,8 @@ export class GenerationDetailPage {
     this.navCtrl.popToRoot()
   }
 
+  read() {
+    
+  }
+
 }

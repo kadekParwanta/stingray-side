@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events, ViewController } from 'ionic-angular';
+import { Nav, Platform, Events, ViewController, AlertController, LoadingController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -54,7 +54,9 @@ export class MyApp {
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private imageLoaderConfig: ImageLoaderConfig,
-    private appUpdate: AppUpdate) {
+    private appUpdate: AppUpdate,
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
     this.initializeApp();
 
     this.footerPage = this.loggedOutPage;
@@ -111,9 +113,18 @@ export class MyApp {
     
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
+      let loading = this.loadingCtrl.create({
+        content: 'Please Wait...'
+      });
+      loading.present();
+
       setTimeout(() => {
         this.userData.logout();
+        this.nav.setRoot(page.component);
+        loading.dismiss();
+        this.presentAlert()
       }, 1000);
+    } else if (page.title == 'Home'){
       this.nav.setRoot(page.component);
     } else {
       this.nav.push(page.component);
@@ -135,5 +146,14 @@ export class MyApp {
       // TODO
       this.footerPage = this.loggedOutPage;
     });
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Logged Out',
+      subTitle: 'Anda berhasil logout',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

@@ -14,13 +14,9 @@
 
 
 <ion-content padding class="content">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-        pullingIcon="arrow-dropdown"
-        pullingText="Pull to refresh"
-        refreshingSpinner="circles"
-        refreshingText="Refreshing.."></ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing.."></ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col center col-8>
@@ -28,7 +24,7 @@
         <p>{{school.address}}</p>
       </ion-col>
       <ion-col col-4>
-        <img-loader useImg [src]="school.photos[0].url" imageViewer></img-loader>
+        <img-loader useImg [src]="school.photos[0].url"></img-loader>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -42,10 +38,10 @@
         <ion-list *ngFor="let generation of generations">
           <ion-item (click)="goToDetails(generation)" detail-push>
             <ion-thumbnail item-start>
-              <img-loader useImg *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url" ></img-loader>
-            </ion-thumbnail>
-            <h2>{{generation.name}}</h2>
-            <p>Tahun {{generation.year}}</p>
+                <img-loader useImg *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url"></img-loader>
+              </ion-thumbnail>
+              <h2>{{generation.name}}</h2>
+              <p>Tahun {{generation.year}}</p>
           </ion-item>
         </ion-list>
       </ion-col>

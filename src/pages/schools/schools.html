@@ -50,12 +50,15 @@
               </button>
             </ion-col>
           </ion-row>
+          <div class="ribbon ribbon-top-right">
+              <span>Sample</span>
+            </div>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-fab right bottom>
-    <button ion-fab color="light" (click)="scan()"><ion-icon name="qr-scanner"></ion-icon></button>
+    <button ion-fab color="primary" (click)="scan()"><ion-icon name="qr-scanner"></ion-icon></button>
   </ion-fab>
   <!--<ion-infinite-scroll (ionInfinite)="loadMoreSchool($event)">
    <ion-infinite-scroll-content></ion-infinite-scroll-content>
