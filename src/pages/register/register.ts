@@ -53,7 +53,7 @@ export class RegisterPage extends AbstractBasePage {
      * Step Wizard Settings
      */
     this.step = 1;//The value of the first step, always 1
-    this.stepCondition = true;//Set to true if you don't need condition in every step
+    this.stepCondition = this.signupForm.valid;//Set to true if you don't need condition in every step
     this.stepDefaultCondition = this.stepCondition;//Save the default condition for every step
     //You can subscribe to the Event 'step:changed' to handle the current step
     this.evts.subscribe('step:changed', step => {
@@ -65,18 +65,10 @@ export class RegisterPage extends AbstractBasePage {
     this.evts.subscribe('step:next', () => {
       //Do something if next
       console.log('Next pressed: ', this.currentStep);
-      this.stepCondition = false;
-      setTimeout(() => {
-        this.stepCondition = true;
-      }, 1000);
     });
     this.evts.subscribe('step:back', () => {
       //Do something if back
       console.log('Back pressed: ', this.currentStep);
-      this.stepCondition = false;
-      setTimeout(() => {
-        this.stepCondition = true;
-      }, 1000);
     });
   }
 
