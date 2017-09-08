@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsernameValidator } from '../../app/validators/username';
 import { User } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
+import { Network } from '@ionic-native/network';
+import { AbstractBasePage } from '../base/base';
 
 /*
   Generated class for the Register page.
@@ -16,7 +18,7 @@ import { UserData } from '../../providers/user-data';
   selector: 'page-register',
   templateUrl: 'register.html'
 })
-export class RegisterPage {
+export class RegisterPage extends AbstractBasePage{
 
   signupForm: FormGroup;
   submitAttempt: boolean = false;
@@ -28,7 +30,10 @@ export class RegisterPage {
     public userApi: UserApi,
     public userData: UserData,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public network: Network,
+    public ngZone: NgZone) {
+      super(network, ngZone)
     this.signupForm = formBuilder.group({
       firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -39,8 +44,8 @@ export class RegisterPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+  initData(){
+    
   }
 
   save() {

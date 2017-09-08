@@ -22,6 +22,7 @@ export interface StudentInterface {
   "phonenumber"?: string;
   "address"?: string;
   "id"?: any;
+  "userId"?: any;
   "classId"?: any;
   photo?: Media;
   class?: Class;
@@ -44,6 +45,7 @@ export class Student implements StudentInterface {
   "phonenumber": string;
   "address": string;
   "id": any;
+  "userId": any;
   "classId": any;
   photo: Media;
   class: Class;
@@ -141,6 +143,10 @@ export class Student implements StudentInterface {
         },
         "id": {
           name: 'id',
+          type: 'any'
+        },
+        "userId": {
+          name: 'userId',
           type: 'any'
         },
         "classId": {

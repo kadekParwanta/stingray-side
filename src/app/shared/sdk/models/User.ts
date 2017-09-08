@@ -1,6 +1,7 @@
 /* tslint:disable */
 import {
   Media,
+  Student,
   Class,
   Generation,
   School,
@@ -33,9 +34,10 @@ export interface UserInterface {
   roleMapping?: any[];
   creator?: User;
   media?: Media;
-  class?: Class;
-  generation?: Generation;
-  school?: School;
+  students?: Student[];
+  classes?: Class[];
+  generations?: Generation[];
+  schools?: School[];
   messages?: Message[];
   rooms?: Room[];
 }
@@ -64,9 +66,10 @@ export class User implements UserInterface {
   roleMapping: any[];
   creator: User;
   media: Media;
-  class: Class;
-  generation: Generation;
-  school: School;
+  students: Student[];
+  classes: Class[];
+  generations: Generation[];
+  schools: School[];
   messages: Message[];
   rooms: Room[];
   constructor(data?: UserInterface) {
@@ -204,19 +207,24 @@ export class User implements UserInterface {
           type: 'Media',
           model: 'Media'
         },
-        class: {
-          name: 'class',
-          type: 'Class',
+        students: {
+          name: 'students',
+          type: 'Student[]',
+          model: 'Student'
+        },
+        classes: {
+          name: 'classes',
+          type: 'Class[]',
           model: 'Class'
         },
-        generation: {
-          name: 'generation',
-          type: 'Generation',
+        generations: {
+          name: 'generations',
+          type: 'Generation[]',
           model: 'Generation'
         },
-        school: {
-          name: 'school',
-          type: 'School',
+        schools: {
+          name: 'schools',
+          type: 'School[]',
           model: 'School'
         },
         messages: {
