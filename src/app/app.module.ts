@@ -31,6 +31,8 @@ import { ZBar } from '@ionic-native/zbar';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AppUpdate } from '@ionic-native/app-update';
 import { Network } from '@ionic-native/network';
+import {IonSimpleWizard} from '../pages/ion-simple-wizard/ion-simple-wizard.component'
+import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.step.component'
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { Network } from '@ionic-native/network';
     EventOrganizerPage,
     ClassDetailPage,
     StudentDetailPage,
-    TextImage
+    TextImage,
+    IonSimpleWizard,
+    IonSimpleWizardStep
   ],
   imports: [
     IonicModule.forRoot(MyApp),

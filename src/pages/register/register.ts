@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController,Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsernameValidator } from '../../app/validators/username';
 import { User } from '../../app/shared/sdk/models';
@@ -18,10 +18,15 @@ import { AbstractBasePage } from '../base/base';
   selector: 'page-register',
   templateUrl: 'register.html'
 })
-export class RegisterPage extends AbstractBasePage{
+export class RegisterPage extends AbstractBasePage {
 
   signupForm: FormGroup;
   submitAttempt: boolean = false;
+
+  step: any;
+  stepCondition: any;
+  stepDefaultCondition: any;
+  currentStep: any;
 
   constructor(
     public navCtrl: NavController,
@@ -32,8 +37,9 @@ export class RegisterPage extends AbstractBasePage{
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public network: Network,
-    public ngZone: NgZone) {
-      super(network, ngZone)
+    public ngZone: NgZone, 
+    public evts: Events) {
+    super(network, ngZone)
     this.signupForm = formBuilder.group({
       firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -42,10 +48,50 @@ export class RegisterPage extends AbstractBasePage{
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
+
+    /**
+     * Step Wizard Settings
+     */
+    this.step = 1;//The value of the first step, always 1
+    this.stepCondition = true;//Set to true if you don't need condition in every step
+    this.stepDefaultCondition = this.stepCondition;//Save the default condition for every step
+    //You can subscribe to the Event 'step:changed' to handle the current step
+    this.evts.subscribe('step:changed', step => {
+      //Handle the current step if you need
+      this.currentStep = step;
+      //Set the step condition to the default value
+      this.stepCondition = this.stepDefaultCondition;
+    });
+    this.evts.subscribe('step:next', () => {
+      //Do something if next
+      console.log('Next pressed: ', this.currentStep);
+      this.stepCondition = false;
+      setTimeout(() => {
+        this.stepCondition = true;
+      }, 1000);
+    });
+    this.evts.subscribe('step:back', () => {
+      //Do something if back
+      console.log('Back pressed: ', this.currentStep);
+      this.stepCondition = false;
+      setTimeout(() => {
+        this.stepCondition = true;
+      }, 1000);
+    });
   }
 
-  initData(){
-    
+  onFinish() {
+    this.alertCtrl.create({
+      message: 'Wizard Finished!!',
+      title: 'Congrats!!',
+      buttons: [{
+        text: 'Ok'
+      }]
+    }).present();
+  }
+
+  initData() {
+
   }
 
   save() {
