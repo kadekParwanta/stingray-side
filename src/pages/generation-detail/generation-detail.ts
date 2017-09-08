@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
 import { Generation, Media, School } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
@@ -8,6 +8,8 @@ import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ImageLoader } from 'ionic-image-loader';
+import { Network } from '@ionic-native/network';
+import { AbstractBasePage } from '../base/base';
 
 /*
   Generated class for the GenerationDetail page.
@@ -19,7 +21,7 @@ import { ImageLoader } from 'ionic-image-loader';
   selector: 'page-generation-detail',
   templateUrl: 'generation-detail.html'
 })
-export class GenerationDetailPage {
+export class GenerationDetailPage extends AbstractBasePage{
   generation = new Generation()
   generationId: String
   school: School = new School()
@@ -32,13 +34,15 @@ export class GenerationDetailPage {
     public generationApi: GenerationApi,
     public zbar: ZBar,
     public imageViewer: PhotoViewer,
-    public imgLoader: ImageLoader) {
+    public imgLoader: ImageLoader,
+    public network: Network,
+    public ngZone: NgZone) {
+      super(network, ngZone)
       this.generationId = navParams.get('generationId');
       this.school.name = "";   
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GenerationDetailPage'); 
+  initData() {
     this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
       this.populateGenerationDetails(generation)
     })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
 import { Class, Media, Generation, School , Student} from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
@@ -6,6 +6,8 @@ import { AppSettings } from '../../providers/app-setting';
 import { StudentDetailPage } from '../student-detail/student-detail';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ImageLoader } from 'ionic-image-loader';
+import { Network } from '@ionic-native/network';
+import { AbstractBasePage } from '../base/base';
 
 /*
   Generated class for the ClassDetail page.
@@ -18,7 +20,7 @@ import { ImageLoader } from 'ionic-image-loader';
   templateUrl: 'class-detail.html'
 })
 
-export class ClassDetailPage {
+export class ClassDetailPage extends AbstractBasePage{
   classRoom = new Class()
   generation = new Generation()
   school = new School()
@@ -33,12 +35,14 @@ export class ClassDetailPage {
     public toastCtrl: ToastController,
     public classApi: ClassApi,
     public imageViewer: PhotoViewer,
-    public imgLoader: ImageLoader) {
+    public imgLoader: ImageLoader,
+    public network: Network,
+    public ngZone: NgZone) {
+      super(network, ngZone)
        this.classRoomId = navParams.get('classRoomId');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClassDetailPage');
+  initData() {
     this.getClassDetails(this.classRoomId).then((classRoom:Class) => {
       this.populateClassRoom(classRoom)
     })

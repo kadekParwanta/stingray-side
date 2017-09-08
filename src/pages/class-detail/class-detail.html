@@ -27,7 +27,7 @@
         refreshingText="Refreshing.."></ion-refresher-content>
       </ion-refresher>
 
-  <ion-grid>
+  <ion-grid *ngIf="isConnected; else offline">
     <ion-row>
       <ion-col center>
         <h4>{{school.name}}</h4>
@@ -75,3 +75,18 @@
     </ion-list>
   </ion-grid>
 </ion-content>
+
+<ng-template #offline>
+  <ion-row style="margin:10px">
+    <ion-item style="background-color:khaki">
+        <div [hidden]="isLoading">
+            <ion-icon name="sad" item-start></ion-icon>
+            Oops.. Koneksi terputus
+        </div>
+        <div [hidden]="!isLoading">
+            <ion-spinner name="bubbles"></ion-spinner>
+            Menyambungkan..
+        </div>
+    </ion-item>
+  </ion-row>
+</ng-template>

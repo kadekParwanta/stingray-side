@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component , NgZone} from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher, Events} from 'ionic-angular';
 import { School, Generation, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';  
 import { AppSettings } from '../../providers/app-setting';
+import { Network } from '@ionic-native/network'
+import { AbstractBasePage } from '../base/base';
 
 /*
   Generated class for the SchoolDetail page.
@@ -15,25 +17,24 @@ import { AppSettings } from '../../providers/app-setting';
   selector: 'page-school-detail',
   templateUrl: 'school-detail.html'
 })
-export class SchoolDetailPage {
+export class SchoolDetailPage extends AbstractBasePage {
 
   public school: School;
   private generations = new Array<Generation>()
-  private isConnected: Boolean = true
-  private isLoading: Boolean = false
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public toastCtrl: ToastController,
     public events: Events,
-    public schoolApi: SchoolApi) {
+    public schoolApi: SchoolApi,
+    public network: Network,
+    public ngZone: NgZone) {
+      super(network, ngZone)
       this.school = navParams.get('school');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SchoolDetailPage');
-    this.listenToNetworkEvents()
+  initData() {
     this.getGenerations(this.school).then(
       (generations: Array<Generation>) => {
         this.populateGenerations(generations)
@@ -42,7 +43,6 @@ export class SchoolDetailPage {
   }
 
   getGenerations(school) {
-    this.generations.length = 0
     return this.schoolApi.getGenerations(school.id, {include:'photos'})
     .map((generations: Array<Generation>) => { return generations})
     .toPromise()
@@ -78,6 +78,7 @@ export class SchoolDetailPage {
   }
 
   populateGenerations(generations: Array<Generation>) {
+    this.generations = new Array<Generation>()
     for (var i = 0; i < generations.length; i++) {
       var generationData = generations[i]
       var photos = generationData.photos
@@ -113,20 +114,6 @@ export class SchoolDetailPage {
               toast.present()
       }
     )
-  }
-
-  listenToNetworkEvents() {
-    this.events.subscribe('network:disconnected', () => {
-      this.isConnected = false;
-    });
-
-    this.events.subscribe('network:connected', () => {
-      this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        this.isConnected = true;
-      }, 3000);
-    });
   }
 
 }

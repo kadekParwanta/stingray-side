@@ -33,7 +33,7 @@
     </ion-slide>
   </ion-slides>
 
-  <ion-grid>
+  <ion-grid *ngIf="isConnected; else offline">
     <ion-row>
       <ion-col>
         <h4>{{school.name}}</h4>
@@ -86,3 +86,18 @@
 
   <!--<button ion-button block (click)="order()">Scan barcode</button>-->
 </ion-content>
+
+<ng-template #offline>
+  <ion-row style="margin:10px">
+    <ion-item style="background-color:khaki">
+        <div [hidden]="isLoading">
+            <ion-icon name="sad" item-start></ion-icon>
+            Oops.. Koneksi terputus
+        </div>
+        <div [hidden]="!isLoading">
+            <ion-spinner name="bubbles"></ion-spinner>
+            Menyambungkan..
+        </div>
+    </ion-item>
+  </ion-row>
+</ng-template>
