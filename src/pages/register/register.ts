@@ -53,8 +53,8 @@ export class RegisterPage extends AbstractBasePage {
      * Step Wizard Settings
      */
     this.step = 1;//The value of the first step, always 1
-    this.stepCondition = this.signupForm.valid;//Set to true if you don't need condition in every step
-    this.stepDefaultCondition = this.stepCondition;//Save the default condition for every step
+    this.stepCondition = false;
+    this.stepDefaultCondition = true;//Save the default condition for every step
     //You can subscribe to the Event 'step:changed' to handle the current step
     this.evts.subscribe('step:changed', step => {
       //Handle the current step if you need
@@ -70,6 +70,27 @@ export class RegisterPage extends AbstractBasePage {
       //Do something if back
       console.log('Back pressed: ', this.currentStep);
     });
+    this.subcribeToFormChanges()
+  }
+
+  updateStepCondition() {
+    this.stepCondition = this.signupForm.controls.email.valid && 
+      this.signupForm.controls.password.valid && 
+      this.signupForm.controls.confirmPassword.valid;
+  }
+
+  subcribeToFormChanges() {
+    // initialize stream
+    const myFormValueChanges$ = this.signupForm.valueChanges;
+
+    // subscribe to the stream 
+    myFormValueChanges$.subscribe(x => {
+      this.updateStepCondition();
+    });
+}
+
+  emailChange() {
+    console.log("email: " + this.signupForm.value["email"]);
   }
 
   onFinish() {
@@ -95,9 +116,15 @@ export class RegisterPage extends AbstractBasePage {
 
       loading.present();
 
-      this.userApi.create(this.signupForm.value).subscribe(
+      let newUSer = {
+        email: this.signupForm.value["email"],
+        username: this.signupForm.value["email"],
+        password: this.signupForm.value["password"]
+      }
+
+      this.userApi.create(newUSer).subscribe(
         (res) => {
-          this.userData.signup(this.signupForm.value["username"], this.signupForm.value["password"]);
+          this.userData.signup(this.signupForm.value["email"], this.signupForm.value["password"]);
           loading.dismiss();
           this.showAlert("Success", "Please verify your email before login", ["OK"]);
         },

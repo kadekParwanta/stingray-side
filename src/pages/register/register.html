@@ -6,16 +6,21 @@
 -->
 <ion-header>
 
-    <ion-navbar>
+    <ion-navbar color="dark">
         <ion-title>register</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="register-content" padding>
     <ion-simple-wizard [(step)]="step" [showSteps]="true" (finish)="onFinish()" [finishIcon]="'done-all'" [(stepCondition)]="stepCondition">
         <ion-wizard-step>
+            <ion-row class="logo-row">
+                <ion-col>
+                    <img src="assets/img/icon.png" />
+                </ion-col>
+            </ion-row>
             <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
             <form [formGroup]="signupForm" inset *ngIf="isConnected; else offline">
                 <ion-row>
@@ -41,17 +46,21 @@
                             <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="mail"></ion-icon>Email</ion-label>
-                                <ion-input formControlName="email" type="text" [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"></ion-input>
+                                <ion-input formControlName="email" type="text" [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"
+                                     (change)="emailChange()"></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="signupForm.controls.email.pending">
+                                <p>Mengecek email...</p>
                             </ion-item>
                             <ion-item *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)">
-                                <p>Please enter a valid email.</p>
+                                <p>putu@example.com</p>
                             </ion-item>
 
-                            <ion-item>
+                            <!-- <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="person"></ion-icon>Username</ion-label>
                                 <ion-input [class.invalid]="!signupForm.controls.username.valid && (signupForm.controls.username.dirty || submitAttempt)"
-                                    formControlName="username" type="text"></ion-input>
+                                    formControlName="username" type="text" ></ion-input>
                             </ion-item>
 
                             <ion-item *ngIf="signupForm.controls.username.pending">
@@ -60,12 +69,13 @@
 
                             <ion-item *ngIf="!signupForm.controls.username.valid && !signupForm.controls.username.pending && (signupForm.controls.username.dirty || submitAttempt)">
                                 <p>Sorry, that username can not be used!</p>
-                            </ion-item>
+                            </ion-item> -->
 
                             <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="finger-print"></ion-icon>Password</ion-label>
-                                <ion-input formControlName="password" type="password" [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"></ion-input>
+                                <ion-input formControlName="password" type="password" [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
+                                    ></ion-input>
                             </ion-item>
                             <ion-item *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)">
                                 <p>Please enter a password.</p>
@@ -74,12 +84,12 @@
                             <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="copy"></ion-icon>Confirm Password</ion-label>
-                                <ion-input formControlName="confirmPassword" type="password" [class.invalid]="!signupForm.controls.confirmPassword.valid && (signupForm.controls.confirmPassword.dirty || submitAttempt)"></ion-input>
+                                <ion-input formControlName="confirmPassword" type="password" [class.invalid]="!signupForm.controls.confirmPassword.valid && (signupForm.controls.confirmPassword.dirty || submitAttempt)"
+                                    ></ion-input>
                             </ion-item>
                             <ion-item *ngIf="!signupForm.controls.confirmPassword.valid  && (signupForm.controls.confirmPassword.dirty || submitAttempt)">
                                 <p>Please enter a password.</p>
                             </ion-item>
-
                         </ion-list>
                     </ion-col>
                 </ion-row>

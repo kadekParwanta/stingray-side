@@ -9,13 +9,33 @@ page-register {
     ion-item {
         align-items: flex-end !important;
     }
+
+    .item-md {
+        background-color: rgba(158, 158, 158, 0.2);
+        color: wheat;
+    }
     
     .invalid {
         border: 1px solid #ea6153;
     }
 
     ion-wizard-step {
-        top: 20px !important;
         width: 90% !important;
+    }
+
+    .register-content {
+        .logo-row {
+            padding-top: 50px;
+            padding-bottom: 20px;
+            img {
+                width: 50%;
+                height: auto;
+                margin: 0 auto;
+              }
+          }
+          ion-row {
+            align-items: center;
+            text-align: center;
+          }
     }
 }
