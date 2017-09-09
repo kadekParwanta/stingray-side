@@ -2,6 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController,Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsernameValidator } from '../../app/validators/username';
+import { EmailValidator } from '../../app/validators/email';
+import { PasswordValidator } from '../../app/validators/password';
 import { User } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
@@ -43,10 +45,12 @@ export class RegisterPage extends AbstractBasePage {
     this.signupForm = formBuilder.group({
       firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      email: ['', Validators.compose([Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'), Validators.required])],
+      email: ['', Validators.compose([Validators.email, Validators.required]), EmailValidator.checkEmail],
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), UsernameValidator.checkUsername],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
+    },{
+      validator: PasswordValidator.MatchPassword
     });
 
     /**

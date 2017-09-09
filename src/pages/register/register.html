@@ -52,9 +52,12 @@
                             <ion-item *ngIf="signupForm.controls.email.pending">
                                 <p>Mengecek email...</p>
                             </ion-item>
-                            <ion-item *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)">
-                                <p>putu@example.com</p>
+                            <ion-item *ngIf="signupForm.controls.email.errors?.EmailExists  && (signupForm.controls.email.dirty || submitAttempt)">
+                                    <p>Email sudah terdaftar</p>
                             </ion-item>
+                            <!-- <ion-item *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)">
+                                <p>putu@example.com</p>
+                            </ion-item> -->
 
                             <!-- <ion-item>
                                 <ion-label floating>
@@ -78,7 +81,7 @@
                                     ></ion-input>
                             </ion-item>
                             <ion-item *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)">
-                                <p>Please enter a password.</p>
+                                <p>Mohon isi password!.</p>
                             </ion-item>
 
                             <ion-item>
@@ -87,8 +90,8 @@
                                 <ion-input formControlName="confirmPassword" type="password" [class.invalid]="!signupForm.controls.confirmPassword.valid && (signupForm.controls.confirmPassword.dirty || submitAttempt)"
                                     ></ion-input>
                             </ion-item>
-                            <ion-item *ngIf="!signupForm.controls.confirmPassword.valid  && (signupForm.controls.confirmPassword.dirty || submitAttempt)">
-                                <p>Please enter a password.</p>
+                            <ion-item *ngIf="signupForm.controls.confirmPassword.errors?.MatchPassword  && (signupForm.controls.confirmPassword.dirty || submitAttempt)">
+                                <p>Password tidak sama!.</p>
                             </ion-item>
                         </ion-list>
                     </ion-col>
