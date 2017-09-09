@@ -20,22 +20,7 @@ page-register {
     }
 
     ion-wizard-step {
+        top: 20px !important;
         width: 90% !important;
-    }
-
-    .register-content {
-        .logo-row {
-            padding-top: 50px;
-            padding-bottom: 20px;
-            img {
-                width: 50%;
-                height: auto;
-                margin: 0 auto;
-              }
-          }
-          ion-row {
-            align-items: center;
-            text-align: center;
-          }
     }
 }

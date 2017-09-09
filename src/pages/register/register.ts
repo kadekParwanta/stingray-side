@@ -1,11 +1,11 @@
-import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController,Events } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, NgZone, Directive, Input } from '@angular/core';
+import { NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, Validator, FormControl } from '@angular/forms';
 import { UsernameValidator } from '../../app/validators/username';
 import { EmailValidator } from '../../app/validators/email';
 import { PasswordValidator } from '../../app/validators/password';
-import { User } from '../../app/shared/sdk/models';
-import { UserApi } from '../../app/shared/sdk/services';
+import { User, School } from '../../app/shared/sdk/models';
+import { UserApi, SchoolApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
@@ -35,23 +35,24 @@ export class RegisterPage extends AbstractBasePage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public userApi: UserApi,
+    public schoolApi: SchoolApi,
     public userData: UserData,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public network: Network,
-    public ngZone: NgZone, 
+    public ngZone: NgZone,
     public evts: Events) {
     super(network, ngZone)
     this.signupForm = formBuilder.group({
       firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      email: ['', Validators.compose([Validators.email, Validators.required]), EmailValidator.checkEmail],
+      email: ['', Validators.compose([Validators.required]), EmailValidator.createValidator(this.userApi)],
       username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), UsernameValidator.checkUsername],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
-    },{
-      validator: PasswordValidator.MatchPassword
-    });
+    }, {
+        validator: PasswordValidator.MatchPassword
+      });
 
     /**
      * Step Wizard Settings
@@ -78,8 +79,8 @@ export class RegisterPage extends AbstractBasePage {
   }
 
   updateStepCondition() {
-    this.stepCondition = this.signupForm.controls.email.valid && 
-      this.signupForm.controls.password.valid && 
+    this.stepCondition = this.signupForm.controls.email.valid &&
+      this.signupForm.controls.password.valid &&
       this.signupForm.controls.confirmPassword.valid;
   }
 
@@ -91,10 +92,6 @@ export class RegisterPage extends AbstractBasePage {
     myFormValueChanges$.subscribe(x => {
       this.updateStepCondition();
     });
-}
-
-  emailChange() {
-    console.log("email: " + this.signupForm.value["email"]);
   }
 
   onFinish() {

@@ -13,14 +13,9 @@
 </ion-header>
 
 
-<ion-content class="register-content" padding>
+<ion-content padding>
     <ion-simple-wizard [(step)]="step" [showSteps]="true" (finish)="onFinish()" [finishIcon]="'done-all'" [(stepCondition)]="stepCondition">
         <ion-wizard-step>
-            <ion-row class="logo-row">
-                <ion-col>
-                    <img src="assets/img/icon.png" />
-                </ion-col>
-            </ion-row>
             <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
             <form [formGroup]="signupForm" inset *ngIf="isConnected; else offline">
                 <ion-row>
@@ -46,14 +41,13 @@
                             <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="mail"></ion-icon>Email</ion-label>
-                                <ion-input formControlName="email" type="text" [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"
-                                     (change)="emailChange()"></ion-input>
+                                <ion-input formControlName="email" type="text" [class.invalid]="!signupForm.controls.email.valid && (signupForm.controls.email.dirty || submitAttempt)"></ion-input>
                             </ion-item>
                             <ion-item *ngIf="signupForm.controls.email.pending">
                                 <p>Mengecek email...</p>
                             </ion-item>
                             <ion-item *ngIf="signupForm.controls.email.errors?.EmailExists  && (signupForm.controls.email.dirty || submitAttempt)">
-                                    <p>Email sudah terdaftar</p>
+                                <p>Email sudah terdaftar</p>
                             </ion-item>
                             <!-- <ion-item *ngIf="!signupForm.controls.email.valid  && (signupForm.controls.email.dirty || submitAttempt)">
                                 <p>putu@example.com</p>

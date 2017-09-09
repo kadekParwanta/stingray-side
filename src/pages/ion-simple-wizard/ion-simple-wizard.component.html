@@ -2,7 +2,7 @@
 <ion-footer [hidden]="hideWizard">
   <div class="ion-wizard-footer">
     <!--Back Button-->
-    <ion-fab [@btnState] *ngIf="!isOnFirstStep()" left bottom>
+    <ion-fab [@btnState] *ngIf="!isOnFirstStep()" left bottom hidden>
       <button ion-fab (click)="back()">
         <ion-icon name="arrow-round-back"></ion-icon>
       </button>

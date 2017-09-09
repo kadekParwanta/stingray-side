@@ -52,7 +52,7 @@ import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.
     StudentDetailPage,
     TextImage,
     IonSimpleWizard,
-    IonSimpleWizardStep
+    IonSimpleWizardStep,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
