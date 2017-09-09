@@ -9,6 +9,7 @@ import { UserApi, SchoolApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
+import { HomePage } from '../home/home';
 
 /*
   Generated class for the Register page.
@@ -44,10 +45,7 @@ export class RegisterPage extends AbstractBasePage {
     public evts: Events) {
     super(network, ngZone)
     this.signupForm = formBuilder.group({
-      firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       email: ['', Validators.compose([Validators.required]), EmailValidator.createValidator(this.userApi)],
-      username: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')]), UsernameValidator.checkUsername],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     }, {
@@ -70,6 +68,7 @@ export class RegisterPage extends AbstractBasePage {
     this.evts.subscribe('step:next', () => {
       //Do something if next
       console.log('Next pressed: ', this.currentStep);
+      if (this.currentStep == 2) this.save();
     });
     this.evts.subscribe('step:back', () => {
       //Do something if back
@@ -96,10 +95,13 @@ export class RegisterPage extends AbstractBasePage {
 
   onFinish() {
     this.alertCtrl.create({
-      message: 'Wizard Finished!!',
-      title: 'Congrats!!',
+      message: 'Mohon cek email Anda untuk verifikasi',
+      title: 'Selamat',
       buttons: [{
-        text: 'Ok'
+        text: 'OK',
+        handler: data => {
+          this.navCtrl.setRoot(HomePage)
+        }
       }]
     }).present();
   }
@@ -120,14 +122,14 @@ export class RegisterPage extends AbstractBasePage {
       let newUSer = {
         email: this.signupForm.value["email"],
         username: this.signupForm.value["email"],
-        password: this.signupForm.value["password"]
+        password: this.signupForm.value["password"],
+        confirmPassword: this.signupForm.value["confirmPassword"]
       }
 
       this.userApi.create(newUSer).subscribe(
         (res) => {
           this.userData.signup(this.signupForm.value["email"], this.signupForm.value["password"]);
           loading.dismiss();
-          this.showAlert("Success", "Please verify your email before login", ["OK"]);
         },
         err => {
           console.error(err);
@@ -136,6 +138,14 @@ export class RegisterPage extends AbstractBasePage {
         },
         () => console.log('register success')
       )
+    } else {
+      this.alertCtrl.create({
+        message: 'Terjadi kesalahan',
+        title: 'Mohon dicoba kembali',
+        buttons: [{
+          text: 'Ok'
+        }]
+      }).present();
     }
 
   }
