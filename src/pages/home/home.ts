@@ -3,6 +3,9 @@ import { NavController, NavParams, Slides, Platform, ToastController } from 'ion
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
 import { EventOrganizerPage } from '../event-organizer/event-organizer';
+import { User } from '../../app/shared/sdk/models';
+import { UserApi } from '../../app/shared/sdk/services';
+import { UserData } from '../../providers/user-data';
 
 /*
   Generated class for the Home page.
@@ -18,6 +21,8 @@ export class HomePage {
 
   private lastTimeBackPress = 0;
   private timePeriodToExit = 2000;
+  hasLoggedIn: Boolean = false;
+  me: User
 
   sliders = [
     {
@@ -41,10 +46,20 @@ export class HomePage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public platform: Platform,
-    public toastCtrl: ToastController) { }
+    public toastCtrl: ToastController,
+    public userData: UserData,
+    public userApi: UserApi) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+    this.userData.getUser().then((user: User)=> {
+      if (user) {
+        this.me = user
+        if (user.profilePicture == "storages/missing/missing-image.png") {
+          this.me.profilePicture = undefined
+        }
+      }
+    })
   }
 
   backButtonAction() {
@@ -82,6 +97,10 @@ export class HomePage {
         break;
     }
     
+  }
+
+  goToProfile(){
+    //TODO
   }
 
 }

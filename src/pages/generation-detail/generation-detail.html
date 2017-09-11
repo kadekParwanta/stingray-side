@@ -35,9 +35,17 @@
 
   <ion-grid *ngIf="isConnected; else offline">
     <ion-row>
-      <ion-col>
+      <ion-col col-10>
         <h4>{{school.name}}</h4>
         <p>Tahun {{generation.year}}</p>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button icon-only color="danger">
+          <ion-icon name="cart"></ion-icon>
+        </button>
+        <button ion-button icon-only color="secondary" (click)="read()">
+          <ion-icon name="book"></ion-icon>
+        </button>
       </ion-col>
     </ion-row>
     <ion-row class="pictureRow">
@@ -46,45 +54,12 @@
       </ion-col>
     </ion-row>
     <div *ngFor="let class of generation.classes">
-      <!--<ion-row class="pictureRow">
-        <ion-col>
-          <h4>{{ class.name }}</h4>
-          <div *ngIf="class.photos.length > 0">
-            <p>Foto Kelas</p>
-            <ion-grid>
-              <ion-row wrap *ngFor="let photo of class.photos">
-                <ion-col width-33>
-                  <img-loader useImg [src]="photo.url" imageViewer>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </div>
-          <p>Daftar Siswa</p>
-          <ion-list *ngFor="let student of class.students">
-            <ion-item (click)="goToStudentDetails(student)" detail-push>
-              <ion-avatar item-left>
-                <img-loader useImg [src]="student.photo.url">
-              </ion-avatar>
-              <h2>{{student.name}}</h2>
-              <p>{{student.motto}}</p>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>-->
       <ion-card (click)="goToClassDetails(class)">
           <div class="skewed"><span>{{class.name}}</span></div>
         <img-loader useImg [src]="class.photos[0].url"></img-loader>
-        
-        <!-- <div class="card-subtitle">{{class.students.length}} Siswa</div> -->
       </ion-card>
     </div>
   </ion-grid>
-
-  <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="read()"><ion-icon name="book"></ion-icon></button>
-    </ion-fab>
-
-  <!--<button ion-button block (click)="order()">Scan barcode</button>-->
 </ion-content>
 
 <ng-template #offline>

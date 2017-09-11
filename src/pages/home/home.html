@@ -11,6 +11,14 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Stingray</ion-title>
+    <ion-buttons end *ngIf="me">
+      <button ion-button icon-only *ngIf="!me.profilePicture" (click)="goToProfile()">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+      <ion-avatar *ngIf="me.profilePicture" (click)="goToProfile()">
+          <img-loader useImg [src]="me.profilePicture"></img-loader>
+      </ion-avatar>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
