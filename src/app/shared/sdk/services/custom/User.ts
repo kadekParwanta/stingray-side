@@ -12,7 +12,6 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
 import { User } from '../../models/User';
 import { SocketConnection } from '../../sockets/socket.connections';
-import { User } from '../../models/User';
 import { Media } from '../../models/Media';
 import { Student } from '../../models/Student';
 import { Class } from '../../models/Class';
@@ -2466,7 +2465,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public findByUsername(username: any, customHeaders?: Function): Observable<user> {
+  public findByUsername(username: any, customHeaders?: Function): Observable<User> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/findByUsername";

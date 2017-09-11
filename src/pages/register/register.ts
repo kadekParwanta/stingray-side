@@ -41,6 +41,7 @@ export class RegisterPage extends AbstractBasePage {
   selectedSchool: School = new School()
   selectedGeneration: Generation = new Generation()
   selectedClass: Class = new Class()
+  createdUserId: String;
 
   constructor(
     public navCtrl: NavController,
@@ -63,11 +64,11 @@ export class RegisterPage extends AbstractBasePage {
         validator: PasswordValidator.MatchPassword
       });
 
-      this.schoolForm = formBuilder.group({
-        schools: formBuilder.array([
-          this.initSchools()
-        ])
-      })
+    this.schoolForm = formBuilder.group({
+      schools: formBuilder.array([
+        this.initSchools()
+      ])
+    })
 
     /**
      * Step Wizard Settings
@@ -85,7 +86,6 @@ export class RegisterPage extends AbstractBasePage {
     this.evts.subscribe('step:next', () => {
       //Do something if next
       console.log('Next pressed: ', this.currentStep);
-      if (this.currentStep == 2) this.save();
     });
     this.evts.subscribe('step:back', () => {
       //Do something if back
@@ -128,29 +128,26 @@ export class RegisterPage extends AbstractBasePage {
   }
 
   addSchool() {
-    const control = <FormArray> this.schoolForm.controls['schools']
+    const control = <FormArray>this.schoolForm.controls['schools']
     control.push(this.initSchools())
   }
 
   removeSchool(i: number) {
-    const control = <FormArray> this.schoolForm.controls['schools']
+    const control = <FormArray>this.schoolForm.controls['schools']
     control.removeAt(i)
   }
 
   onSchoolSelect(index: number, selectedValue: any) {
-    console.log("selected", selectedValue);
     this.selectedSchool = this.findSchoolById(selectedValue);
     this.selectedSchools[index] = this.selectedSchool
   }
 
   onGenerationSelect(schoolIdx: number, selectedValue: any) {
-    console.log("selected", selectedValue)
     this.selectedGeneration = this.findGenerationById(selectedValue)
     this.selectedGenerations[schoolIdx] = this.selectedGeneration
   }
 
   onClassSelect(schoolIdx: number, selectedValue: any) {
-    console.log("selected", selectedValue)
     this.selectedClass = this.findClassById(selectedValue)
     this.selectedClasses[schoolIdx] = this.selectedClass
   }
@@ -197,27 +194,6 @@ export class RegisterPage extends AbstractBasePage {
   }
 
   onFinish() {
-    this.linkSchool()
-    this.alertCtrl.create({
-      message: 'Mohon cek email Anda untuk verifikasi',
-      title: 'Selamat',
-      buttons: [{
-        text: 'OK',
-        handler: data => {
-          this.navCtrl.setRoot(HomePage)
-        }
-      }]
-    }).present();
-  }
-
-  initData() {
-    this.schoolApi.find({ include: {generations:{classes:'students'}}}).subscribe(
-      (schools: Array<School>) => {
-        this.schools = schools
-      })
-  }
-
-  save() {
     this.submitAttempt = true;
     if (this.signupForm.valid) {
       let loading = this.loadingCtrl.create({
@@ -226,17 +202,57 @@ export class RegisterPage extends AbstractBasePage {
 
       loading.present();
 
+      let schoolIds = []
+      let generationIds = []
+      let classIds = []
+      let studentIds = []
+      if (this.selectedSchools.length > 0) {
+        let schools = this.schoolForm.value["schools"]
+        schools.forEach(element => {
+          schoolIds.push(element['id'])
+          let generations = element.generations
+          generations.forEach(generation => {
+            generationIds.push(generation['id'])
+            let classes = generation.classes
+            classes.forEach(classroom => {
+              classIds.push(classroom['id'])
+              let students = classroom.students
+              students.forEach(student => {
+                studentIds.push(student['id'])
+              });
+            });
+          });
+        });
+      }
+
+
       let newUSer = {
         email: this.signupForm.value["email"],
         username: this.signupForm.value["email"],
         password: this.signupForm.value["password"],
-        confirmPassword: this.signupForm.value["confirmPassword"]
+        confirmPassword: this.signupForm.value["confirmPassword"],
+        unverifiedSchools: schoolIds,
+        unverifiedGenerations: generationIds,
+        unverifiedClasses: classIds,
+        unverifiedStudents: studentIds
       }
 
       this.userApi.create(newUSer).subscribe(
-        (res) => {
+        (res: any) => {
+          this.createdUserId = res.id;
           this.userData.signup(this.signupForm.value["email"], this.signupForm.value["password"]);
           loading.dismiss();
+
+          this.alertCtrl.create({
+            message: 'Mohon cek email Anda untuk verifikasi',
+            title: 'Selamat',
+            buttons: [{
+              text: 'OK',
+              handler: data => {
+                this.navCtrl.setRoot(HomePage)
+              }
+            }]
+          }).present();
         },
         err => {
           console.error(err);
@@ -257,12 +273,11 @@ export class RegisterPage extends AbstractBasePage {
 
   }
 
-  linkSchool(){
-    if (this.selectedSchools.length > 0) {
-      this.selectedSchools.forEach(element => {
-        console.log("element " + element.name)
-      });
-    }
+  initData() {
+    this.schoolApi.find({ include: { generations: { classes: 'students' } } }).subscribe(
+      (schools: Array<School>) => {
+        this.schools = schools
+      })
   }
 
   showAlert(title: string, subTitle: string, buttons: Array<string>) {

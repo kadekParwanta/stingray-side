@@ -138,7 +138,7 @@ export class MyApp {
 
     this.events.subscribe('user:signup', () => {
       // TODO
-      this.footerPage = this.loggedInPage;
+      this.footerPage = this.loggedOutPage;
     });
 
     this.events.subscribe('user:logout', () => {
@@ -149,7 +149,7 @@ export class MyApp {
 
   presentAlert() {
     let alert = this.alertCtrl.create({
-      title: 'Logged Out',
+      title: 'Sukses',
       subTitle: 'Anda berhasil logout',
       buttons: ['OK']
     });
