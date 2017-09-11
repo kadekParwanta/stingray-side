@@ -65,41 +65,41 @@
                     <ion-col>
                         <div formArrayName="schools" *ngFor="let school of schoolForm.get('schools').controls; let i=index">
                             <ion-item>
-                                <p>{{'Sekolah #' + (i+1)}}</p>
+                                <p>{{selectedSchools.length > i? selectedSchools[i].name : 'Sekolah #' + (i+1)}}</p>
                                 <ion-icon item-end name="trash" *ngIf="schoolForm.controls.schools.controls.length > 1" (click)="removeSchool(i)"></ion-icon>
                             </ion-item>
                             <ion-list [formGroupName]="i">
                                 <ion-item>
                                     <ion-label>Sekolah</ion-label>
-                                    <ion-select formControlName="id" (ionChange)="onSchoolSelect($event)">
+                                    <ion-select formControlName="id" (ionChange)="onSchoolSelect(i, $event)">
                                         <ion-option *ngFor="let schoolOpt of schools" [value]="schoolOpt.id">{{schoolOpt.name}}</ion-option>
                                     </ion-select>
                                 </ion-item>
 
                                 <div formArrayName="generations" *ngFor="let generation of school.controls.generations.controls; let j=index">
                                     <ion-list [formGroupName]="j">
-                                        <ion-item>
+                                        <ion-item *ngIf="selectedSchools.length > i">
                                             <ion-label>Generasi</ion-label>
-                                            <ion-select formControlName="id" (ionChange)="onGenerationSelect($event)">
-                                                <ion-option *ngFor="let generationOpt of selectedSchool.generations" [value]="generationOpt.id">{{generationOpt.year}}</ion-option>
+                                            <ion-select formControlName="id" (ionChange)="onGenerationSelect(i,$event)">
+                                                <ion-option *ngFor="let generationOpt of selectedSchools[i].generations" [value]="generationOpt.id">{{generationOpt.year}}</ion-option>
                                             </ion-select>
                                         </ion-item>
 
                                         <div formArrayName="classes" *ngFor="let class of generation.controls.classes.controls; let k=index">
                                             <ion-list [formGroupName]="k">
-                                                <ion-item>
+                                                <ion-item *ngIf="selectedGenerations.length > i">
                                                     <ion-label>Kelas</ion-label>
-                                                    <ion-select formControlName="id" (ionChange)="onClassSelect($event)">
-                                                        <ion-option *ngFor="let classOpt of selectedGeneration.classes" [value]="classOpt.id">{{classOpt.name}}</ion-option>
+                                                    <ion-select formControlName="id" (ionChange)="onClassSelect(i, $event)">
+                                                        <ion-option *ngFor="let classOpt of selectedGenerations[i].classes" [value]="classOpt.id">{{classOpt.name}}</ion-option>
                                                     </ion-select>
                                                 </ion-item>
 
                                                 <div formArrayName="students" *ngFor="let class of class.controls.students.controls; let l=index">
                                                     <ion-list [formGroupName]="l">
-                                                        <ion-item>
+                                                        <ion-item *ngIf="selectedClasses.length > i">
                                                             <ion-label>Siswa/i</ion-label>
                                                             <ion-select formControlName="id">
-                                                                <ion-option *ngFor="let studentOpt of selectedClass.students" [value]="studentOpt.id">{{studentOpt.name}}</ion-option>
+                                                                <ion-option *ngFor="let studentOpt of selectedClasses[i].students" [value]="studentOpt.id">{{studentOpt.name}}</ion-option>
                                                             </ion-select>
                                                         </ion-item>
 

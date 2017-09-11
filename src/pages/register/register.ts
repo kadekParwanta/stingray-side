@@ -35,6 +35,9 @@ export class RegisterPage extends AbstractBasePage {
   barLabel = "Password strength"
   isPasswordModified = false
   schools: Array<School> = new Array<School>()
+  selectedSchools: Array<School> = new Array<School>()
+  selectedGenerations: Array<Generation> = new Array<Generation>()
+  selectedClasses: Array<Class> = new Array<Class>()
   selectedSchool: School = new School()
   selectedGeneration: Generation = new Generation()
   selectedClass: Class = new Class()
@@ -134,19 +137,22 @@ export class RegisterPage extends AbstractBasePage {
     control.removeAt(i)
   }
 
-  onSchoolSelect(selectedValue: any) {
+  onSchoolSelect(index: number, selectedValue: any) {
     console.log("selected", selectedValue);
     this.selectedSchool = this.findSchoolById(selectedValue);
+    this.selectedSchools[index] = this.selectedSchool
   }
 
-  onGenerationSelect(selectedValue: any) {
+  onGenerationSelect(schoolIdx: number, selectedValue: any) {
     console.log("selected", selectedValue)
     this.selectedGeneration = this.findGenerationById(selectedValue)
+    this.selectedGenerations[schoolIdx] = this.selectedGeneration
   }
 
-  onClassSelect(selectedValue: any) {
+  onClassSelect(schoolIdx: number, selectedValue: any) {
     console.log("selected", selectedValue)
     this.selectedClass = this.findClassById(selectedValue)
+    this.selectedClasses[schoolIdx] = this.selectedClass
   }
 
   findSchoolById(id: string): School {
