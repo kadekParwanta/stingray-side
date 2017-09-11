@@ -89,6 +89,11 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  ionViewWillEnter() {
+    let email = this.navParams.get('emailFromRegister')
+    if (email) this.login.username = email  
+  }
+
   onLogin(form: NgForm) {
     this.submitted = true;
 

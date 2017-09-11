@@ -10,6 +10,7 @@ import { UserData } from '../../providers/user-data';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login'
 
 /*
   Generated class for the Register page.
@@ -30,6 +31,8 @@ export class RegisterPage extends AbstractBasePage {
   stepCondition: any;
   stepDefaultCondition: any;
   currentStep: any;
+  barLabel= "Password strength"
+  isPasswordModified = false
 
   constructor(
     public navCtrl: NavController,
@@ -157,6 +160,19 @@ export class RegisterPage extends AbstractBasePage {
       buttons: buttons
     });
     alert.present();
+  }
+
+  back() {
+    this.navCtrl.getPrevious().data.emailFromRegister = this.signupForm.value['email']
+    this.navCtrl.pop()
+  }
+
+  passwordChange() {
+    this.isPasswordModified = false
+  }
+
+  passwordValueChange() {
+    this.isPasswordModified = true
   }
 
 }

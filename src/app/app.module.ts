@@ -33,6 +33,7 @@ import { AppUpdate } from '@ionic-native/app-update';
 import { Network } from '@ionic-native/network';
 import {IonSimpleWizard} from '../pages/ion-simple-wizard/ion-simple-wizard.component'
 import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.step.component'
+import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.
     IonicImageLoader.forRoot(),
     BrowserModule,
     IonicStorageModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PasswordStrengthBarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

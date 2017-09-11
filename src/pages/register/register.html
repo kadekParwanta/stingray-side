@@ -29,14 +29,17 @@
                             <ion-item *ngIf="signupForm.controls.email.pending">
                                 <p>Mengecek email...</p>
                             </ion-item>
-                            <ion-item *ngIf="signupForm.controls.email.errors?.EmailExists  && (signupForm.controls.email.dirty || submitAttempt)">
-                                <p>Email sudah terdaftar</p>
+                            <ion-item *ngIf="signupForm.controls.email.errors?.exists  && (signupForm.controls.email.dirty || submitAttempt)">
+                                <p>Email sudah terdaftar. Coba <a (click)="back()">Login?</a></p>
                             </ion-item>
                             <ion-item>
                                 <ion-label floating>
                                     <ion-icon item-start name="finger-print"></ion-icon>Password</ion-label>
                                 <ion-input formControlName="password" type="password" [class.invalid]="!signupForm.controls.password.valid && (signupForm.controls.password.dirty || submitAttempt)"
-                                    ></ion-input>
+                                    (change)="passwordChange()" (ngModelChange)="passwordValueChange()"></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="isPasswordModified">
+                                <ng2-password-strength-bar [passwordToCheck]="signupForm.controls.password.value" [barLabel]="barLabel"></ng2-password-strength-bar>
                             </ion-item>
                             <ion-item *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)">
                                 <p>Mohon isi password!.</p>
