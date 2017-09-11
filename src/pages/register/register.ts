@@ -197,6 +197,7 @@ export class RegisterPage extends AbstractBasePage {
   }
 
   onFinish() {
+    this.linkSchool()
     this.alertCtrl.create({
       message: 'Mohon cek email Anda untuk verifikasi',
       title: 'Selamat',
@@ -254,6 +255,14 @@ export class RegisterPage extends AbstractBasePage {
       }).present();
     }
 
+  }
+
+  linkSchool(){
+    if (this.selectedSchools.length > 0) {
+      this.selectedSchools.forEach(element => {
+        console.log("element " + element.name)
+      });
+    }
   }
 
   showAlert(title: string, subTitle: string, buttons: Array<string>) {

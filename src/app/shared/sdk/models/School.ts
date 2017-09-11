@@ -10,6 +10,7 @@ export interface SchoolInterface {
   "address"?: string;
   "profile"?: string;
   "hymne"?: string;
+  "isSample"?: boolean;
   "id"?: any;
   "userId"?: any;
   generations?: Generation[];
@@ -21,6 +22,7 @@ export class School implements SchoolInterface {
   "address": string;
   "profile": string;
   "hymne": string;
+  "isSample": boolean;
   "id": any;
   "userId": any;
   generations: Generation[];
@@ -72,6 +74,11 @@ export class School implements SchoolInterface {
         "hymne": {
           name: 'hymne',
           type: 'string'
+        },
+        "isSample": {
+          name: 'isSample',
+          type: 'boolean',
+          default: false
         },
         "id": {
           name: 'id',

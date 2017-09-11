@@ -18,6 +18,10 @@ export interface UserInterface {
   "address"?: string;
   "profilePicture"?: string;
   "roleName"?: Array<any>;
+  "unverifiedSchools"?: Array<any>;
+  "unverifiedGenerations"?: Array<any>;
+  "unverifiedClasses"?: Array<any>;
+  "unverifiedStudents"?: Array<any>;
   "realm"?: string;
   "username"?: string;
   "challenges"?: any;
@@ -50,6 +54,10 @@ export class User implements UserInterface {
   "address": string;
   "profilePicture": string;
   "roleName": Array<any>;
+  "unverifiedSchools": Array<any>;
+  "unverifiedGenerations": Array<any>;
+  "unverifiedClasses": Array<any>;
+  "unverifiedStudents": Array<any>;
   "realm": string;
   "username": string;
   "challenges": any;
@@ -130,6 +138,22 @@ export class User implements UserInterface {
         },
         "roleName": {
           name: 'roleName',
+          type: 'Array&lt;any&gt;'
+        },
+        "unverifiedSchools": {
+          name: 'unverifiedSchools',
+          type: 'Array&lt;any&gt;'
+        },
+        "unverifiedGenerations": {
+          name: 'unverifiedGenerations',
+          type: 'Array&lt;any&gt;'
+        },
+        "unverifiedClasses": {
+          name: 'unverifiedClasses',
+          type: 'Array&lt;any&gt;'
+        },
+        "unverifiedStudents": {
+          name: 'unverifiedStudents',
           type: 'Array&lt;any&gt;'
         },
         "realm": {
