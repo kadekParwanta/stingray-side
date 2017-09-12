@@ -6,8 +6,13 @@
 -->
 <ion-header>
 
-  <ion-navbar color="dark">
+  <ion-navbar hideBackButton>
     <ion-title>Konfirmasi</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="back()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +20,38 @@
 
 <ion-content padding>
   <ion-grid>
+    <ion-row style="margin-bottom:-30px; margin-top:-10px">
+      <ion-col col-8>
+        <p>Harga hardcopy: </p>
+      </ion-col>
+      <ion-col col-4>
+          <h5 end>{{generation.price | currency:"IDR"}}</h5>
+        </ion-col>
+    </ion-row>
+    <ion-row style="margin-bottom:-10px;">
+      <ion-col col-8>
+        <p>VAT 10%: </p>
+      </ion-col>
+      <ion-col col-4>
+          <h5 end>{{generation.price * 0.1 | currency:"IDR"}}</h5>
+        </ion-col>
+    </ion-row>
+    <ion-row style="border-top: 1px solid black;">
+      <ion-col col-8>
+        <p>Total: </p>
+      </ion-col>
+      <ion-col col-4>
+          <h4 end>{{generation.price * 1.1 | currency:"IDR"}}</h4>
+        </ion-col>
+    </ion-row>
     <ion-row>
-      <ion-col width-50>
+      <ion-col>
         <img-loader useImg [src]="generation.photos[0].url"></img-loader>
       </ion-col>
-      <ion-col width-50 center>
-        <p>Generasi: {{generation.name}}</p>
-        <p>Tahun: {{generation.year}}</p>
-        <p>Harga hardcopy: Rp.0</p>
+      <ion-col>
+        <p>Sekolah: {{generation.school.name}}</p>
+        <p>Angkatan: {{generation.year}}</p>
+        
       </ion-col>
     </ion-row>
     <ion-row>
@@ -34,7 +63,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label color="primary" floating>Alamat Rumah</ion-label>
+            <ion-label color="primary" floating>Alamat Penerima</ion-label>
             <ion-textarea rows="3"></ion-textarea>
           </ion-item>
 
@@ -49,4 +78,5 @@
   </ion-grid>
 
 <button ion-button block (click)="submit($event)">Submit</button>
+<button ion-button block (click)="back()" outline>Cancel</button>
 </ion-content>

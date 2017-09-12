@@ -28,4 +28,8 @@ export class OrderYearbookPage {
     
   }
 
+  back() {
+    this.navCtrl.pop()
+  }
+
 }

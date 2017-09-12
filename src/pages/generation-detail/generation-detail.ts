@@ -306,11 +306,8 @@ export class GenerationDetailPage extends AbstractBasePage{
       this.showAlert("Unauthorized","Mohon login untuk melanjutkan",["OK"])
     } else {
       //TODO
+      this.navCtrl.push(OrderYearbookPage, {"generation":this.generation});
     }
-  }
-
-  goToStudentDetails(student) {
-      this.order();
   }
 
   goToClassDetails(classRoom) {
