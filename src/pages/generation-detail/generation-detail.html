@@ -40,7 +40,7 @@
         <p>Tahun {{generation.year}}</p>
       </ion-col>
       <ion-col col-4>
-        <button ion-button icon-left block color="danger" *ngIf="generation.price">
+        <button ion-button icon-left block color="danger" (click)="order()">
           <ion-icon name="cart"></ion-icon>Order
         </button>
         <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">

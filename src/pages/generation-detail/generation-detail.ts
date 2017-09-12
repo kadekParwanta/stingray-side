@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
-import { Generation, Media, School } from '../../app/shared/sdk/models';
+import { NavController, NavParams, ToastController, Refresher, AlertController } from 'ionic-angular';
+import { Generation, Media, School, User } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ClassDetailPage } from '../class-detail/class-detail';
@@ -11,6 +11,7 @@ import { ImageLoader } from 'ionic-image-loader';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
 import { EpubPage } from '../epub/epub';
+import { UserData } from '../../providers/user-data';
 
 export class Book {
   label: string;
@@ -31,6 +32,8 @@ export class GenerationDetailPage extends AbstractBasePage{
   generation = new Generation()
   generationId: String
   school: School = new School()
+  allowAccess: Boolean = false
+  me: User
   private shownItem
 
   constructor(
@@ -42,16 +45,26 @@ export class GenerationDetailPage extends AbstractBasePage{
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader,
     public network: Network,
-    public ngZone: NgZone) {
+    public ngZone: NgZone,
+    public userData: UserData,
+    public alertCtrl: AlertController) {
       super(network, ngZone)
       this.generationId = navParams.get('generationId');
       this.school.name = "";   
   }
 
   initData() {
-    this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
-      this.populateGenerationDetails(generation)
+    this.userData.getUser().then((user: User)=> {
+      if (user) {
+        this.me = user
+        let role = user.roleName as any
+        this.allowAccess = (role == "admin")
+      } 
+      this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
+        this.populateGenerationDetails(generation)
+      })
     })
+    
   }
 
   mySlideOptions = {
@@ -258,6 +271,9 @@ export class GenerationDetailPage extends AbstractBasePage{
 
       for (var j = 0; j < students.length; j++) {
         let student = students[j]
+        if (this.me) {
+          if (this.me.id == student.userId) this.allowAccess = true
+        }
         let photo = student.photo
         if (photo) {
           classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
@@ -269,6 +285,8 @@ export class GenerationDetailPage extends AbstractBasePage{
 
       }
     }
+
+    if (school.isSample) this.allowAccess = true;
   }
 
   toggleItem(classRoom) {
@@ -284,19 +302,11 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   order() {
-    // this.navCtrl.push(OrderYearbookPage, { generation: this.generation });
-    let zBarOptions = {
-      flash: "off",
-      drawSight: false
-    };
-
-    this.zbar.scan(zBarOptions)
-      .then(result => {
-        console.log(result); // Scanned code
-      })
-      .catch(error => {
-        console.log(error); // Error message
-      });
+    if (!this.me) {
+      this.showAlert("Unauthorized","Mohon login untuk melanjutkan",["OK"])
+    } else {
+      //TODO
+    }
   }
 
   goToStudentDetails(student) {
@@ -304,7 +314,20 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   goToClassDetails(classRoom) {
-    this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+    if (!this.allowAccess) {
+      this.showAlert("Data tidak ditemukan","Data anda tidak ditemukan di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"])
+    } else {
+      this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+    }
+  }
+
+  showAlert(title: string, subTitle: string, buttons: Array<string>) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: buttons,
+    });
+    alert.present();
   }
 
   openPhotoViewer(url) {
