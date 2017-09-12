@@ -70,6 +70,9 @@ export class GenerationDetailPage extends AbstractBasePage{
           relation: 'school'
         },
         {
+          relation: 'yearbook'
+        },
+        {
           relation: 'classes', scope: {
             include: [
               {
@@ -330,7 +333,7 @@ export class GenerationDetailPage extends AbstractBasePage{
   read() {
     let book: Book = new Book()
     book.label = this.generation.school.name + " Angkatan " + this.generation.year
-    book.file = "assets/books/figure-gallery-bindings.epub"
+    book.file = AppSettings.API_ENDPOINT + this.generation.yearbook.url
     console.log('read', book);
     this.navCtrl.push(EpubPage, {
       book: book

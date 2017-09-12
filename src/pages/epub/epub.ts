@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, PopoverController, Events, NavParams } from 'ionic-angular';
+import { NavController, Platform, PopoverController, Events, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { TocPage } from '../toc/toc';
 import { SettingsPage } from '../settings/settings';
 declare var ePub: any
@@ -21,10 +21,12 @@ export class EpubPage {
   currentPage: number = 1;
   totalPages: any; // TODO should be number
   pageTitle: string;
+  bookData: any;
 
   showToolbars: boolean = true;
   bgColor: any;
   toolbarColor: string = 'light';
+  loading: Loading;
 
   constructor(
     public navCtrl: NavController,
@@ -32,41 +34,47 @@ export class EpubPage {
     public popoverCtrl: PopoverController,
     public events: Events,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController
   ) {
-    let book = this.navParams.get('book');
-
-    this.platform.ready().then(() => {
-      // load book
-      this.book = ePub(book.file);
-
-      this._updateTotalPages();
-
-      // load toc and then update pagetitle
-      this.book.getToc().then(toc => {
-        this._updatePageTitle();
-      });
-
-      // if page changes
-      this.book.on('book:pageChanged', (location) => {
-        console.log('on book:pageChanged', location);
-        this._updateCurrentPage();
-        this._updatePageTitle();
-      });
-
-      // subscribe to events coming from other pages
-      this._subscribeToEvents();
-    });
+    this.bookData = this.navParams.get('book');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EpubPage');
+    this.book = ePub(this.bookData.file);
 
+    this._updateTotalPages();
+
+    // load toc and then update pagetitle
+    this.book.getToc().then(toc => {
+      this._updatePageTitle();
+    });
+
+    // if page changes
+    this.book.on('book:pageChanged', (location) => {
+      console.log('on book:pageChanged', location);
+      this._updateCurrentPage();
+      this._updatePageTitle();
+    });
+
+    // subscribe to events coming from other pages
+    this._subscribeToEvents();
     // render book
     this.book.renderTo("book"); // TODO We should work with ready somehow here I think
+    this.loading = this.loadingCtrl.create({
+      content: 'Please Wait...'
+    })
+    this.loading.present();
   }
 
   _subscribeToEvents() {
     console.log('subscribe to events');
+
+    //book:ready
+    this.book.on('book:ready', () => {
+      console.log("Book ready ")
+      this.loading.dismiss()
+    })
 
     // toc: go to selected chapter
     this.events.subscribe('select:toc', (content) => {

@@ -35,16 +35,16 @@
 
   <ion-grid *ngIf="isConnected; else offline">
     <ion-row>
-      <ion-col col-10>
+      <ion-col col-8>
         <h4>{{school.name}}</h4>
         <p>Tahun {{generation.year}}</p>
       </ion-col>
-      <ion-col col-2>
-        <button ion-button icon-only color="danger">
-          <ion-icon name="cart"></ion-icon>
+      <ion-col col-4>
+        <button ion-button icon-left block color="danger" *ngIf="generation.price">
+          <ion-icon name="cart"></ion-icon>Order
         </button>
-        <button ion-button icon-only color="secondary" (click)="read()">
-          <ion-icon name="book"></ion-icon>
+        <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">
+          <ion-icon name="book"></ion-icon>Preview
         </button>
       </ion-col>
     </ion-row>
