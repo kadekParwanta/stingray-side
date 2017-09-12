@@ -34,6 +34,9 @@ import { Network } from '@ionic-native/network';
 import {IonSimpleWizard} from '../pages/ion-simple-wizard/ion-simple-wizard.component'
 import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.step.component'
 import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
+import { EpubPage } from '../pages/epub/epub';
+import { TocPage } from '../pages/toc/toc';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 @NgModule({
@@ -54,6 +57,9 @@ import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
     TextImage,
     IonSimpleWizard,
     IonSimpleWizardStep,
+    EpubPage,
+    TocPage,
+    SettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -78,7 +84,10 @@ import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
     PhotographyPage,
     EventOrganizerPage,
     ClassDetailPage,
-    StudentDetailPage
+    StudentDetailPage,
+    EpubPage,
+    TocPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,

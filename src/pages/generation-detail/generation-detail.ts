@@ -10,6 +10,12 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ImageLoader } from 'ionic-image-loader';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
+import { EpubPage } from '../epub/epub';
+
+export class Book {
+  label: string;
+  file: string;
+}
 
 /*
   Generated class for the GenerationDetail page.
@@ -322,7 +328,13 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   read() {
-    
+    let book: Book = new Book()
+    book.label = this.generation.school.name + " Angkatan " + this.generation.year
+    book.file = "assets/books/figure-gallery-bindings.epub"
+    console.log('read', book);
+    this.navCtrl.push(EpubPage, {
+      book: book
+    });
   }
 
 }
