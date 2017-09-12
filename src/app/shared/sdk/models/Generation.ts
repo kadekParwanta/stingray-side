@@ -12,6 +12,7 @@ export interface GenerationInterface {
   "name"?: string;
   "year"?: number;
   "barcode"?: string;
+  "price"?: number;
   "id"?: any;
   "userId"?: any;
   "schoolId"?: any;
@@ -26,6 +27,7 @@ export class Generation implements GenerationInterface {
   "name": string;
   "year": number;
   "barcode": string;
+  "price": number;
   "id": any;
   "userId": any;
   "schoolId": any;
@@ -77,6 +79,10 @@ export class Generation implements GenerationInterface {
         "barcode": {
           name: 'barcode',
           type: 'string'
+        },
+        "price": {
+          name: 'price',
+          type: 'number'
         },
         "id": {
           name: 'id',

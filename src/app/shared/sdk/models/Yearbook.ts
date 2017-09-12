@@ -5,18 +5,28 @@ import {
 
 declare var Object: any;
 export interface YearbookInterface {
-  "coverUrl"?: string;
-  "price"?: number;
+  "url": string;
   "name"?: string;
+  "type"?: string;
+  "format"?: string;
+  "isProfilePicture"?: string;
+  "dateCreated"?: Date;
+  "userId"?: string;
+  "container"?: string;
   "id"?: any;
   "generationId"?: any;
   epub?: Epub;
 }
 
 export class Yearbook implements YearbookInterface {
-  "coverUrl": string;
-  "price": number;
+  "url": string;
   "name": string;
+  "type": string;
+  "format": string;
+  "isProfilePicture": string;
+  "dateCreated": Date;
+  "userId": string;
+  "container": string;
   "id": any;
   "generationId": any;
   epub: Epub;
@@ -52,16 +62,36 @@ export class Yearbook implements YearbookInterface {
       plural: 'Yearbooks',
       path: 'Yearbooks',
       properties: {
-        "coverUrl": {
-          name: 'coverUrl',
+        "url": {
+          name: 'url',
           type: 'string'
-        },
-        "price": {
-          name: 'price',
-          type: 'number'
         },
         "name": {
           name: 'name',
+          type: 'string'
+        },
+        "type": {
+          name: 'type',
+          type: 'string'
+        },
+        "format": {
+          name: 'format',
+          type: 'string'
+        },
+        "isProfilePicture": {
+          name: 'isProfilePicture',
+          type: 'string'
+        },
+        "dateCreated": {
+          name: 'dateCreated',
+          type: 'Date'
+        },
+        "userId": {
+          name: 'userId',
+          type: 'string'
+        },
+        "container": {
+          name: 'container',
           type: 'string'
         },
         "id": {
