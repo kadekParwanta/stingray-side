@@ -37,6 +37,7 @@ import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
 import { EpubPage } from '../pages/epub/epub';
 import { TocPage } from '../pages/toc/toc';
 import { SettingsPage } from '../pages/settings/settings';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SettingsPage } from '../pages/settings/settings';
     IonSimpleWizardStep,
     EpubPage,
     TocPage,
-    SettingsPage
+    SettingsPage,
+    TutorialPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -87,7 +89,8 @@ import { SettingsPage } from '../pages/settings/settings';
     StudentDetailPage,
     EpubPage,
     TocPage,
-    SettingsPage
+    SettingsPage,
+    TutorialPage
   ],
   providers: [
     StatusBar,

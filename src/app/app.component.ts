@@ -16,6 +16,7 @@ import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { ImageLoaderConfig } from 'ionic-image-loader';
 import { AppUpdate } from '@ionic-native/app-update';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 export interface PageInterface {
   title: string;
@@ -56,9 +57,19 @@ export class MyApp {
     private appUpdate: AppUpdate,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
-    this.initializeApp();
+    
 
     this.footerPage = this.loggedOutPage;
+    this.userData.checkHasSeenTutorial()
+    .then((hasSeenTutorial) => {
+      if (hasSeenTutorial) {
+        this.rootPage = HomePage;
+      } else {
+        this.rootPage = TutorialPage;
+      }
+      this.initializeApp();
+    });
+
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.hasLoggedIn = hasLoggedIn;
@@ -128,6 +139,10 @@ export class MyApp {
     } else {
       this.nav.push(page.component);
     }
+  }
+
+  openTutorial() {
+    this.nav.setRoot(TutorialPage);
   }
 
   listenToLoginEvents() {
