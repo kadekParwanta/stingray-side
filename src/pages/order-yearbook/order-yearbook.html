@@ -59,17 +59,17 @@
         <ion-list>
           <ion-item>
             <ion-label color="primary" floating>Nama Pemesan</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" [(ngModel)]="order.recipientName" required></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label color="primary" floating>Alamat Penerima</ion-label>
-            <ion-textarea rows="3"></ion-textarea>
+            <ion-textarea rows="3" [(ngModel)]="order.recipientAddress" required></ion-textarea>
           </ion-item>
 
           <ion-item>
             <ion-label color="primary" floating>No Telp.</ion-label>
-            <ion-input type="tel"></ion-input>
+            <ion-input type="tel" [(ngModel)]="order.recipientPhonenumber" required></ion-input>
           </ion-item>
 
         </ion-list>
