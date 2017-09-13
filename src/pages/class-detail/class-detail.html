@@ -61,7 +61,7 @@
               {{group.letter}}
             </ion-label>
           </ion-item-divider>
-             <ion-item *ngFor="let student of group.students" (click)="goToStudentDetails(student)" detail-push>
+             <ion-item *ngFor="let student of group.students" (click)="goToStudentDetails(student)">
                 <ion-avatar item-left>
                     <div *ngIf="student.photo"><img-loader useImg [src]="student.photo.url"></img-loader></div>
                     <div *ngIf="!student.photo"><text-img [text]="student.name"></text-img></div>
