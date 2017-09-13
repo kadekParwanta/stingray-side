@@ -3,6 +3,7 @@ import { NavController, Platform, PopoverController, Events, NavParams, LoadingC
 import { TocPage } from '../toc/toc';
 import { SettingsPage } from '../settings/settings';
 declare var ePub: any
+declare var EPUBJS: any
 
 /**
  * Generated class for the EpubPage page.
@@ -41,6 +42,34 @@ export class EpubPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EpubPage');
+    EPUBJS.Render.Iframe.prototype.setLeft = function (leftPos) {
+      this.docEl.style[this.transform] = 'translate(' + (-leftPos) + 'px,0)';
+    }
+
+    EPUBJS.Hooks.register('beforeChapterDisplay').pageAnimation = function (callback, renderer) {
+      window.setTimeout(function () {
+        var style = renderer.doc.createElement("style");
+        style.innerHTML = "*{-webkit-transition: transform {t} ease;-moz-transition: tranform {t} ease;-o-transition: transform {t} ease;-ms-transition: transform {t} ease;transition: transform {t} ease;}";
+        style.innerHTML = style.innerHTML.split("{t}").join("0.5s");
+        renderer.doc.body.appendChild(style);
+      }, 100)
+      if (callback) {
+        callback();
+      }
+    };
+
+
+    EPUBJS.Hooks.register('beforeChapterDisplay').swipeDetection = function (callback, renderer) {
+      var script = renderer.doc.createElement('script');
+      script.text = "!function(a,b,c){function f(a){d=a.touches[0].clientX,e=a.touches[0].clientY}function g(f){if(d&&e){var g=f.touches[0].clientX,h=f.touches[0].clientY,i=d-g,j=e-h;Math.abs(i)>Math.abs(j)&&(i>a?b():i<0-a&&c()),d=null,e=null}}var d=null,e=null;document.addEventListener('touchstart',f,!1),document.addEventListener('touchmove',g,!1)}";
+      /* (threshold, leftswipe, rightswipe) */
+      script.text += "(10,function(){parent.ePubViewer.Book.nextPage()},function(){parent.ePubViewer.Book.prevPage()});"
+      renderer.doc.head.appendChild(script);
+      if (callback) {
+        callback();
+      }
+    };
+
     this.book = ePub(this.bookData.file);
 
     this._updateTotalPages();
@@ -57,6 +86,12 @@ export class EpubPage {
       this._updatePageTitle();
     });
 
+    //book:ready
+    this.book.on('book:ready', () => {
+      console.log("Book ready ")
+      this.loading.dismiss()
+    })
+
     // subscribe to events coming from other pages
     this._subscribeToEvents();
     // render book
@@ -69,12 +104,6 @@ export class EpubPage {
 
   _subscribeToEvents() {
     console.log('subscribe to events');
-
-    //book:ready
-    this.book.on('book:ready', () => {
-      console.log("Book ready ")
-      this.loading.dismiss()
-    })
 
     // toc: go to selected chapter
     this.events.subscribe('select:toc', (content) => {
