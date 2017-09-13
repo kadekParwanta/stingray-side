@@ -74,6 +74,7 @@ import { PhotographyApi } from './services/custom/Photography';
 import { EventOrganizerApi } from './services/custom/EventOrganizer';
 import { ClothingApi } from './services/custom/Clothing';
 import { MusicApi } from './services/custom/Music';
+import { OrderApi } from './services/custom/Order';
 /**
 * @module SDKBrowserModule
 * @description
@@ -131,6 +132,7 @@ export class SDKBrowserModule {
         EventOrganizerApi,
         ClothingApi,
         MusicApi,
+        OrderApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

@@ -12,7 +12,6 @@ export interface SchoolInterface {
   "hymne"?: string;
   "isSample"?: boolean;
   "id"?: any;
-  "userId"?: any;
   generations?: Generation[];
   photos?: Media[];
 }
@@ -24,7 +23,6 @@ export class School implements SchoolInterface {
   "hymne": string;
   "isSample": boolean;
   "id": any;
-  "userId": any;
   generations: Generation[];
   photos: Media[];
   constructor(data?: SchoolInterface) {
@@ -82,10 +80,6 @@ export class School implements SchoolInterface {
         },
         "id": {
           name: 'id',
-          type: 'any'
-        },
-        "userId": {
-          name: 'userId',
           type: 'any'
         },
       },

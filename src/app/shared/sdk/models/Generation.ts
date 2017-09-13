@@ -14,7 +14,6 @@ export interface GenerationInterface {
   "barcode"?: string;
   "price"?: number;
   "id"?: any;
-  "userId"?: any;
   "schoolId"?: any;
   classes?: Class[];
   photos?: Media[];
@@ -29,7 +28,6 @@ export class Generation implements GenerationInterface {
   "barcode": string;
   "price": number;
   "id": any;
-  "userId": any;
   "schoolId": any;
   classes: Class[];
   photos: Media[];
@@ -86,10 +84,6 @@ export class Generation implements GenerationInterface {
         },
         "id": {
           name: 'id',
-          type: 'any'
-        },
-        "userId": {
-          name: 'userId',
           type: 'any'
         },
         "schoolId": {

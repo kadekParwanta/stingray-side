@@ -25,5 +25,6 @@ export * from './Photography';
 export * from './EventOrganizer';
 export * from './Clothing';
 export * from './Music';
+export * from './Order';
 export * from './SDKModels';
 export * from './logger.service';

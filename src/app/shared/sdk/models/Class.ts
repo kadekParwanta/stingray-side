@@ -9,7 +9,6 @@ declare var Object: any;
 export interface ClassInterface {
   "name": string;
   "id"?: any;
-  "userId"?: any;
   "generationId"?: any;
   students?: Student[];
   photos?: Media[];
@@ -19,7 +18,6 @@ export interface ClassInterface {
 export class Class implements ClassInterface {
   "name": string;
   "id": any;
-  "userId": any;
   "generationId": any;
   students: Student[];
   photos: Media[];
@@ -62,10 +60,6 @@ export class Class implements ClassInterface {
         },
         "id": {
           name: 'id',
-          type: 'any'
-        },
-        "userId": {
-          name: 'userId',
           type: 'any'
         },
         "generationId": {

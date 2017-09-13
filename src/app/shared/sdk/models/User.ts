@@ -2,11 +2,9 @@
 import {
   Media,
   Student,
-  Class,
-  Generation,
-  School,
   Message,
-  Room
+  Room,
+  Order
 } from '../index';
 
 declare var Object: any;
@@ -39,11 +37,9 @@ export interface UserInterface {
   creator?: User;
   media?: Media;
   students?: Student[];
-  classes?: Class[];
-  generations?: Generation[];
-  schools?: School[];
   messages?: Message[];
   rooms?: Room[];
+  orders?: Order[];
 }
 
 export class User implements UserInterface {
@@ -75,11 +71,9 @@ export class User implements UserInterface {
   creator: User;
   media: Media;
   students: Student[];
-  classes: Class[];
-  generations: Generation[];
-  schools: School[];
   messages: Message[];
   rooms: Room[];
+  orders: Order[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
   }
@@ -236,21 +230,6 @@ export class User implements UserInterface {
           type: 'Student[]',
           model: 'Student'
         },
-        classes: {
-          name: 'classes',
-          type: 'Class[]',
-          model: 'Class'
-        },
-        generations: {
-          name: 'generations',
-          type: 'Generation[]',
-          model: 'Generation'
-        },
-        schools: {
-          name: 'schools',
-          type: 'School[]',
-          model: 'School'
-        },
         messages: {
           name: 'messages',
           type: 'Message[]',
@@ -260,6 +239,11 @@ export class User implements UserInterface {
           name: 'rooms',
           type: 'Room[]',
           model: 'Room'
+        },
+        orders: {
+          name: 'orders',
+          type: 'Order[]',
+          model: 'Order'
         },
       }
     }
