@@ -7,21 +7,33 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <ion-list-header>
+        Navigasi
+      </ion-list-header>
+      <button menuClose ion-item *ngFor="let p of navigationPages" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
+    <ion-list>
+        <ion-list-header>
+          Akun
+        </ion-list-header>
+        <button menuClose ion-item *ngFor="let p of accountPages" (click)="openPage(p)">
+          <ion-icon [name]="p.icon"></ion-icon>
+          {{p.title}}
+        </button>
+      </ion-list>
   </ion-content>
 
   <ion-footer>
-  <ion-toolbar>
-    <button menuClose ion-item (click)="openPage(footerPage)">
+    <ion-toolbar>
+      <button menuClose ion-item (click)="openPage(footerPage)">
       <ion-icon [name]="footerPage.icon"></ion-icon>
         {{footerPage.title}}
     </button>
-  </ion-toolbar>
-</ion-footer>
+    </ion-toolbar>
+  </ion-footer>
 
 </ion-menu>
 

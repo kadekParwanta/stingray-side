@@ -49,7 +49,7 @@ export class OrderYearbookPage {
       this.orderApi.linkYearbooks(res.id, this.generation.id).subscribe(resp => {
         loading.dismiss()
         this.back()
-        this.showAlert("Sukses","Pesanan anda sedang diproses.",["OK"])
+        this.showAlert("Sukses","Pesanan anda sedang diproses. CS kami akan segera menghubuni Anda",["OK"])
       })
     })
   }

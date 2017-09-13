@@ -34,11 +34,14 @@ export class MyApp {
 
   rootPage: any = HomePage;
   hasLoggedIn: Boolean;
-  pages: PageInterface[] = [
+  navigationPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
     { title: 'Photography', component: PhotographyPage, index: 2, icon: 'camera' },
     { title: 'Events', component: EventOrganizerPage, index: 3, icon: 'key' },
+  ]
+
+  accountPages: PageInterface[] = [
     { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
   ]
 
