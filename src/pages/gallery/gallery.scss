@@ -9,4 +9,24 @@ page-gallery {
         background-size: 100%;
         background-position: center;
     }
+
+    .slick-slider {
+        margin-bottom: 20px;
+    }
+
+    .slick-slide {
+        padding: 0 10px;
+        opacity: 0.6;
+    }
+
+    .slick-current {
+        opacity: 1 !important;
+    }
+    .slick-dots li button:before  {
+        font-size: 50px !important;
+    }
+
+    .slick-nav {
+        margin: 0 10px;
+    }
 }
