@@ -225,6 +225,7 @@ export class ClassDetailPage extends AbstractBasePage {
   }
 
   groupStudents(students: Array<Student>) {
+    this.studentGroups = []
     let sortedStudents = students.sort(
       (a: Student, b: Student): number => {
         var ra = a.name.match(/\D+|\d+/g);
