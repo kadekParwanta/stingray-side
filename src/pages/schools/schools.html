@@ -25,32 +25,35 @@
   </ion-refresher>
 
   <ion-grid *ngIf="isConnected; else offline">
-    <ion-row *ngFor="let row of grid">
-      <ion-col col-6 *ngFor="let school of row">
-        <ion-card (click)="goToDetails(school)">
-          <div *ngIf="school.photos.length > 0">
-            <img-loader useImg [src]="school.photos[0].url"></img-loader>
-          </div>
-          <ion-card-content>
-            <ion-card-title>
-              {{school.name}}
-            </ion-card-title>
-          </ion-card-content>
+    <div *ngIf="!isBusy; else busy">
+      <ion-row *ngFor="let row of grid">
+        <ion-col col-6 *ngFor="let school of row">
+          <ion-card (click)="goToDetails(school)">
+            <div *ngIf="school.photos.length > 0">
+              <img-loader useImg [src]="school.photos[0].url"></img-loader>
+            </div>
+            <ion-card-content>
+              <ion-card-title>
+                {{school.name}}
+              </ion-card-title>
+            </ion-card-content>
 
-          <ion-row no-padding>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <!--<ion-icon name="people"></ion-icon>-->
-                <div><ion-badge>{{school.generations.length}}</ion-badge> generasi</div>
-              </button>
-            </ion-col>
-          </ion-row>
-          <div class="ribbon ribbon-top-right" *ngIf="school.isSample">
-            <span>Sample</span>
-          </div>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+            <ion-row no-padding>
+              <ion-col>
+                <button ion-button icon-start clear small>
+                      <!--<ion-icon name="people"></ion-icon>-->
+                      <div><ion-badge>{{school.generations.length}}</ion-badge> generasi</div>
+                    </button>
+              </ion-col>
+            </ion-row>
+            <div class="ribbon ribbon-top-right" *ngIf="school.isSample">
+              <span>Sample</span>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+
   </ion-grid>
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="scan()"><ion-icon name="qr-scanner"></ion-icon></button>
@@ -61,16 +64,19 @@
 </ion-content>
 
 <ng-template #offline>
-  <ion-row style="margin:10px">
-    <ion-item style="background-color:khaki">
-      <div [hidden]="isLoading">
-          <ion-icon name="sad" item-start></ion-icon>
-          Oops.. Koneksi terputus
-      </div>
-      <div [hidden]="!isLoading">
-          <ion-spinner name="bubbles"></ion-spinner>
-          Menyambungkan..
-      </div>
-    </ion-item>
-  </ion-row>
+  <div class="offline">
+    <div [hidden]="isLoading" class="absolute-center">
+      <ion-icon name="sad" item-start></ion-icon>
+      Oops.. Koneksi terputus
+    </div>
+    <div [hidden]="!isLoading" class="absolute-center">
+      <ion-spinner name="bubbles"></ion-spinner>
+      Menyambungkan..
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #busy>
+  <ion-spinner name="dots" class="busy"></ion-spinner>
 </ng-template>

@@ -15,6 +15,39 @@ $font-path: "../assets/fonts";
 $refresher-icon-color:         #fff;
 $refresher-text-color:         #fff;
 
+.busy {
+  top: 50%; 
+  width: 50px;
+  height: 50px;
+}
+
+.busy  { 
+  * {
+    width: 50px;
+    height: 50px;
+    stroke: #ffffff;
+    fill: #ffffff !important;
+  }
+}
+
+.offline {
+  color:white; 
+  text-align:center; 
+  height:100%;
+  * {
+    stroke: #ffffff;
+    fill: #ffffff !important;
+  }
+}
+
+.absolute-center {
+  top: 50%;
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+}
+
 
 
 // Named Color Variables

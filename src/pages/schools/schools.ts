@@ -29,6 +29,7 @@ export class SchoolsPage extends AbstractBasePage{
   searchQuery: string = ''
   perpage:number = 10
   private start:number=0
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController,
@@ -63,6 +64,7 @@ export class SchoolsPage extends AbstractBasePage{
       }
       this.filteredSchools = this.schools
       this.iterateSchool()
+      this.isBusy = false
   }
 
   initData() {
@@ -72,6 +74,7 @@ export class SchoolsPage extends AbstractBasePage{
   }
 
   getSchools(start: number = 0) {
+    this.isBusy = true
     this.schools.length = 0
     return new Promise(resolve => {
       if (this.isConnected) {

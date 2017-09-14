@@ -21,6 +21,7 @@ export class SchoolDetailPage extends AbstractBasePage {
 
   public school: School;
   private generations = new Array<Generation>()
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController, 
@@ -43,6 +44,7 @@ export class SchoolDetailPage extends AbstractBasePage {
   }
 
   getGenerations(school) {
+    this.isBusy = true
     return this.schoolApi.getGenerations(school.id, {include:'photos'})
     .map((generations: Array<Generation>) => { return generations})
     .toPromise()
@@ -95,6 +97,7 @@ export class SchoolDetailPage extends AbstractBasePage {
 
       this.generations.push(generationData)
     }
+    this.isBusy = false
   }
 
   goToDetails(generation) {

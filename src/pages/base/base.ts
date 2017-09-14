@@ -19,7 +19,7 @@ export abstract class AbstractBasePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SchoolsPage');
+    console.log('ionViewDidLoad from AbstractBasePage');
     if (this.network.type == 'none' || this.network.type == 'unknown') this.isConnected = false
     this.initData();
   }
@@ -37,14 +37,12 @@ export abstract class AbstractBasePage {
 
   listenToNetworkEvents() {
        this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-        console.log('network was disconnected :-(');
         this.ngZone.run(() => {
           this.isConnected = false;
         })
       });
 
        this.connectSubscription = this.network.onConnect().subscribe(() => {
-        console.log('network connected!');
         // We just got a connection but we need to wait briefly
          // before we determine the connection type. Might need to wait.
         // prior to doing any api requests as well.

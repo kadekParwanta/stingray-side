@@ -28,6 +28,7 @@ export class ClassDetailPage extends AbstractBasePage{
   photos = new Array<Media>()
   studentGroups = []
   classRoomId
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController, 
@@ -49,6 +50,7 @@ export class ClassDetailPage extends AbstractBasePage{
   }
 
   getClassDetails(classRoomId) {
+    this.isBusy = true
     return this.classApi.findById(classRoomId, {
       include: [
         {
@@ -168,6 +170,7 @@ export class ClassDetailPage extends AbstractBasePage{
       }
       this.groupStudents(students)
       this.iteratePhotos();
+      this.isBusy = false
   }
 
   iteratePhotos() {

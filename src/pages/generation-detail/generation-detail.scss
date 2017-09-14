@@ -3,6 +3,11 @@ page-generation-detail {
         background-color: transparent !important;
     }
     
+    ion-grid {
+      height: 100%;
+      align-items: center;
+    }
+    
     .slide-image {
         height: auto;
         width: 100%;

@@ -18,51 +18,57 @@
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing.."></ion-refresher-content>
   </ion-refresher>
   <ion-grid *ngIf="isConnected; else offline">
-    <ion-row>
-      <ion-col center col-8>
-        <h4>Alamat</h4>
-        <p>{{school.address}}</p>
-      </ion-col>
-      <ion-col col-4>
-        <img-loader useImg [src]="school.photos[0].url"></img-loader>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <h4>Profil Singkat</h4>
-        <p>{{school.profile || "-"}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row wrap>
-      <ion-col>
+    <div *ngIf="!isBusy; else busy">
+      <ion-row>
+        <ion-col center col-8>
+          <h4>Alamat</h4>
+          <p>{{school.address}}</p>
+        </ion-col>
+        <ion-col col-4>
+          <img-loader useImg [src]="school.photos[0].url"></img-loader>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h4>Profil Singkat</h4>
+          <p>{{school.profile || "-"}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row wrap>
+        <ion-col>
           <h4>Daftar Angkatan</h4>
-        <ion-list >
-          <ion-item *ngFor="let generation of generations" (click)="goToDetails(generation)" detail-push>
-            <ion-thumbnail item-start>
+          <ion-list>
+            <ion-item *ngFor="let generation of generations" (click)="goToDetails(generation)" detail-push>
+              <ion-thumbnail item-start>
                 <img-loader useImg *ngIf="generation.photos.length > 0" [src]="generation.photos[0].url"></img-loader>
               </ion-thumbnail>
               <h2>{{generation.name}}</h2>
               <p>Tahun {{generation.year}}</p>
               <ion-icon name="arrow-dropright" item-end></ion-icon>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </div>
+
   </ion-grid>
 
 </ion-content>
 
 <ng-template #offline>
-    <ion-row style="margin:10px">
-      <ion-item style="background-color:khaki">
-          <div [hidden]="isLoading">
-              <ion-icon name="sad" item-start></ion-icon>
-              Oops.. Koneksi terputus
-          </div>
-          <div [hidden]="!isLoading">
-              <ion-spinner name="bubbles"></ion-spinner>
-              Menyambungkan..
-          </div>
-      </ion-item>
-    </ion-row>
-  </ng-template>
+  <div class="offline">
+    <div [hidden]="isLoading" class="absolute-center">
+      <ion-icon name="sad" item-start></ion-icon>
+      Oops.. Koneksi terputus
+    </div>
+    <div [hidden]="!isLoading" class="absolute-center">
+      <ion-spinner name="bubbles"></ion-spinner>
+      Menyambungkan..
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #busy>
+  <ion-spinner name="dots" class="busy"></ion-spinner>
+</ng-template>

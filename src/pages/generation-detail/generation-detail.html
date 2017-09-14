@@ -19,13 +19,9 @@
 
 
 <ion-content class="content">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-        pullingIcon="arrow-dropdown"
-        pullingText="Pull to refresh"
-        refreshingSpinner="circles"
-        refreshingText="Refreshing.."></ion-refresher-content>
-      </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing.."></ion-refresher-content>
+  </ion-refresher>
 
   <ion-slides class="slider">
     <ion-slide *ngFor="let photo of generation.photos" (click)="openPhotoViewer(photo.url)">
@@ -34,45 +30,50 @@
   </ion-slides>
 
   <ion-grid *ngIf="isConnected; else offline">
-    <ion-row>
-      <ion-col col-8>
-        <h4>{{school.name}}</h4>
-        <p>Tahun {{generation.year}}</p>
-      </ion-col>
-      <ion-col col-4>
-        <button ion-button icon-left block color="danger" (click)="order()">
-          <ion-icon name="cart"></ion-icon>Order
-        </button>
-        <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">
-          <ion-icon name="book"></ion-icon>Preview
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="pictureRow">
-      <ion-col offset-50>
-        <h4>Daftar Kelas</h4>
-      </ion-col>
-    </ion-row>
-    <div *ngFor="let class of generation.classes">
-      <ion-card (click)="goToClassDetails(class)">
+    <div *ngIf="!isBusy; else busy">
+      <ion-row>
+        <ion-col col-8>
+          <h4>{{school.name}}</h4>
+          <p>Tahun {{generation.year}}</p>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button icon-left block color="danger" (click)="order()">
+                  <ion-icon name="cart"></ion-icon>Order
+                </button>
+          <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">
+                  <ion-icon name="book"></ion-icon>Preview
+                </button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pictureRow">
+        <ion-col offset-50>
+          <h4>Daftar Kelas</h4>
+        </ion-col>
+      </ion-row>
+      <div *ngFor="let class of generation.classes">
+        <ion-card (click)="goToClassDetails(class)">
           <div class="skewed"><span>{{class.name}}</span></div>
-        <img-loader useImg [src]="class.photos[0].url"></img-loader>
-      </ion-card>
+          <img-loader useImg [src]="class.photos[0].url"></img-loader>
+        </ion-card>
+      </div>
     </div>
   </ion-grid>
 </ion-content>
 
 <ng-template #offline>
-  <ion-row style="margin:10px">
-    <ion-item style="background-color:khaki">
-        <div [hidden]="isLoading">
-            <ion-icon name="sad" item-start></ion-icon>
-            Oops.. Koneksi terputus
-        </div>
-        <div [hidden]="!isLoading">
-            <ion-spinner name="bubbles"></ion-spinner>
-            Menyambungkan..
-        </div>
-    </ion-item>
-  </ion-row>
+  <div class="offline">
+    <div [hidden]="isLoading" class="absolute-center">
+      <ion-icon name="sad" item-start></ion-icon>
+      Oops.. Koneksi terputus
+    </div>
+    <div [hidden]="!isLoading" class="absolute-center">
+      <ion-spinner name="bubbles"></ion-spinner>
+      Menyambungkan..
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #busy>
+  <ion-spinner name="dots" class="busy"></ion-spinner>
 </ng-template>

@@ -35,6 +35,7 @@ export class GenerationDetailPage extends AbstractBasePage{
   allowAccess: Boolean = false
   me: User
   private shownItem
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController, 
@@ -74,6 +75,7 @@ export class GenerationDetailPage extends AbstractBasePage{
   };
 
   getGenerationDetails(generationId) {
+    this.isBusy = true
     return this.generationApi.findById(generationId, {
       include: [
         {
@@ -287,6 +289,7 @@ export class GenerationDetailPage extends AbstractBasePage{
     }
 
     if (school.isSample) this.allowAccess = true;
+    this.isBusy = false
   }
 
   toggleItem(classRoom) {

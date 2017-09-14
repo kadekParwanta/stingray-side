@@ -58,6 +58,7 @@ export class StudentDetailPage {
       let photo = student.photo
       if (photo) {
         this.student.photo.url = AppSettings.API_ENDPOINT + photo.url
+        this.style['background-image'] = this.student.photo.url
       } else {
         let media = new Media()
         media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
