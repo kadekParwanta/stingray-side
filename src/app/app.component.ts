@@ -114,7 +114,6 @@ export class MyApp {
       //Image Loader
       this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg'); 
       this.imageLoaderConfig.useImageTag(true);
-      this.imageLoaderConfig.setImageReturnType('base64')
 
       //App Update
       const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';

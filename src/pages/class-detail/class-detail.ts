@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
-import { Class, Media, Generation, School , Student} from '../../app/shared/sdk/models';
+import { Class, Media, Generation, School, Student } from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { StudentDetailPage } from '../student-detail/student-detail';
@@ -21,7 +21,7 @@ import { AbstractBasePage } from '../base/base';
   templateUrl: 'class-detail.html'
 })
 
-export class ClassDetailPage extends AbstractBasePage{
+export class ClassDetailPage extends AbstractBasePage {
   classRoom = new Class()
   generation = new Generation()
   school = new School()
@@ -32,20 +32,20 @@ export class ClassDetailPage extends AbstractBasePage{
   private isBusy: Boolean = true
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public toastCtrl: ToastController,
     public classApi: ClassApi,
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader,
     public network: Network,
     public ngZone: NgZone) {
-      super(network, ngZone)
-       this.classRoomId = navParams.get('classRoomId');
+    super(network, ngZone)
+    this.classRoomId = navParams.get('classRoomId');
   }
 
   initData() {
-    this.getClassDetails(this.classRoomId).then((classRoom:Class) => {
+    this.getClassDetails(this.classRoomId).then((classRoom: Class) => {
       this.populateClassRoom(classRoom)
     })
   }
@@ -62,18 +62,18 @@ export class ClassDetailPage extends AbstractBasePage{
         {
           relation: 'students', scope: {
             order: "name ASC",
-            include: {relation:"photo"}
+            include: { relation: "photo" }
           }
         },
         {
           relation: 'generation', scope: {
-            include: {relation: 'school'}
+            include: { relation: 'school' }
           }
         }
       ]
     })
-    .map((classRoom: Class) => { return classRoom})
-    .toPromise()
+      .map((classRoom: Class) => { return classRoom })
+      .toPromise()
 
     //   this.classApi.findById(classRoomId, {
     //   include: [
@@ -114,7 +114,7 @@ export class ClassDetailPage extends AbstractBasePage{
 
     //     this.photos = this.classRoom.photos;
 
-        
+
     //       let students = classRoom.students
 
     //       for (var j = 0; j < students.length; j++) {
@@ -141,7 +141,7 @@ export class ClassDetailPage extends AbstractBasePage{
     // )
   }
 
-  populateClassRoom(classRoom:Class) {
+  populateClassRoom(classRoom: Class) {
     this.classRoom = classRoom
     this.generation = classRoom.generation;
     this.school = this.generation.school;
@@ -163,17 +163,17 @@ export class ClassDetailPage extends AbstractBasePage{
     this.photos = this.classRoom.photos;
     let students = classRoom.students
 
-      for (var j = 0; j < students.length; j++) {
-        let student = students[j]
-        let photo = student.photo
-        if (photo) {
-          classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
-        }
-        
+    for (var j = 0; j < students.length; j++) {
+      let student = students[j]
+      let photo = student.photo
+      if (photo) {
+        classRoom.students[j].photo.url = AppSettings.API_ENDPOINT + photo.url
       }
-      this.groupStudents(students)
-      this.iteratePhotos();
-      this.isBusy = false
+
+    }
+    this.groupStudents(students)
+    this.iteratePhotos();
+    this.isBusy = false
   }
 
   iteratePhotos() {
@@ -198,78 +198,78 @@ export class ClassDetailPage extends AbstractBasePage{
   }
 
   goToStudentDetails(student) {
-    this.navCtrl.push(StudentDetailPage, {studentId: student.id});
+    this.navCtrl.push(StudentDetailPage, { studentId: student.id });
   }
-  
-    openPhotoViewer(url) {
-      this.imgLoader.getImagePath(url).then(
-        path => {this.imageViewer.show(path)},
-        fallbackPath => {this.imageViewer.show(fallbackPath)}
-      )
-    }
 
-    doRefresh(refresher: Refresher) {
-      this.getClassDetails(this.classRoomId).then((classRoom:Class) => {
-        this.populateClassRoom(classRoom)
-        refresher.complete()
-              const toast = this.toastCtrl.create({
-                message: 'Data sudah diperbaharui',
-                duration: 3000
-              })
-              toast.present()
+  openPhotoViewer(url) {
+    this.imgLoader.getImagePath(url).then(
+      path => { this.imageViewer.show(path) },
+      fallbackPath => { this.imageViewer.show(fallbackPath) }
+    )
+  }
+
+  doRefresh(refresher: Refresher) {
+    this.getClassDetails(this.classRoomId).then((classRoom: Class) => {
+      this.populateClassRoom(classRoom)
+      refresher.complete()
+      const toast = this.toastCtrl.create({
+        message: 'Data sudah diperbaharui',
+        duration: 3000
       })
-    }
+      toast.present()
+    })
+  }
 
-    goToHome() {
-      this.navCtrl.popToRoot()
-    }
+  goToHome() {
+    this.navCtrl.popToRoot()
+  }
 
-    groupStudents(students: Array<Student>){
-             let sortedStudents = students.sort(
-               (a: Student, b:Student) : number => {
-                var ra = a.name.match(/\D+|\d+/g);
-                var rb = b.name.match(/\D+|\d+/g);
-                var r = 0;
-                
-                    while(!r && ra.length && rb.length) {
-                        var x = ra.shift(), y = rb.shift(),
-                            nx = parseInt(x), ny = parseInt(y);
-                
-                        if(isNaN(nx) || isNaN(ny))
-                            r = x > y ? 1 : (x < y ? -1 : 0);
-                        else
-                            r = nx - ny;
-                    }
-                    return r || ra.length - rb.length;
-               }
-             )
-             let currentLetter = "";
-             let currentStudents = [];
-      
-             sortedStudents.forEach((value, index) => {
-      
-                 if(value.name.charAt(0) != currentLetter){
-      
-                     currentLetter = value.name.charAt(0);
-      
-                     let newGroup = {
-                         letter: currentLetter,
-                         students: []
-                     };
-      
-                     currentStudents = newGroup.students
-                     this.studentGroups.push(newGroup);
-      
-                 } 
-      
-                 currentStudents.push(value);
-      
-             });
-      
-         }
+  groupStudents(students: Array<Student>) {
+    let sortedStudents = students.sort(
+      (a: Student, b: Student): number => {
+        var ra = a.name.match(/\D+|\d+/g);
+        var rb = b.name.match(/\D+|\d+/g);
+        var r = 0;
+
+        while (!r && ra.length && rb.length) {
+          var x = ra.shift(), y = rb.shift(),
+            nx = parseInt(x), ny = parseInt(y);
+
+          if (isNaN(nx) || isNaN(ny))
+            r = x > y ? 1 : (x < y ? -1 : 0);
+          else
+            r = nx - ny;
+        }
+        return r || ra.length - rb.length;
+      }
+    )
+    let currentLetter = "";
+    let currentStudents = [];
+
+    sortedStudents.forEach((value, index) => {
+
+      if (value.name.charAt(0) != currentLetter) {
+
+        currentLetter = value.name.charAt(0);
+
+        let newGroup = {
+          letter: currentLetter,
+          students: []
+        };
+
+        currentStudents = newGroup.students
+        this.studentGroups.push(newGroup);
+
+      }
+
+      currentStudents.push(value);
+
+    });
+
+  }
 
   gotoGallery() {
-    this.navCtrl.push(GalleryPage, {classRoomId : this.classRoomId})
+    this.navCtrl.push(GalleryPage, { classRoomId: this.classRoomId })
   }
 
 }

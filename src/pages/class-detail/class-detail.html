@@ -38,7 +38,9 @@
       </ion-row>
       <ion-row *ngFor="let row of grid">
         <ion-col width-50 *ngFor="let media of row">
-          <img-loader useImg [src]="media.url" (click)="openPhotoViewer(media.url)"></img-loader>
+          <ion-card>
+              <img-loader useImg [src]="media.url" (click)="openPhotoViewer(media.url)"></img-loader>
+          </ion-card>
         </ion-col>
       </ion-row>
       <ion-row style="color:white" *ngIf="classRoom.photos.length > 2">

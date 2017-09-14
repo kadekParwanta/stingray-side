@@ -78,7 +78,7 @@ export class SchoolsPage extends AbstractBasePage{
     this.schools.length = 0
     return new Promise(resolve => {
       if (this.isConnected) {
-        this.schoolApi.find({ skip: start, limit: this.perpage, include: ['photos', 'generations'] }).subscribe(
+        this.schoolApi.find({ skip: start, limit: this.perpage, include: ['photos', 'generations'], order:'isSample DESC' }).subscribe(
           (schools: Array<School>) => {
             resolve(schools);
           })
