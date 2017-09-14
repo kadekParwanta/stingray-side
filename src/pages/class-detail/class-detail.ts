@@ -54,7 +54,9 @@ export class ClassDetailPage extends AbstractBasePage{
     return this.classApi.findById(classRoomId, {
       include: [
         {
-          relation: 'photos'
+          relation: 'photos', scope: {
+            limit: 3
+          }
         },
         {
           relation: 'students', scope: {

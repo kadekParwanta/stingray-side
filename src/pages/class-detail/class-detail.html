@@ -32,12 +32,18 @@
         </ion-col>
       </ion-row>
 
-      <p>Foto Kelas</p>
+      
+      <ion-row style="color:white">
+        <ion-col><h5>Foto Kelas</h5></ion-col>
+      </ion-row>
       <ion-row *ngFor="let row of grid">
         <ion-col width-50 *ngFor="let media of row">
           <img-loader useImg [src]="media.url" (click)="openPhotoViewer(media.url)"></img-loader>
         </ion-col>
       </ion-row>
+      <ion-row style="color:white" *ngIf="classRoom.photos.length > 2">
+          <ion-col style="text-align:end"><button ion-button color="light" outline icon-start item-end><ion-icon name="expand"></ion-icon>MORE</button></ion-col>
+        </ion-row>
 
       <p>Daftar Siswa</p>
       <ion-list>
