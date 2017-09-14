@@ -14,7 +14,7 @@ import { UserData } from '../providers/user-data';
 import { AppSettings } from '../providers/app-setting';
 import { PhotographyPage } from '../pages/photography/photography';
 import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
-import { ImageLoaderConfig } from 'ionic-image-loader';
+import { ImageLoaderConfig, ImageLoader } from 'ionic-image-loader';
 import { AppUpdate } from '@ionic-native/app-update';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
@@ -59,7 +59,8 @@ export class MyApp {
     private imageLoaderConfig: ImageLoaderConfig,
     private appUpdate: AppUpdate,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public imageLoader: ImageLoader) {
     
 
     this.footerPage = this.loggedOutPage;
@@ -113,6 +114,7 @@ export class MyApp {
       //Image Loader
       this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg'); 
       this.imageLoaderConfig.useImageTag(true);
+      this.imageLoaderConfig.setImageReturnType('base64')
 
       //App Update
       const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
@@ -133,6 +135,7 @@ export class MyApp {
 
       setTimeout(() => {
         this.userData.logout();
+        this.imageLoader.clearCache();
         this.nav.setRoot(page.component);
         loading.dismiss();
         this.presentAlert()

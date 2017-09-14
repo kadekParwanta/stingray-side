@@ -4,6 +4,7 @@ import { Class, Media, Generation, School , Student} from '../../app/shared/sdk/
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { StudentDetailPage } from '../student-detail/student-detail';
+import { GalleryPage } from '../gallery/gallery';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ImageLoader } from 'ionic-image-loader';
 import { Network } from '@ionic-native/network';
@@ -266,5 +267,9 @@ export class ClassDetailPage extends AbstractBasePage{
              });
       
          }
+
+  gotoGallery() {
+    this.navCtrl.push(GalleryPage, {classRoomId : this.classRoomId})
+  }
 
 }

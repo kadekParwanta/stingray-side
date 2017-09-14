@@ -38,6 +38,7 @@ import { EpubPage } from '../pages/epub/epub';
 import { TocPage } from '../pages/toc/toc';
 import { SettingsPage } from '../pages/settings/settings';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { GalleryPage } from '../pages/gallery/gallery';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     EpubPage,
     TocPage,
     SettingsPage,
-    TutorialPage
+    TutorialPage,
+    GalleryPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -90,7 +92,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
     EpubPage,
     TocPage,
     SettingsPage,
-    TutorialPage
+    TutorialPage,
+    GalleryPage
   ],
   providers: [
     StatusBar,
