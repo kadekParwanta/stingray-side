@@ -314,7 +314,9 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   goToClassDetails(classRoom) {
-    if (!this.allowAccess) {
+    if (!this.me) {
+      this.showAlert("Unauthorized","Mohon login untuk melanjutkan",["OK"])
+    } else if (!this.allowAccess) {
       this.showAlert("Data tidak ditemukan","Data anda tidak ditemukan di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"])
     } else {
       this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
