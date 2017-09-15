@@ -31,6 +31,7 @@ import { ZBar } from '@ionic-native/zbar';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AppUpdate } from '@ionic-native/app-update';
 import { Network } from '@ionic-native/network';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import {IonSimpleWizard} from '../pages/ion-simple-wizard/ion-simple-wizard.component'
 import {IonSimpleWizardStep} from '../pages/ion-simple-wizard/ion-simple-wizard.step.component'
 import {PasswordStrengthBarModule} from 'ng2-password-strength-bar'
@@ -106,6 +107,7 @@ import { GalleryPage } from '../pages/gallery/gallery';
     ZBar,
     PhotoViewer,
     AppUpdate,
-    Network]
+    Network,
+    ScreenOrientation]
 })
 export class AppModule {}

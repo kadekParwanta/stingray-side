@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, PopoverController, Events, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { NavController, Platform, PopoverController, Events, NavParams } from 'ionic-angular';
 import { TocPage } from '../toc/toc';
 import { SettingsPage } from '../settings/settings';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 declare var ePub: any
 declare var EPUBJS: any
 
@@ -27,7 +28,7 @@ export class EpubPage {
   showToolbars: boolean = true;
   bgColor: any;
   toolbarColor: string = 'light';
-  loading: Loading;
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController,
@@ -35,75 +36,26 @@ export class EpubPage {
     public popoverCtrl: PopoverController,
     public events: Events,
     public navParams: NavParams,
-    public loadingCtrl: LoadingController
+    private screenOrientation: ScreenOrientation
   ) {
     this.bookData = this.navParams.get('book');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EpubPage');
-    EPUBJS.Render.Iframe.prototype.setLeft = function (leftPos) {
-      this.docEl.style[this.transform] = 'translate(' + (-leftPos) + 'px,0)';
-    }
-
-    EPUBJS.Hooks.register('beforeChapterDisplay').pageAnimation = function (callback, renderer) {
-      window.setTimeout(function () {
-        var style = renderer.doc.createElement("style");
-        style.innerHTML = "*{-webkit-transition: transform {t} ease;-moz-transition: tranform {t} ease;-o-transition: transform {t} ease;-ms-transition: transform {t} ease;transition: transform {t} ease;}";
-        style.innerHTML = style.innerHTML.split("{t}").join("0.5s");
-        renderer.doc.body.appendChild(style);
-      }, 100)
-      if (callback) {
-        callback();
-      }
-    };
-
-
-    // EPUBJS.Hooks.register('beforeChapterDisplay').swipeDetection = function (callback, renderer) {
-    //   var script = renderer.doc.createElement('script');
-    //   script.text = "!function(a,b,c){function f(a){d=a.touches[0].clientX,e=a.touches[0].clientY}function g(f){if(d&&e){var g=f.touches[0].clientX,h=f.touches[0].clientY,i=d-g,j=e-h;Math.abs(i)>Math.abs(j)&&(i>a?b():i<0-a&&c()),d=null,e=null}}var d=null,e=null;document.addEventListener('touchstart',f,!1),document.addEventListener('touchmove',g,!1)}";
-    //   /* (threshold, leftswipe, rightswipe) */
-    //   script.text += "(10,function(){parent.ePub().nextPage()},function(){parent.ePub().prevPage()});"
-    //   renderer.doc.head.appendChild(script);
-    //   if (callback) {
-    //     callback();
-    //   }
-    // };
-
-    this.book = ePub(this.bookData.file);
-
-    this._updateTotalPages();
-
-    // load toc and then update pagetitle
-    this.book.getToc().then(toc => {
-      this._updatePageTitle();
-    });
-
-    // if page changes
-    this.book.on('book:pageChanged', (location) => {
-      console.log('on book:pageChanged', location);
-      this._updateCurrentPage();
-      this._updatePageTitle();
-    });
-
-    //book:ready
-    this.book.on('book:ready', () => {
-      console.log("Book ready ")
-      this.loading.dismiss()
-    })
-
-    // subscribe to events coming from other pages
-    this._subscribeToEvents();
-    // render book
-    this.book.renderTo("book"); // TODO We should work with ready somehow here I think
-    this.loading = this.loadingCtrl.create({
-      content: 'Please Wait...'
-    })
-    this.loading.present();
+    this.renderBook()
   }
 
   _subscribeToEvents() {
     console.log('subscribe to events');
+    // detect orientation changes
+    this.screenOrientation.onChange().subscribe(
+      () => {
+        console.log("Orientation Changed");
+        if (this.book) this.book.destroy()
+        this.renderBook()
+      }
+    );
 
     // toc: go to selected chapter
     this.events.subscribe('select:toc', (content) => {
@@ -232,6 +184,70 @@ export class EpubPage {
     else {
       this.prev();
     }
+  }
+
+  renderBook() {
+    EPUBJS.Render.Iframe.prototype.setLeft = function (leftPos) {
+      this.docEl.style[this.transform] = 'translate(' + (-leftPos) + 'px,0)';
+    }
+
+    EPUBJS.Hooks.register('beforeChapterDisplay').pageAnimation = function (callback, renderer) {
+      window.setTimeout(function () {
+        var style = renderer.doc.createElement("style");
+        style.innerHTML = "*{-webkit-transition: transform {t} ease;-moz-transition: tranform {t} ease;-o-transition: transform {t} ease;-ms-transition: transform {t} ease;transition: transform {t} ease;}";
+        style.innerHTML = style.innerHTML.split("{t}").join("0.5s");
+        renderer.doc.body.appendChild(style);
+      }, 100)
+      if (callback) {
+        callback();
+      }
+    };
+
+
+    var spreads = true
+
+    if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT ||
+      this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY ||
+      this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
+        spreads = false
+    }
+
+    let options = {
+      restore: true,
+      fixedLayout: true,
+      spreads: spreads
+    }
+    this.book = ePub(this.bookData.file, options);
+
+    this._updateTotalPages();
+
+    // load toc and then update pagetitle
+    this.book.getToc().then(toc => {
+      this._updatePageTitle();
+    });
+
+    // if page changes
+    this.book.on('book:pageChanged', (location) => {
+      console.log('on book:pageChanged', location);
+      this._updateCurrentPage();
+      this._updatePageTitle();
+    });
+
+    //book:ready
+    this.book.on('book:ready', () => {
+      console.log("Book ready ")
+      this.isBusy = false
+      this.book.getMetadata().then(meta => {
+        console.log("meta",meta)
+      })
+    })
+
+    // subscribe to events coming from other pages
+    this._subscribeToEvents();
+    // render book
+    this.book.renderTo("book"); // TODO We should work with ready somehow here I think
+
+    this.isBusy = true
   }
 
 }
