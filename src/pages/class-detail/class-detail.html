@@ -24,7 +24,7 @@
   </ion-refresher>
 
   <ion-grid *ngIf="isConnected; else offline">
-    <div *ngIf="!isBusy; else busy">
+    <div *ngIf="!isBusy; else busy" style="width:100%">
       <ion-row>
         <ion-col center>
           <h4>{{school.name}}</h4>

@@ -48,6 +48,11 @@ export class EpubPage {
     this.renderBook()
   }
 
+  ionViewWillLeave() {
+    console.log('ionViewWillLeave EpubPage');
+    if (this.book) this.book.destroy()
+  }
+
   _subscribeToEvents() {
     console.log('subscribe to events');
     // detect orientation changes

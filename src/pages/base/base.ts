@@ -29,8 +29,8 @@ export abstract class AbstractBasePage {
   }
 
   ionViewWillLeave() {
-    this.connectSubscription.unsubscribe();
-    this.disconnectSubscription.unsubscribe();
+    if (this.connectSubscription) this.connectSubscription.unsubscribe();
+    if (this.disconnectSubscription) this.disconnectSubscription.unsubscribe();
   }
 
   abstract initData(): void;

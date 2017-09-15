@@ -7,8 +7,7 @@ import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { ImageLoader } from 'ionic-image-loader';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import * as $ from "jquery";
-import 'slick-carousel/slick/slick';
+declare var $: any
 
 /**
  * Generated class for the GalleryPage page.
@@ -21,7 +20,7 @@ import 'slick-carousel/slick/slick';
   selector: 'page-gallery',
   templateUrl: 'gallery.html',
 })
-export class GalleryPage extends AbstractBasePage{
+export class GalleryPage extends AbstractBasePage {
 
   private classRoomId: String
   private classRoom = new Class()
@@ -47,6 +46,11 @@ export class GalleryPage extends AbstractBasePage{
   }
 
   ionViewDidEnter() {
+    console.log("ionViewDidEnter GalleryPage")
+    this.initSlickJQuery()
+  }
+
+  initSlickJQuery() {
     $('.slider-for').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
