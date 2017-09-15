@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, Platform, PopoverController, Events, NavParams } from 'ionic-angular';
 import { TocPage } from '../toc/toc';
 import { SettingsPage } from '../settings/settings';
@@ -29,6 +29,7 @@ export class EpubPage {
   bgColor: any;
   toolbarColor: string = 'light';
   private isBusy: Boolean = true
+  private showFinger: Boolean = false
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +37,8 @@ export class EpubPage {
     public popoverCtrl: PopoverController,
     public events: Events,
     public navParams: NavParams,
-    private screenOrientation: ScreenOrientation
+    private screenOrientation: ScreenOrientation,
+    public ngZone: NgZone
   ) {
     this.bookData = this.navParams.get('book');
   }
@@ -236,7 +238,14 @@ export class EpubPage {
     //book:ready
     this.book.on('book:ready', () => {
       console.log("Book ready ")
-      this.isBusy = false
+      
+      this.ngZone.run(() => {
+        this.isBusy = false
+        this.showFinger = true
+        setTimeout(() => {
+          this.showFinger = false
+        }, 2000);
+      })
       this.book.getMetadata().then(meta => {
         console.log("meta",meta)
       })

@@ -20,7 +20,9 @@
     <div *ngIf="isBusy" class="touchlayer">
         <ion-spinner name="dots" class="busy"></ion-spinner>
     </div>
-    <div class="touchlayer" id="touchlayer" (tap)="toggleToolbars()" (swipe)="changePage($event)"></div>
+    <div class="touchlayer" id="touchlayer" (tap)="toggleToolbars()" (swipe)="changePage($event)">
+      <img src="assets/img/swipe.gif" *ngIf="showFinger" class="finger"/>
+    </div>
     <div class="book" id="book"></div>
   </ion-grid>
   
