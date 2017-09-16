@@ -17,6 +17,7 @@ import { EventOrganizerPage } from '../pages/event-organizer/event-organizer';
 import { ImageLoaderConfig, ImageLoader } from 'ionic-image-loader';
 import { AppUpdate } from '@ionic-native/app-update';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { MyProfilePage } from '../pages/my-profile/my-profile';
 
 export interface PageInterface {
   title: string;
@@ -77,6 +78,7 @@ export class MyApp {
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.hasLoggedIn = hasLoggedIn;
+      this.setAccountPages(hasLoggedIn)
       if (hasLoggedIn) {
         this.footerPage = this.loggedInPage;
       } else {
@@ -152,17 +154,17 @@ export class MyApp {
 
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
-      // TODO
+      this.setAccountPages(true);
       this.footerPage = this.loggedInPage;
     });
 
     this.events.subscribe('user:signup', () => {
-      // TODO
+      this.setAccountPages(false);
       this.footerPage = this.loggedOutPage;
     });
 
     this.events.subscribe('user:logout', () => {
-      // TODO
+      this.setAccountPages(false);
       this.footerPage = this.loggedOutPage;
     });
   }
@@ -174,5 +176,19 @@ export class MyApp {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  setAccountPages(isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.accountPages= [
+        {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+        { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
+      ]
+    } else {
+      this.accountPages= [
+        { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
+      ]
+    }
+    
   }
 }

@@ -6,6 +6,7 @@ import { EventOrganizerPage } from '../event-organizer/event-organizer';
 import { User } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
+import { MyProfilePage } from '../my-profile/my-profile'
 
 /*
   Generated class for the Home page.
@@ -100,7 +101,7 @@ export class HomePage {
   }
 
   goToProfile(){
-    //TODO
+    this.navCtrl.push(MyProfilePage)
   }
 
 }

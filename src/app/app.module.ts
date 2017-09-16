@@ -40,6 +40,7 @@ import { TocPage } from '../pages/toc/toc';
 import { SettingsPage } from '../pages/settings/settings';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { GalleryPage } from '../pages/gallery/gallery';
+import { MyProfilePage } from '../pages/my-profile/my-profile';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { GalleryPage } from '../pages/gallery/gallery';
     TocPage,
     SettingsPage,
     TutorialPage,
-    GalleryPage
+    GalleryPage,
+    MyProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -94,7 +96,8 @@ import { GalleryPage } from '../pages/gallery/gallery';
     TocPage,
     SettingsPage,
     TutorialPage,
-    GalleryPage
+    GalleryPage,
+    MyProfilePage
   ],
   providers: [
     StatusBar,
