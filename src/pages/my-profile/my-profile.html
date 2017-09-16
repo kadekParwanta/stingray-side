@@ -23,7 +23,7 @@
     <ion-grid *ngIf="isConnected; else offline">
       <div *ngIf="!isBusy; else busy" style="width: 100%">
         <div>
-            <img-loader useImg [src]="userProfile.profilePicture" class="dp"></img-loader>
+            <img-loader useImg [src]="userProfile.profilePicture" class="dp" (click)="presentActionSheet()"></img-loader>
         </div>
         <div class="main-cnt">
             <ion-list>

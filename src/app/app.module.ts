@@ -41,6 +41,8 @@ import { SettingsPage } from '../pages/settings/settings';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { GalleryPage } from '../pages/gallery/gallery';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -111,6 +113,8 @@ import { MyProfilePage } from '../pages/my-profile/my-profile';
     PhotoViewer,
     AppUpdate,
     Network,
-    ScreenOrientation]
+    ScreenOrientation,
+    Camera,
+    FilePath]
 })
 export class AppModule {}
