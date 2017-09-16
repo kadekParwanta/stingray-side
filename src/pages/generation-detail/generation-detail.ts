@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher, AlertController } from 'ionic-angular';
-import { Generation, Media, School, User } from '../../app/shared/sdk/models';
+import { NavController, NavParams, ToastController, Refresher, AlertController, ModalController } from 'ionic-angular';
+import { Generation, Media, School, User, Class } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
 import { ClassDetailPage } from '../class-detail/class-detail';
@@ -12,6 +12,7 @@ import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
 import { EpubPage } from '../epub/epub';
 import { UserData } from '../../providers/user-data';
+import { LoginPage } from '../login/login';
 
 export class Book {
   label: string;
@@ -36,6 +37,7 @@ export class GenerationDetailPage extends AbstractBasePage{
   me: User
   private shownItem
   private isBusy: Boolean = true
+  private selectedClassroom: Class
 
   constructor(
     public navCtrl: NavController, 
@@ -48,7 +50,8 @@ export class GenerationDetailPage extends AbstractBasePage{
     public network: Network,
     public ngZone: NgZone,
     public userData: UserData,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController) {
       super(network, ngZone)
       this.generationId = navParams.get('generationId');
       this.school.name = "";   
@@ -306,7 +309,7 @@ export class GenerationDetailPage extends AbstractBasePage{
 
   order() {
     if (!this.me) {
-      this.showAlert("Unauthorized","Mohon login untuk melanjutkan",["OK"])
+      this.showLoginAlert("order")
     } else {
       //TODO
       this.navCtrl.push(OrderYearbookPage, {"generation":this.generation});
@@ -315,15 +318,34 @@ export class GenerationDetailPage extends AbstractBasePage{
 
   goToClassDetails(classRoom) {
     if (!this.me) {
-      this.showAlert("Unauthorized","Mohon login untuk melanjutkan",["OK"])
+      this.selectedClassroom = classRoom
+      this.showLoginAlert("class")
     } else if (!this.allowAccess) {
-      this.showAlert("Data tidak ditemukan","Data anda tidak ditemukan di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"])
+      this.showAlert("Data tidak ditemukan","Anda tidak terdaftar sebagai siswa di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"], null)
     } else {
       this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
     }
   }
 
-  showAlert(title: string, subTitle: string, buttons: Array<string>) {
+  showLoginAlert(key: string) {
+    let alert = this.alertCtrl.create({
+      title: "Unauthorized",
+      subTitle: "Mohon login untuk melanjutkan",
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel'
+      },{
+        text: 'OK',
+        handler: () => {
+          this.goToLogin(key)
+        }
+      }
+    ],
+    });
+    alert.present();
+  }
+
+  showAlert(title: string, subTitle: string, buttons: Array<string>, handler: void) {
     let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
@@ -363,6 +385,35 @@ export class GenerationDetailPage extends AbstractBasePage{
     this.navCtrl.push(EpubPage, {
       book: book
     });
+  }
+
+  goToLogin(key: string) {
+    let loginModal = this.modalCtrl.create(LoginPage, {generationId:this.generationId});
+    loginModal.onDidDismiss(data=>{
+      console.log(data);
+      if (data.success) {
+        this.userData.getUser().then((user: User)=> {
+          if (user) {
+            this.me = user
+            let role = user.roleName as any
+            this.allowAccess = (role == "admin")
+          }
+
+          switch(key) {
+            case "order": {
+              this.order()
+              break
+            }
+            case "class": {
+              this.goToClassDetails(this.selectedClassroom)
+              break
+            }
+          }
+        })
+        
+      }
+    })
+    loginModal.present();
   }
 
 }

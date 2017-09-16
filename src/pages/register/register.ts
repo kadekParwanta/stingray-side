@@ -244,7 +244,7 @@ export class RegisterPage extends AbstractBasePage {
           loading.dismiss();
 
           this.alertCtrl.create({
-            message: 'Mohon cek email Anda untuk verifikasi',
+            message: 'Data Anda sedang diverifikasi.',
             title: 'Selamat',
             buttons: [{
               text: 'OK',

@@ -1,6 +1,6 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ViewController } from 'ionic-angular';
 import { User } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { RegisterPage } from '../register/register';
@@ -75,6 +75,7 @@ export class LoginPage {
   registerState: any = "in";
   login: { username?: string, password?: string } = {};
   submitted = false;
+  generationId: string;
 
   constructor(
     public navCtrl: NavController,
@@ -82,8 +83,11 @@ export class LoginPage {
     public userApi: UserApi,
     public userData: UserData,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
-  ) { }
+    public loadingCtrl: LoadingController,
+    public viewCtrl: ViewController
+  ) { 
+    this.generationId = this.navParams.get("generationId")
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -117,7 +121,12 @@ export class LoginPage {
         },
         () => {
           console.log('login completed');
-          this.navCtrl.setRoot(HomePage);
+          if (this.generationId) {
+            this.dismiss({success: true})
+          } else {
+            this.navCtrl.setRoot(HomePage);
+          }
+          
         }
       )
     }
@@ -134,6 +143,10 @@ export class LoginPage {
       buttons: buttons
     });
     alert.present();
+  }
+
+  dismiss(data: any) {
+    this.viewCtrl.dismiss(data)
   }
 
 }

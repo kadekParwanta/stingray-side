@@ -7,10 +7,13 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <button ion-button menuToggle>
+    <button ion-button menuToggle *ngIf="!generationId">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>login</ion-title>
+    <button ion-button menuToggle *ngIf="generationId" end (click)="dismiss({success:false})">
+        <ion-icon name="close"></ion-icon>
+      </button>
   </ion-navbar>
 
 </ion-header>
