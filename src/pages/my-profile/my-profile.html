@@ -40,7 +40,7 @@
               <ion-card>
                 <ion-card-header>Yearbook saya</ion-card-header>
                 <ion-list>
-                    <ion-item *ngFor="let order of userProfile.orders">
+                    <ion-item *ngFor="let order of userProfile.orders" (click)="gotoGenerationDetails(order)">
                         <ion-thumbnail item-start>
                             <img-loader useImg *ngIf="order.yearbooks.length > 0" [src]="getPictureURL(order.yearbooks[0].photos[0].url)"></img-loader>
                         </ion-thumbnail>

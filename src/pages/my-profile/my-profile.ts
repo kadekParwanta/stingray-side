@@ -1,11 +1,12 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, Refresher } from 'ionic-angular'; 
+import { NavController, NavParams, Refresher, Toast, ToastController, AlertController } from 'ionic-angular'; 
 import { Network } from '@ionic-native/network'
 import { AbstractBasePage } from '../base/base';
-import { User } from '../../app/shared/sdk/models';
+import { User, Order } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { AppSettings } from '../../providers/app-setting';
+import { GenerationDetailPage } from '../generation-detail/generation-detail';  
 
 /**
  * Generated class for the MyProfilePage page.
@@ -29,23 +30,32 @@ export class MyProfilePage extends AbstractBasePage{
     public userApi: UserApi,
     public network: Network,
     public ngZone: NgZone,
-    public userData: UserData) {
+    public userData: UserData,
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController) {
       super(network, ngZone)
   }
 
   initData(): void {
-    this.getProfile()
+    this.getProfile().then(
+      (data : User) => {
+      this.populateData(data)
+    })
   }
 
   getProfile() {
     this.isBusy = true
-    this.userData.getUser().then((user: User) => {
-      this.userApi.findById(user.id, {include:[{'orders':{'yearbooks':['school','photos']}},{'students':{'class':{'generation':'school'}}}]}).subscribe((res: User) => {
-        this.userProfile = res
-        this.userProfile.profilePicture = AppSettings.API_ENDPOINT + "/"+ this.userProfile.profilePicture
-        this.isBusy = false
-      })
+    return this.userData.getUser().then((user: User) => {
+      return this.userApi.findById(user.id, {include:[{'orders':{'yearbooks':['school','photos']}},{'students':{'class':{'generation':'school'}}}]})
+      .map((user: User) => { return user})
+      .toPromise()
     })
+  }
+
+  populateData(res) {
+    this.userProfile = res
+    this.userProfile.profilePicture = AppSettings.API_ENDPOINT + "/"+ res.profilePicture
+    this.isBusy = false
   }
 
   getPictureURL(path): string {
@@ -68,7 +78,35 @@ export class MyProfilePage extends AbstractBasePage{
   }
 
   doRefresh(refresher: Refresher) {
+    this.getProfile().then((data)=>{
+      this.populateData(data)
+      refresher.complete()
+      const toast = this.toastCtrl.create({
+              message: 'Data sudah diperbaharui',
+              duration: 3000
+            })
+      toast.present()
+    })
+  }
 
+  gotoGenerationDetails(order: Order) {
+    if (order.status == "NEW") {
+      this.showAlert("Maaf", "Mohon lakukan pembayaran.",["OK"])
+    } else if (order.status == "IN_PROGRESS") {
+      this.showAlert("Maaf", "Pesanan Anda sedang kami proses. Silahkan kontak kami jika ada pertanyaan",["OK"])
+    } else {
+      let generationId = order.yearbooks[0].id
+      this.navCtrl.push(GenerationDetailPage, {generationId:generationId})
+    }
+  }
+
+  showAlert(title: string, subTitle: string, buttons: Array<string>) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: buttons
+    });
+    alert.present();
   }
 
 }
