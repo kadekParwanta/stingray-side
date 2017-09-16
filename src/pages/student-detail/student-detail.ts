@@ -22,6 +22,8 @@ export class StudentDetailPage {
   student = new Student()
   color: String
   style = {}
+  contentStyle = {}
+  rowStyle = {}
 
   constructor(
     public navCtrl: NavController, 
@@ -52,13 +54,18 @@ export class StudentDetailPage {
       this.student = student;
       this.student.phonenumber = student.phonenumber.replace(/\s+/g,'');
       let color = this.colorGenerator.getColor(student.name);
-      this.style = {
+      this.contentStyle = {
         'background-color' : color
+      }
+
+      //add alpha in hex color
+      this.rowStyle = {
+        'background-color' : this.hex2rgba(color)
       }
       let photo = student.photo
       if (photo) {
         this.student.photo.url = AppSettings.API_ENDPOINT + photo.url
-        this.style['background-image'] = this.student.photo.url
+        this.style['background-image'] = "url("+this.student.photo.url+")"
       } else {
         let media = new Media()
         media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
@@ -82,6 +89,19 @@ export class StudentDetailPage {
         path => {this.imageViewer.show(path)},
         fallbackPath => {this.imageViewer.show(fallbackPath)}
       )
+    }
+
+    hex2rgba(hex: string) : string {
+      var c;
+      if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+          c= hex.substring(1).split('');
+          if(c.length== 3){
+              c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+          }
+          c= '0x'+c.join('');
+          return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.5)';
+      }
+      throw new Error('Bad Hex');
     }
 
 }

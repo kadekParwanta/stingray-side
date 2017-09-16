@@ -6,6 +6,30 @@ page-student-detail {
         background-position: center;
     }
 
+    .bg {
+      height: 300px;
+      background-size: cover;
+      filter: blur(5px);
+      background-position: center center;
+    }
+
+    .main-cnt {
+      width: 100%;
+      position: relative;
+      top: -90%;
+      height: 300px;
+    }
+
+    .dp {
+      border-radius: 50%;
+      height: 160px;
+      width: 160px;
+      z-index: 10;
+      position: relative;
+      transform: translate(-50%,-50%);
+      box-shadow: -6px 15px 81px 3px rgba(0,0,0,0.75);
+    }
+
     .blur:before {
       content: " ";
       position: fixed;
@@ -27,9 +51,9 @@ page-student-detail {
     overflow: visible;
 
     ion-card-content {
-      color: #FFFFFF;
       text-align: center;
-      padding-bottom: 28px;
+      background-size: cover;
+      height: 300px;
 
       img {
         height: 160px;
@@ -44,6 +68,7 @@ page-student-detail {
         font-size: 2.5rem;
         margin-top: .5rem;
         color: white;
+        overflow-x: scroll;
       }
 
       h3 {
@@ -53,5 +78,13 @@ page-student-detail {
 
     }
 
+  }
+
+  .icon-center {
+    line-height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
   }
 }

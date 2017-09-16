@@ -16,38 +16,58 @@
 <ion-content padding>
   <div *ngIf="student" class="selection">
     <ion-card>
-      <ion-card-content [ngStyle]="style" class="blur">
-        <img-loader useImg [src]="student.photo.url" (click)="openPhotoViewer(student.photo.url)"></img-loader>
-        <h2>{{student.name}}</h2>
-        <h3>{{student.motto}}</h3>
+      <ion-card-content [ngStyle]="contentStyle">
+        <div class="bg" [ngStyle]="style"></div>
+        <div class="main-cnt">
+            <img-loader useImg [src]="student.photo.url" (click)="openPhotoViewer(student.photo.url)" class="dp"></img-loader>
+            <h2 style="font-weight: bold; position:relative">{{student.name}}</h2>
+            <h3 style="font-style: italic; position:relative">"{{student.quote}}"</h3> 
+        </div>
+                 
       </ion-card-content>
+      <ion-row [ngStyle]="rowStyle">
+        <ion-col col-4 center text-center>
+          <a href="tel:{{student.phonenumber}}" ion-item style="background-color:transparent">
+            <ion-icon name="call" class="icon-center"></ion-icon>
+          </a>
+        </ion-col>
+        <ion-col col-4 center text-center>
+          <a href="mailto:{{student.email}}" ion-item style="background-color:transparent">
+            <ion-icon name="mail" class="icon-center"></ion-icon>
+          </a>
+        </ion-col>
+        <ion-col col-4 center text-center> 
+        <a href="instagram://user?username={{student.instagram}}" ion-item style="background-color:transparent">
+          <ion-icon name="logo-instagram" class="icon-center"></ion-icon>
+        </a>
+        </ion-col>
+      </ion-row>
       <ion-list>
-            <a href="tel:{{student.phonenumber}}" ion-item>
-                <ion-icon name="call" item-start></ion-icon>
-                <p>Call Mobile</p>
-                <h2>{{student.phonenumber || '-'}}</h2>
-              </a>
-        
-        <a href="sms:{{student.phonenumber}}" ion-item>
-          <ion-icon name="text" item-start></ion-icon>
-          <p>Text</p>
-          <h2>{{student.phonenumber || '-'}}</h2>
-        </a>
-        <a href="mailto:{{student.email}}" ion-item>
-          <ion-icon name="mail" item-start></ion-icon>
-          <p>Email</p>
-          <h2>{{student.email || '-'}}</h2>
-        </a>
-        <a href="instagram://user?username={{student.instagram}}" ion-item>
-          <ion-icon name="logo-instagram" item-start></ion-icon>
-          <p>Instagram</p>
-          <h2>{{student.instagram || '-'}}</h2>
-        </a>
-        <a ion-item>
-          <ion-icon name="line" item-start></ion-icon>
-          <p>Line</p>
-          <h2>{{student.line || '-'}}</h2>
-        </a>
+        <ion-item>
+            <ion-icon name="person" item-start></ion-icon>
+            <p>Nama Panggilan</p>
+            <h2>{{student.panggilan || '-'}}</h2>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="calendar" item-start></ion-icon>
+            <p>Tempat, Tanggal lahir</p>
+            <h2>{{student.ttl || '-'}}</h2>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="home" item-start></ion-icon>
+            <p>Alamat</p>
+            <h2>{{student.address || '-'}}</h2>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="football" item-start></ion-icon>
+            <p>Hobi</p>
+            <h2>{{student.hobi || '-'}}</h2>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="cloud-download" item-start></ion-icon>
+            <p>Cita-cita</p>
+            <h2>{{student.citacita || '-'}}</h2>
+        </ion-item>
       </ion-list>
     </ion-card>
   </div>
