@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
@@ -16,6 +16,62 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content padding class="content">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing.."></ion-refresher-content>
+    </ion-refresher>
+    <ion-grid *ngIf="isConnected; else offline">
+      <div *ngIf="!isBusy; else busy" style="width: 100%">
+        <div>
+            <img-loader useImg [src]="userProfile.profilePicture" class="dp"></img-loader>
+        </div>
+        <div class="main-cnt">
+            <ion-list>
+                <ion-item>
+                    <p>Name</p>
+                    <h2>{{userProfile.firstName}} {{userProfile.firstName}}</h2>
+                    <ion-icon name="create" item-end></ion-icon>
+                </ion-item>
+                <ion-item>
+                    <p>Email</p>
+                    <h2>{{userProfile.email}}</h2>
+                </ion-item>
+              </ion-list>
+              <ion-card>
+                <ion-card-header>Yearbook saya</ion-card-header>
+                <ion-list>
+                    <ion-item *ngFor="let order of userProfile.orders">
+                        <ion-thumbnail item-start>
+                            <img-loader useImg *ngIf="order.yearbooks.length > 0" [src]="getPictureURL(order.yearbooks[0].photos[0].url)"></img-loader>
+                        </ion-thumbnail>
+                        <h2>{{order.yearbooks[0].school.name}}</h2>
+                        <p>Angkatan {{order.yearbooks[0].year}}</p>
+                        <ion-badge color="danger" *ngIf="order.status == 'NEW'">{{getStatus(order.status)}}</ion-badge>
+                        <ion-badge color="primary" *ngIf="order.status == 'IN_PROGRESS'">{{getStatus(order.status)}}</ion-badge>
+                        <ion-badge color="secondary" *ngIf="order.status == 'COMPLETED'">{{getStatus(order.status)}}</ion-badge>
+                        <ion-icon name="arrow-dropright" item-end></ion-icon>
+                      </ion-item>
+                </ion-list>
+              </ion-card>
+        </div>
+      </div>
+    </ion-grid>
 </ion-content>
+
+<ng-template #offline>
+    <div class="offline">
+      <div [hidden]="isLoading" class="absolute-center">
+        <ion-icon name="sad" item-start></ion-icon>
+        Oops.. Koneksi terputus
+      </div>
+      <div [hidden]="!isLoading" class="absolute-center">
+        <ion-spinner name="bubbles"></ion-spinner>
+        Menyambungkan..
+      </div>
+    </div>
+  
+  </ng-template>
+  
+  <ng-template #busy>
+    <ion-spinner name="dots" class="busy"></ion-spinner>
+  </ng-template>

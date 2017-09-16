@@ -1,3 +1,40 @@
 page-my-profile {
+    ion-content {
+        background-color: transparent !important;
+    }
+    
+    ion-grid {
+      height: 100%;
+      align-items: center;
+    }
 
+    ion-card {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .content {
+        background-image: url("../assets/img/home-bg.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+  
+      .main-cnt {
+        margin-top: 20px;
+      }
+  
+      .dp {
+        z-index: 10;
+        position: relative;
+        transform: translate(-50%,-50%);
+        box-shadow: -6px 15px 81px 3px rgba(0,0,0,0.75);
+        margin: 20px 0 20px 25%;
+          img {
+            border-radius: 50%;
+            height: 160px;
+            width: 160px;
+          }
+        
+      }
 }
