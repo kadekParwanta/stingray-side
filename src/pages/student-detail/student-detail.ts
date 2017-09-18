@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Student, Media } from '../../app/shared/sdk/models';
 import { StudentApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
 import { ColorGenerator } from '../../app/widgets/text-img/color-generator';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { ImageLoader } from 'ionic-image-loader';
+import { InAppBrowser, InAppBrowserObject } from '@ionic-native/in-app-browser';
 
 /*
   Generated class for the StudentDetail page.
@@ -24,6 +25,7 @@ export class StudentDetailPage {
   style = {}
   contentStyle = {}
   rowStyle = {}
+  browser: InAppBrowserObject
 
   constructor(
     public navCtrl: NavController, 
@@ -31,7 +33,9 @@ export class StudentDetailPage {
     public studentApi: StudentApi, 
     public colorGenerator: ColorGenerator,
     public imageViewer: PhotoViewer,
-    public imgLoader: ImageLoader) {
+    public imgLoader: ImageLoader,
+    public inappBrowser: InAppBrowser,
+    public toastCtrl: ToastController) {
       let studentId = navParams.get('studentId');
       let media = new Media()
       media.url = AppSettings.API_ENDPOINT + '/storages/missing/placeholder.jpg'
@@ -102,6 +106,24 @@ export class StudentDetailPage {
           return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.5)';
       }
       throw new Error('Bad Hex');
+    }
+
+    openInstagram(username:string) {
+      if (!username) {
+        this.presentToast("Data IG tidak tersedia")
+      } else {
+        this.browser = this.inappBrowser.create('http://instagram.com/_u/'+username);
+      }
+      
+    }
+
+    private presentToast(text) {
+      let toast = this.toastCtrl.create({
+        message: text,
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
     }
 
 }

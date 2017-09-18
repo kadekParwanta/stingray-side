@@ -43,6 +43,7 @@ import { GalleryPage } from '../pages/gallery/gallery';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import { Camera } from '@ionic-native/camera';
     Network,
     ScreenOrientation,
     Camera,
-    FilePath]
+    FilePath,
+    InAppBrowser]
 })
 export class AppModule {}
