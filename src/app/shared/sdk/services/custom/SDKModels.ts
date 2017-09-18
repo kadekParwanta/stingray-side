@@ -27,6 +27,7 @@ import { EventOrganizer } from '../../models/EventOrganizer';
 import { Clothing } from '../../models/Clothing';
 import { Music } from '../../models/Music';
 import { Order } from '../../models/Order';
+import { Promotion } from '../../models/Promotion';
 
 export interface Models { [name: string]: any }
 
@@ -61,6 +62,7 @@ export class SDKModels {
     Clothing: Clothing,
     Music: Music,
     Order: Order,
+    Promotion: Promotion,
     
   };
 

@@ -26,5 +26,6 @@ export * from './EventOrganizer';
 export * from './Clothing';
 export * from './Music';
 export * from './Order';
+export * from './Promotion';
 export * from './BaseModels';
 export * from './FireLoopRef';

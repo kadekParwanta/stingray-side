@@ -21,6 +21,7 @@ export interface MediaInterface {
   "eventOrganizerId"?: any;
   "clothingId"?: any;
   "musicId"?: any;
+  "promotionId"?: any;
 }
 
 export class Media implements MediaInterface {
@@ -43,6 +44,7 @@ export class Media implements MediaInterface {
   "eventOrganizerId": any;
   "clothingId": any;
   "musicId": any;
+  "promotionId": any;
   constructor(data?: MediaInterface) {
     Object.assign(this, data);
   }
@@ -149,6 +151,10 @@ export class Media implements MediaInterface {
         },
         "musicId": {
           name: 'musicId',
+          type: 'any'
+        },
+        "promotionId": {
+          name: 'promotionId',
           type: 'any'
         },
       },
