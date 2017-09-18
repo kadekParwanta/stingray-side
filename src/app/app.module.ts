@@ -44,6 +44,7 @@ import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { ClothingPage } from '../pages/clothing/clothing';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SettingsPage,
     TutorialPage,
     GalleryPage,
-    MyProfilePage
+    MyProfilePage,
+    ClothingPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -100,7 +102,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SettingsPage,
     TutorialPage,
     GalleryPage,
-    MyProfilePage
+    MyProfilePage,
+    ClothingPage
   ],
   providers: [
     StatusBar,
