@@ -66,4 +66,8 @@ export class ClothingPage extends AbstractBasePage {
     )
   }
 
+  getPictureURL(path): string {
+    return AppSettings.API_ENDPOINT + path;
+  }
+
 }
