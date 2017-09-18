@@ -19,10 +19,10 @@
       </ion-refresher>
       <ion-grid *ngIf="isConnected; else offline">
         <div *ngIf="!isBusy; else busy">
-          <ion-row>
+          <ion-row *ngIf="promotions.length > 0" class="promotion">
             <ion-col>
-                <ion-card class="full-card">
-                    <img src="assets/img/ethnich.jpg"/>
+                <ion-card class="full-card" *ngIf="promotions[0].photos.length > 0">
+                    <img-loader useImg [src]="getPictureURL(promotions[0].photos[0].url)" class="clothing-image"></img-loader>
                   </ion-card>
             </ion-col>
           </ion-row>
@@ -50,9 +50,9 @@
                 </ion-item>
             </ion-col>
           </ion-row>     -->
-          <ion-row>
+          <ion-row *ngFor="let clothing of clothings">
             <ion-col>
-              <ion-card *ngFor="let clothing of clothings" class="full-card">
+              <ion-card class="full-card">
                   <img-loader useImg [src]="getPictureURL(clothing.photos[0].url)" class="clothing-image"></img-loader>
                   <ion-card-content>
                     <ion-card-title>
