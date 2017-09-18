@@ -317,13 +317,20 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   goToClassDetails(classRoom) {
-    if (!this.me) {
-      this.selectedClassroom = classRoom
-      this.showLoginAlert("class")
-    } else if (!this.allowAccess) {
-      this.showAlert("Data tidak ditemukan","Anda tidak terdaftar sebagai siswa di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"], null)
+    if (this.me) {
+      if (this.allowAccess) {
+        this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+      } else {
+        this.showAlert("Data tidak ditemukan","Anda tidak terdaftar sebagai siswa di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"], null)
+      }
     } else {
-      this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+      if (this.allowAccess) {
+        this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
+      } else {
+        this.selectedClassroom = classRoom
+        this.showLoginAlert("class")
+      }
+      
     }
   }
 

@@ -215,7 +215,7 @@ public pathForImage(img) {
 
 public uploadImage() {
   // Destination URL
-  var url = AppSettings.API_ENDPOINT + "users/"+this.userProfile.id+"/uploadProfilePicture";
+  var url = AppSettings.API_ENDPOINT + "/users/"+this.userProfile.id+"/uploadProfilePicture";
  
   // File for Upload
   var targetPath = this.pathForImage(this.lastImage);

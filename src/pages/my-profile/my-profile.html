@@ -41,15 +41,17 @@
                 <ion-card-header>Yearbook saya</ion-card-header>
                 <ion-list>
                     <ion-item *ngFor="let order of userProfile.orders" (click)="gotoGenerationDetails(order)">
-                        <ion-thumbnail item-start>
-                            <img-loader useImg *ngIf="order.yearbooks.length > 0" [src]="getPictureURL(order.yearbooks[0].photos[0].url)"></img-loader>
-                        </ion-thumbnail>
-                        <h2>{{order.yearbooks[0].school.name}}</h2>
-                        <p>Angkatan {{order.yearbooks[0].year}}</p>
-                        <ion-badge color="danger" *ngIf="order.status == 'NEW'">{{getStatus(order.status)}}</ion-badge>
-                        <ion-badge color="primary" *ngIf="order.status == 'IN_PROGRESS'">{{getStatus(order.status)}}</ion-badge>
-                        <ion-badge color="secondary" *ngIf="order.status == 'COMPLETED'">{{getStatus(order.status)}}</ion-badge>
-                        <ion-icon name="arrow-dropright" item-end></ion-icon>
+                      <div *ngIf="order.yearbooks.length > 0">
+                          <ion-thumbnail item-start *ngIf="order.yearbooks[0].photos.length > 0">
+                              <img-loader useImg [src]="getPictureURL(order.yearbooks[0].photos[0].url)"></img-loader>
+                          </ion-thumbnail>
+                          <h2>{{order.yearbooks[0].school.name}}</h2>
+                          <p>Angkatan {{order.yearbooks[0].year}}</p>
+                          <ion-badge color="danger" *ngIf="order.status == 'NEW'">{{getStatus(order.status)}}</ion-badge>
+                          <ion-badge color="primary" *ngIf="order.status == 'IN_PROGRESS'">{{getStatus(order.status)}}</ion-badge>
+                          <ion-badge color="secondary" *ngIf="order.status == 'COMPLETED'">{{getStatus(order.status)}}</ion-badge>
+                          <ion-icon name="arrow-dropright" item-end></ion-icon>
+                      </div>
                       </ion-item>
                 </ion-list>
               </ion-card>
