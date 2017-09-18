@@ -4,7 +4,8 @@ import {
   Media,
   Teacher,
   School,
-  Yearbook
+  Yearbook,
+  User
 } from '../index';
 
 declare var Object: any;
@@ -20,6 +21,7 @@ export interface GenerationInterface {
   teachers?: Teacher[];
   school?: School;
   yearbook?: Yearbook;
+  owners?: User[];
 }
 
 export class Generation implements GenerationInterface {
@@ -34,6 +36,7 @@ export class Generation implements GenerationInterface {
   teachers: Teacher[];
   school: School;
   yearbook: Yearbook;
+  owners: User[];
   constructor(data?: GenerationInterface) {
     Object.assign(this, data);
   }
@@ -116,6 +119,11 @@ export class Generation implements GenerationInterface {
           name: 'yearbook',
           type: 'Yearbook',
           model: 'Yearbook'
+        },
+        owners: {
+          name: 'owners',
+          type: 'User[]',
+          model: 'User'
         },
       }
     }

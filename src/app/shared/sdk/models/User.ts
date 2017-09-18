@@ -4,7 +4,8 @@ import {
   Student,
   Message,
   Room,
-  Order
+  Order,
+  Generation
 } from '../index';
 
 declare var Object: any;
@@ -40,6 +41,7 @@ export interface UserInterface {
   messages?: Message[];
   rooms?: Room[];
   orders?: Order[];
+  yearbooks?: Generation[];
 }
 
 export class User implements UserInterface {
@@ -74,6 +76,7 @@ export class User implements UserInterface {
   messages: Message[];
   rooms: Room[];
   orders: Order[];
+  yearbooks: Generation[];
   constructor(data?: UserInterface) {
     Object.assign(this, data);
   }
@@ -244,6 +247,11 @@ export class User implements UserInterface {
           name: 'orders',
           type: 'Order[]',
           model: 'Order'
+        },
+        yearbooks: {
+          name: 'yearbooks',
+          type: 'Generation[]',
+          model: 'Generation'
         },
       }
     }
