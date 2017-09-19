@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { Student, Media } from '../../app/shared/sdk/models';
 import { StudentApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
@@ -35,6 +35,7 @@ export class StudentDetailPage {
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader,
     public inappBrowser: InAppBrowser,
+    public menuCtrl: MenuController,
     public toastCtrl: ToastController) {
       let studentId = navParams.get('studentId');
       let media = new Media()
@@ -45,6 +46,14 @@ export class StudentDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StudentDetailPage');
+  }
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
 
   getStudentDetail(studentId) {

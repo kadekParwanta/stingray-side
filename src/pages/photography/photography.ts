@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { Photography, Media } from '../../app/shared/sdk/models';
 import { PhotographyApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
@@ -19,7 +19,12 @@ export class PhotographyPage {
 
   private photographies = Array<Photography>();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private photographyApi: PhotographyApi) {}
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public menuCtrl: MenuController,
+    private photographyApi: PhotographyApi) {
+      this.menuCtrl.swipeEnable(true)
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotographyPage');

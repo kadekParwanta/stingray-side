@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, MenuController } from 'ionic-angular';
 import { Generation, Order, User } from '../../app/shared/sdk/models';
 import { GenerationApi, OrderApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
@@ -25,6 +25,7 @@ export class OrderYearbookPage {
     public userData: UserData,
     public orderApi: OrderApi,
     public alertCtrl: AlertController,
+    public menuCtrl: MenuController,
     public loadingCtrl: LoadingController) {
       this.generation = navParams.get('generation');
   }
@@ -37,6 +38,14 @@ export class OrderYearbookPage {
       //TODO price should be validated or created from server
       this.order.price = 1.1 * this.generation.price
     })
+  }
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menuCtrl.enable(true);
   }
 
   submit(event) {

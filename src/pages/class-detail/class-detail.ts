@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher, MenuController } from 'ionic-angular';
 import { Class, Media, Generation, School, Student } from '../../app/shared/sdk/models';
 import { ClassApi } from '../../app/shared/sdk/services';
 import { AppSettings } from '../../providers/app-setting';
@@ -39,9 +39,19 @@ export class ClassDetailPage extends AbstractBasePage {
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader,
     public network: Network,
+    public menuCtrl: MenuController,
     public ngZone: NgZone) {
     super(network, ngZone)
     this.classRoomId = navParams.get('classRoomId');
+  }
+
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
 
   initData() {

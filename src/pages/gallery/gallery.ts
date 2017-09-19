@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { AbstractBasePage } from '../base/base';
 import { Network } from '@ionic-native/network';
 import { Class, Media, Generation, School , Student} from '../../app/shared/sdk/models';
@@ -34,9 +34,14 @@ export class GalleryPage extends AbstractBasePage {
     public imageViewer: PhotoViewer,
     public imgLoader: ImageLoader,
     public network: Network,
+    public menuCtrl: MenuController,
     public ngZone: NgZone) {
       super(network, ngZone)
       this.classRoomId = navParams.get('classRoomId');
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
     
   initData() {
@@ -47,6 +52,7 @@ export class GalleryPage extends AbstractBasePage {
 
   ionViewDidEnter() {
     console.log("ionViewDidEnter GalleryPage")
+    this.menuCtrl.enable(false);
     this.initSlickJQuery()
   }
 

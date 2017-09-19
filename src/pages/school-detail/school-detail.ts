@@ -1,5 +1,5 @@
 import { Component , NgZone} from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher, Events} from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher, Events, MenuController} from 'ionic-angular';
 import { School, Generation, Media } from '../../app/shared/sdk/models';
 import { SchoolApi } from '../../app/shared/sdk/services';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';  
@@ -30,9 +30,18 @@ export class SchoolDetailPage extends AbstractBasePage {
     public events: Events,
     public schoolApi: SchoolApi,
     public network: Network,
+    public menuCtrl: MenuController,
     public ngZone: NgZone) {
       super(network, ngZone)
       this.school = navParams.get('school');
+  }
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
 
   initData() {

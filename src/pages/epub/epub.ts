@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, Platform, PopoverController, Events, NavParams } from 'ionic-angular';
+import { NavController, Platform, PopoverController, Events, NavParams, MenuController } from 'ionic-angular';
 import { TocPage } from '../toc/toc';
 import { SettingsPage } from '../settings/settings';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -38,9 +38,15 @@ export class EpubPage {
     public events: Events,
     public navParams: NavParams,
     private screenOrientation: ScreenOrientation,
+    public menuCtrl: MenuController,
     public ngZone: NgZone
   ) {
     this.bookData = this.navParams.get('book');
+  }
+
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
   }
 
   ionViewDidLoad() {
@@ -50,6 +56,7 @@ export class EpubPage {
 
   ionViewWillLeave() {
     console.log('ionViewWillLeave EpubPage');
+    this.menuCtrl.enable(true);
     if (this.book) this.book.destroy()
   }
 

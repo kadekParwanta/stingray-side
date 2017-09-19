@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, ToastController, Refresher, AlertController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Refresher, AlertController, ModalController, MenuController } from 'ionic-angular';
 import { Generation, Media, School, User, Class } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
 import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
@@ -51,10 +51,19 @@ export class GenerationDetailPage extends AbstractBasePage{
     public ngZone: NgZone,
     public userData: UserData,
     public alertCtrl: AlertController,
+    public menuCtrl: MenuController,
     public modalCtrl: ModalController) {
       super(network, ngZone)
       this.generationId = navParams.get('generationId');
-      this.school.name = "";   
+      this.school.name = "";
+  }
+
+  ionViewDidEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
   }
 
   initData() {
