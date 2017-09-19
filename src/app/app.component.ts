@@ -88,22 +88,12 @@ export class MyApp {
           if (user) {
             let role = user.roleName as any
             this.isAdmin = (role == "admin")
-            if (this.isAdmin) {
-              this.accountPages = [
-                {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
-                { title: 'Chat Us', component: BuddyListPage, index: 4, icon: 'chatbubbles' },
-              ]
-            } else {
-              this.accountPages = [
-                {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
-                { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
-              ]
-            }
+            this.setAccountPages(true, this.isAdmin)
           }
         })
       } else {
         this.footerPage = this.loggedOutPage;
-        this.accountPages = []
+        this.setAccountPages(false, false)
       }
     });
 
@@ -176,17 +166,19 @@ export class MyApp {
   }
 
   listenToLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.setAccountPages(true, this.isAdmin);
+    this.events.subscribe('user:login', (data: any) => {
       this.footerPage = this.loggedInPage;
+      this.setAccountPages(true, data.isAdmin)
     });
 
     this.events.subscribe('user:signup', () => {
       this.footerPage = this.loggedOutPage;
+      this.setAccountPages(false, false)
     });
 
     this.events.subscribe('user:logout', () => {
       this.footerPage = this.loggedOutPage;
+      this.setAccountPages(false, false)
     });
   }
 
@@ -201,10 +193,17 @@ export class MyApp {
 
   setAccountPages(isLoggedIn: Boolean, isAdmin: Boolean) {
     if (isLoggedIn) {
-      this.accountPages= [
-        {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
-        { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
-      ]
+      if (isAdmin) {
+        this.accountPages= [
+          {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+          { title: 'Chat Us', component: BuddyListPage, index: 4, icon: 'chatbubbles' },
+        ]
+      } else {
+        this.accountPages= [
+          {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+          { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
+        ]
+      }
     } else {
       this.accountPages= [
         { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },

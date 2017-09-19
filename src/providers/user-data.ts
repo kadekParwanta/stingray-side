@@ -50,11 +50,11 @@ export class UserData {
     });
   };
 
-  login(username: string, password: string) {
+  login(username: string, password: string, isAdmin: boolean) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
     this.setCredentials(username, password);
-    this.events.publish('user:login');
+    this.events.publish('user:login', {isAdmin:isAdmin});
   };
 
   signup(username: string, password: string) {
