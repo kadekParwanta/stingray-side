@@ -36,7 +36,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation photo.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @param {boolean} refresh 
    *
@@ -66,7 +66,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photo of this model.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @param {object} data Request data.
    *
@@ -81,7 +81,7 @@ export class StudentApi extends BaseLoopBackApi {
    * This usually means the response is a `Student` object.)
    * </em>
    */
-  public createPhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createPhoto(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Students/:id/photo";
@@ -99,7 +99,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Update photo of this model.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @param {object} data Request data.
    *
@@ -114,7 +114,7 @@ export class StudentApi extends BaseLoopBackApi {
    * This usually means the response is a `Student` object.)
    * </em>
    */
-  public updatePhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updatePhoto(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Students/:id/photo";
@@ -132,7 +132,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Deletes photo of this model.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -156,7 +156,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation class.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @param {boolean} refresh 
    *
@@ -250,7 +250,7 @@ export class StudentApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photo of this model.
    *
-   * @param {any} id Person id
+   * @param {any} id Student id
    *
    * @param {object} data Request data.
    *
@@ -265,7 +265,7 @@ export class StudentApi extends BaseLoopBackApi {
    * This usually means the response is a `Student` object.)
    * </em>
    */
-  public createManyPhoto(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyPhoto(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Students/:id/photo";

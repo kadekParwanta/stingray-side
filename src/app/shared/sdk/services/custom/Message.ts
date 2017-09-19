@@ -36,7 +36,7 @@ export class MessageApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation sender.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Message id
    *
    * @param {boolean} refresh 
    *
@@ -66,7 +66,7 @@ export class MessageApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation room.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Message id
    *
    * @param {boolean} refresh 
    *

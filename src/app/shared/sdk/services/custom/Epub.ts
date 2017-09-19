@@ -35,7 +35,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for epubpages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {any} fk Foreign key for epubpages
    *
@@ -65,7 +65,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for epubpages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {any} fk Foreign key for epubpages
    *
@@ -92,7 +92,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for epubpages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {any} fk Foreign key for epubpages
    *
@@ -109,7 +109,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public updateByIdEpubpages(id: any, fk: any, data: Epubpage = new Epubpage(), customHeaders?: Function): Observable<any> {
+  public updateByIdEpubpages(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages/:fk";
@@ -128,7 +128,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Queries epubpages of Epub.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {object} filter 
    *
@@ -158,7 +158,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epubpages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {object} data Request data.
    *
@@ -173,7 +173,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createEpubpages(id: any, data: Epubpage = new Epubpage(), customHeaders?: Function): Observable<any> {
+  public createEpubpages(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";
@@ -191,7 +191,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Deletes all epubpages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -215,7 +215,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Counts epubpages of Epub.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -244,7 +244,7 @@ export class EpubApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epubpages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Epub id
    *
    * @param {object} data Request data.
    *
@@ -259,7 +259,7 @@ export class EpubApi extends BaseLoopBackApi {
    * This usually means the response is a `Epub` object.)
    * </em>
    */
-  public createManyEpubpages(id: any, data: Epubpage[] = new Array<Epubpage>(), customHeaders?: Function): Observable<any> {
+  public createManyEpubpages(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Epubs/:id/epubpages";

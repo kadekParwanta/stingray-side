@@ -35,7 +35,7 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation epub.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Yearbook id
    *
    * @param {boolean} refresh 
    *
@@ -65,7 +65,7 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epub of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Yearbook id
    *
    * @param {object} data Request data.
    *
@@ -80,7 +80,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createEpub(id: any, data: Epub = new Epub(), customHeaders?: Function): Observable<any> {
+  public createEpub(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -98,7 +98,7 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Update epub of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Yearbook id
    *
    * @param {object} data Request data.
    *
@@ -113,7 +113,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public updateEpub(id: any, data: Epub = new Epub(), customHeaders?: Function): Observable<any> {
+  public updateEpub(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";
@@ -131,7 +131,7 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Deletes epub of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Yearbook id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -155,7 +155,7 @@ export class YearbookApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in epub of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Yearbook id
    *
    * @param {object} data Request data.
    *
@@ -170,7 +170,7 @@ export class YearbookApi extends BaseLoopBackApi {
    * This usually means the response is a `Yearbook` object.)
    * </em>
    */
-  public createManyEpub(id: any, data: Epub[] = new Array<Epub>(), customHeaders?: Function): Observable<any> {
+  public createManyEpub(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Yearbooks/:id/epub";

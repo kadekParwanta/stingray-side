@@ -16,15 +16,6 @@ import { Events } from 'ionic-angular';
   for more info on providers and Angular 2 DI.
 */
 
-export class ChatMessage {
-  roomId: string;
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  text: string;
-  status: string;
-}
-
 @Injectable()
 export class ChatService {
   private socket;
@@ -62,7 +53,7 @@ export class ChatService {
     return observable
   }
 
-  sendMessage(message: ChatMessage) {
+  sendMessage(message: Message) {
     this.socket.emit('send-message', message);
   }
 
@@ -86,7 +77,7 @@ export class ChatService {
   }
 
   listenNewMessage(roomId: string) {
-    this.socket.on("new-message", (data: ChatMessage) => {
+    this.socket.on("new-message", (data: Message) => {
       console.log("new message", data)
       let userId = data.userId
       if (userId != roomId) this.events.publish("new-message", data)

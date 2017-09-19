@@ -36,7 +36,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for generations.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for generations
    *
@@ -66,7 +66,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for generations.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for generations
    *
@@ -93,7 +93,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for generations.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for generations
    *
@@ -110,7 +110,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public updateByIdGenerations(id: any, fk: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public updateByIdGenerations(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/generations/:fk";
@@ -129,7 +129,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -159,7 +159,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -186,7 +186,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for photos.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -203,7 +203,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public updateByIdPhotos(id: any, fk: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updateByIdPhotos(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/photos/:fk";
@@ -222,7 +222,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Queries generations of School.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} filter 
    *
@@ -252,7 +252,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in generations of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} data Request data.
    *
@@ -267,7 +267,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public createGenerations(id: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public createGenerations(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/generations";
@@ -285,7 +285,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Deletes all generations of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -309,7 +309,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Counts generations of School.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -338,7 +338,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Queries photos of School.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} filter 
    *
@@ -368,7 +368,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} data Request data.
    *
@@ -383,7 +383,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public createPhotos(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createPhotos(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/photos";
@@ -401,7 +401,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Deletes all photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -425,7 +425,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Counts photos of School.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -486,7 +486,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in generations of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} data Request data.
    *
@@ -501,7 +501,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public createManyGenerations(id: any, data: Generation[] = new Array<Generation>(), customHeaders?: Function): Observable<any> {
+  public createManyGenerations(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/generations";
@@ -519,7 +519,7 @@ export class SchoolApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id School id
    *
    * @param {object} data Request data.
    *
@@ -534,7 +534,7 @@ export class SchoolApi extends BaseLoopBackApi {
    * This usually means the response is a `School` object.)
    * </em>
    */
-  public createManyPhotos(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyPhotos(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Schools/:id/photos";

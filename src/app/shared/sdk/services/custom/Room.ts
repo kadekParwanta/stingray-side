@@ -35,7 +35,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for messages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -65,7 +65,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for messages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -92,7 +92,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for messages.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -109,7 +109,7 @@ export class RoomApi extends BaseLoopBackApi {
    * This usually means the response is a `Room` object.)
    * </em>
    */
-  public updateByIdMessages(id: any, fk: any, data: Message = new Message(), customHeaders?: Function): Observable<any> {
+  public updateByIdMessages(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Rooms/:id/messages/:fk";
@@ -128,7 +128,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Queries messages of Room.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {object} filter 
    *
@@ -158,7 +158,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in messages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {object} data Request data.
    *
@@ -173,7 +173,7 @@ export class RoomApi extends BaseLoopBackApi {
    * This usually means the response is a `Room` object.)
    * </em>
    */
-  public createMessages(id: any, data: Message = new Message(), customHeaders?: Function): Observable<any> {
+  public createMessages(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Rooms/:id/messages";
@@ -191,7 +191,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Deletes all messages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -215,7 +215,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Counts messages of Room.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -244,7 +244,7 @@ export class RoomApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in messages of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Room id
    *
    * @param {object} data Request data.
    *
@@ -259,7 +259,7 @@ export class RoomApi extends BaseLoopBackApi {
    * This usually means the response is a `Room` object.)
    * </em>
    */
-  public createManyMessages(id: any, data: Message[] = new Array<Message>(), customHeaders?: Function): Observable<any> {
+  public createManyMessages(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Rooms/:id/messages";

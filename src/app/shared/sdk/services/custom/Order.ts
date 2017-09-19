@@ -36,7 +36,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation owner.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {boolean} refresh 
    *
@@ -66,7 +66,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for yearbooks.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -96,7 +96,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for yearbooks.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -123,7 +123,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for yearbooks.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -140,7 +140,7 @@ export class OrderApi extends BaseLoopBackApi {
    * This usually means the response is a `Order` object.)
    * </em>
    */
-  public updateByIdYearbooks(id: any, fk: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public updateByIdYearbooks(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Orders/:id/yearbooks/:fk";
@@ -159,7 +159,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for yearbooks.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -195,7 +195,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Remove the yearbooks relation to an item by id.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -222,7 +222,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Check the existence of yearbooks relation to an item by id.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -252,7 +252,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Queries yearbooks of Order.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {object} filter 
    *
@@ -282,7 +282,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbooks of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {object} data Request data.
    *
@@ -297,7 +297,7 @@ export class OrderApi extends BaseLoopBackApi {
    * This usually means the response is a `Order` object.)
    * </em>
    */
-  public createYearbooks(id: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public createYearbooks(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Orders/:id/yearbooks";
@@ -315,7 +315,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Deletes all yearbooks of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -339,7 +339,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Counts yearbooks of Order.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -368,7 +368,7 @@ export class OrderApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbooks of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Order id
    *
    * @param {object} data Request data.
    *
@@ -383,7 +383,7 @@ export class OrderApi extends BaseLoopBackApi {
    * This usually means the response is a `Order` object.)
    * </em>
    */
-  public createManyYearbooks(id: any, data: Generation[] = new Array<Generation>(), customHeaders?: Function): Observable<any> {
+  public createManyYearbooks(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Orders/:id/yearbooks";

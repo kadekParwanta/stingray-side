@@ -35,7 +35,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for media.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {any} fk Foreign key for media
    *
@@ -65,7 +65,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for media.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {any} fk Foreign key for media
    *
@@ -92,7 +92,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for media.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {any} fk Foreign key for media
    *
@@ -109,7 +109,7 @@ export class PictureApi extends BaseLoopBackApi {
    * This usually means the response is a `Picture` object.)
    * </em>
    */
-  public updateByIdMedia(id: any, fk: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updateByIdMedia(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Pictures/:id/media/:fk";
@@ -128,7 +128,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Queries media of Picture.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {object} filter 
    *
@@ -158,7 +158,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in media of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {object} data Request data.
    *
@@ -173,7 +173,7 @@ export class PictureApi extends BaseLoopBackApi {
    * This usually means the response is a `Picture` object.)
    * </em>
    */
-  public createMedia(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createMedia(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Pictures/:id/media";
@@ -191,7 +191,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Deletes all media of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -215,7 +215,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Counts media of Picture.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -244,7 +244,7 @@ export class PictureApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in media of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Picture id
    *
    * @param {object} data Request data.
    *
@@ -259,7 +259,7 @@ export class PictureApi extends BaseLoopBackApi {
    * This usually means the response is a `Picture` object.)
    * </em>
    */
-  public createManyMedia(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyMedia(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Pictures/:id/media";

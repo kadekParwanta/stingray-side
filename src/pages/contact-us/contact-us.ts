@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChatService, ChatMessage } from '../../providers/chat-service';
-import { User, Room} from '../../app/shared/sdk';
+import { ChatService } from '../../providers/chat-service';
+import { User, Room, Message} from '../../app/shared/sdk';
 import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
 import { Events } from 'ionic-angular';
@@ -18,10 +18,11 @@ import { AppSettings } from '../../providers/app-setting';
   templateUrl: 'contact-us.html'
 })
 export class ContactUsPage implements OnDestroy {
-  messages: Array<ChatMessage>;
+  messages: Array<Message>;
   connection;
   message: string = '';
   room: Room
+  isAdmin: boolean = false
   me: User;
 
   constructor(
@@ -31,7 +32,7 @@ export class ContactUsPage implements OnDestroy {
     private chatService: ChatService,
     public events: Events
   ) {
-    this.events.subscribe('new-message',(message: ChatMessage) => {
+    this.events.subscribe('new-message',(message: Message) => {
       this.messages.push(message)
     })
 
@@ -52,7 +53,10 @@ export class ContactUsPage implements OnDestroy {
           (user) => {
             this.me = user
             let roomId = user.id
-            if (this.room) roomId = this.room.name
+            if (this.room) {
+              roomId = this.room.name
+              this.isAdmin = true
+            } 
             this.chatService.join(roomId).subscribe((room: Room) => {
               this.room = room
               this.chatService.listenNewMessage(room.id)
@@ -69,13 +73,14 @@ export class ContactUsPage implements OnDestroy {
   }
 
   sendMessage(msg) {
-    let chatMessage = new ChatMessage()
+    let chatMessage = new Message()
     chatMessage.status = 'pending'
     chatMessage.text = msg
     chatMessage.userId = this.me.id
     chatMessage.userAvatar = this.me.profilePicture
     chatMessage.userName = this.me.username
     chatMessage.roomId = this.room.id
+    chatMessage.roomName = this.room.name
 
     this.chatService.sendMessage(chatMessage);
     this.messages.push(chatMessage)

@@ -40,7 +40,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for accessTokens.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -70,7 +70,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for accessTokens.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -97,7 +97,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for accessTokens.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -133,7 +133,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for Role.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -163,7 +163,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for Role.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -190,7 +190,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for Role.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -226,7 +226,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for Role.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -262,7 +262,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Remove the Role relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -289,7 +289,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Check the existence of Role relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for Role
    *
@@ -319,7 +319,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for roleMapping.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for roleMapping
    *
@@ -349,7 +349,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for roleMapping.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for roleMapping
    *
@@ -376,7 +376,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for roleMapping.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for roleMapping
    *
@@ -412,7 +412,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Fetches belongsTo relation creator.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {boolean} refresh 
    *
@@ -442,7 +442,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation media.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {boolean} refresh 
    *
@@ -472,7 +472,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in media of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -487,7 +487,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createMedia(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createMedia(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/media";
@@ -505,7 +505,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update media of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -520,7 +520,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateMedia(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updateMedia(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/media";
@@ -538,7 +538,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes media of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -562,7 +562,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for students.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for students
    *
@@ -592,7 +592,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for students.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for students
    *
@@ -619,7 +619,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for students.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for students
    *
@@ -636,7 +636,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateByIdStudents(id: any, fk: any, data: Student = new Student(), customHeaders?: Function): Observable<any> {
+  public updateByIdStudents(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/students/:fk";
@@ -655,7 +655,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for messages.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -685,7 +685,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for messages.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -712,7 +712,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for messages.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for messages
    *
@@ -729,7 +729,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateByIdMessages(id: any, fk: any, data: Message = new Message(), customHeaders?: Function): Observable<any> {
+  public updateByIdMessages(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/messages/:fk";
@@ -748,7 +748,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for rooms.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -778,7 +778,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for rooms.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -805,7 +805,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for rooms.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -822,7 +822,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateByIdRooms(id: any, fk: any, data: Room = new Room(), customHeaders?: Function): Observable<any> {
+  public updateByIdRooms(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/rooms/:fk";
@@ -841,7 +841,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for rooms.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -877,7 +877,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Remove the rooms relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -904,7 +904,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Check the existence of rooms relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for rooms
    *
@@ -934,7 +934,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for orders.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for orders
    *
@@ -964,7 +964,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for orders.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for orders
    *
@@ -991,7 +991,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for orders.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for orders
    *
@@ -1008,7 +1008,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateByIdOrders(id: any, fk: any, data: Order = new Order(), customHeaders?: Function): Observable<any> {
+  public updateByIdOrders(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/orders/:fk";
@@ -1027,7 +1027,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for yearbooks.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1057,7 +1057,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for yearbooks.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1084,7 +1084,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for yearbooks.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1101,7 +1101,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public updateByIdYearbooks(id: any, fk: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public updateByIdYearbooks(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/yearbooks/:fk";
@@ -1120,7 +1120,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Add a related item by id for yearbooks.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1156,7 +1156,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Remove the yearbooks relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1183,7 +1183,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Check the existence of yearbooks relation to an item by id.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {any} fk Foreign key for yearbooks
    *
@@ -1213,7 +1213,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries accessTokens of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1243,7 +1243,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1276,7 +1276,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all accessTokens of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1300,7 +1300,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts accessTokens of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1329,7 +1329,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries Role of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1359,7 +1359,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in Role of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1392,7 +1392,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all Role of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1416,7 +1416,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts Role of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1445,7 +1445,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries roleMapping of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1475,7 +1475,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roleMapping of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1508,7 +1508,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all roleMapping of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1532,7 +1532,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts roleMapping of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1561,7 +1561,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries students of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1591,7 +1591,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in students of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1606,7 +1606,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createStudents(id: any, data: Student = new Student(), customHeaders?: Function): Observable<any> {
+  public createStudents(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/students";
@@ -1624,7 +1624,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all students of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1648,7 +1648,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts students of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1677,7 +1677,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries messages of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1707,7 +1707,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in messages of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1722,7 +1722,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createMessages(id: any, data: Message = new Message(), customHeaders?: Function): Observable<any> {
+  public createMessages(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/messages";
@@ -1740,7 +1740,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all messages of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1764,7 +1764,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts messages of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1793,7 +1793,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries rooms of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1823,7 +1823,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in rooms of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1838,7 +1838,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createRooms(id: any, data: Room = new Room(), customHeaders?: Function): Observable<any> {
+  public createRooms(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/rooms";
@@ -1856,7 +1856,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all rooms of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1880,7 +1880,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts rooms of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -1909,7 +1909,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries orders of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -1939,7 +1939,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in orders of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -1954,7 +1954,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createOrders(id: any, data: Order = new Order(), customHeaders?: Function): Observable<any> {
+  public createOrders(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/orders";
@@ -1972,7 +1972,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all orders of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -1996,7 +1996,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts orders of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -2025,7 +2025,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Queries yearbooks of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} filter 
    *
@@ -2055,7 +2055,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbooks of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2070,7 +2070,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createYearbooks(id: any, data: Generation = new Generation(), customHeaders?: Function): Observable<any> {
+  public createYearbooks(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/yearbooks";
@@ -2088,7 +2088,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Deletes all yearbooks of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -2112,7 +2112,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Counts yearbooks of user.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -2159,7 +2159,7 @@ export class UserApi extends BaseLoopBackApi {
    * The response body contains properties of the AccessToken created on login.
    * Depending on the value of `include` parameter, the body may contain additional properties:
    * 
-   *   - `user` - `{User}` - Data of the currently logged in user. (`include=user`)
+   *   - `user` - `U+007BUserU+007D` - Data of the currently logged in user. (`include=user`)
    * 
    *
    */
@@ -2363,7 +2363,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in media of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2378,7 +2378,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyMedia(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyMedia(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/media";
@@ -2396,7 +2396,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in accessTokens of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2429,7 +2429,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in Role of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2462,7 +2462,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in roleMapping of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2495,7 +2495,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in students of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2510,7 +2510,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyStudents(id: any, data: Student[] = new Array<Student>(), customHeaders?: Function): Observable<any> {
+  public createManyStudents(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/students";
@@ -2528,7 +2528,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in messages of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2543,7 +2543,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyMessages(id: any, data: Message[] = new Array<Message>(), customHeaders?: Function): Observable<any> {
+  public createManyMessages(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/messages";
@@ -2561,7 +2561,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in rooms of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2576,7 +2576,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyRooms(id: any, data: Room[] = new Array<Room>(), customHeaders?: Function): Observable<any> {
+  public createManyRooms(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/rooms";
@@ -2594,7 +2594,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in orders of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2609,7 +2609,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyOrders(id: any, data: Order[] = new Array<Order>(), customHeaders?: Function): Observable<any> {
+  public createManyOrders(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/orders";
@@ -2627,7 +2627,7 @@ export class UserApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in yearbooks of this model.
    *
-   * @param {any} id User id
+   * @param {any} id user id
    *
    * @param {object} data Request data.
    *
@@ -2642,7 +2642,7 @@ export class UserApi extends BaseLoopBackApi {
    * This usually means the response is a `User` object.)
    * </em>
    */
-  public createManyYearbooks(id: any, data: Generation[] = new Array<Generation>(), customHeaders?: Function): Observable<any> {
+  public createManyYearbooks(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/users/:id/yearbooks";

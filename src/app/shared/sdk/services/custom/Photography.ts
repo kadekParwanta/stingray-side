@@ -35,7 +35,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Find a related item by id for photos.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -65,7 +65,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Delete a related item by id for photos.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -92,7 +92,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Update a related item by id for photos.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {any} fk Foreign key for photos
    *
@@ -109,7 +109,7 @@ export class PhotographyApi extends BaseLoopBackApi {
    * This usually means the response is a `Photography` object.)
    * </em>
    */
-  public updateByIdPhotos(id: any, fk: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updateByIdPhotos(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Photographies/:id/photos/:fk";
@@ -128,7 +128,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Queries photos of Photography.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {object} filter 
    *
@@ -158,7 +158,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {object} data Request data.
    *
@@ -173,7 +173,7 @@ export class PhotographyApi extends BaseLoopBackApi {
    * This usually means the response is a `Photography` object.)
    * </em>
    */
-  public createPhotos(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createPhotos(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Photographies/:id/photos";
@@ -191,7 +191,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Deletes all photos of this model.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -215,7 +215,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Counts photos of Photography.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {object} where Criteria to match model instances
    *
@@ -276,7 +276,7 @@ export class PhotographyApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photos of this model.
    *
-   * @param {any} id Project id
+   * @param {any} id Photography id
    *
    * @param {object} data Request data.
    *
@@ -291,7 +291,7 @@ export class PhotographyApi extends BaseLoopBackApi {
    * This usually means the response is a `Photography` object.)
    * </em>
    */
-  public createManyPhotos(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyPhotos(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Photographies/:id/photos";

@@ -11,6 +11,7 @@ export interface MessageInterface {
   "status"?: string;
   "userName"?: string;
   "userAvatar"?: string;
+  "roomName"?: string;
   "id"?: any;
   "userId"?: any;
   "roomId"?: any;
@@ -24,6 +25,7 @@ export class Message implements MessageInterface {
   "status": string;
   "userName": string;
   "userAvatar": string;
+  "roomName": string;
   "id": any;
   "userId": any;
   "roomId": any;
@@ -79,6 +81,10 @@ export class Message implements MessageInterface {
         },
         "userAvatar": {
           name: 'userAvatar',
+          type: 'string'
+        },
+        "roomName": {
+          name: 'roomName',
           type: 'string'
         },
         "id": {

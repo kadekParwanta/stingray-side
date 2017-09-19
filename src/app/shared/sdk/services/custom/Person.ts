@@ -35,7 +35,7 @@ export class PersonApi extends BaseLoopBackApi {
   /**
    * Fetches hasOne relation photo.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Person id
    *
    * @param {boolean} refresh 
    *
@@ -65,7 +65,7 @@ export class PersonApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photo of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Person id
    *
    * @param {object} data Request data.
    *
@@ -80,7 +80,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public createPhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public createPhoto(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -98,7 +98,7 @@ export class PersonApi extends BaseLoopBackApi {
   /**
    * Update photo of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Person id
    *
    * @param {object} data Request data.
    *
@@ -113,7 +113,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public updatePhoto(id: any, data: Media = new Media(), customHeaders?: Function): Observable<any> {
+  public updatePhoto(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
@@ -131,7 +131,7 @@ export class PersonApi extends BaseLoopBackApi {
   /**
    * Deletes photo of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Person id
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -155,7 +155,7 @@ export class PersonApi extends BaseLoopBackApi {
   /**
    * Creates a new instance in photo of this model.
    *
-   * @param {any} id PersistedModel id
+   * @param {any} id Person id
    *
    * @param {object} data Request data.
    *
@@ -170,7 +170,7 @@ export class PersonApi extends BaseLoopBackApi {
    * This usually means the response is a `Person` object.)
    * </em>
    */
-  public createManyPhoto(id: any, data: Media[] = new Array<Media>(), customHeaders?: Function): Observable<any> {
+  public createManyPhoto(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/People/:id/photo";
