@@ -47,6 +47,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ClothingPage } from '../pages/clothing/clothing';
 import { EditAccountPage } from '../pages/edit-account/edit-account';
 import { MusicPage } from '../pages/music/music';
+import { BuddyListPage } from '../pages/buddy-list/buddy-list';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { MusicPage } from '../pages/music/music';
     MyProfilePage,
     ClothingPage,
     EditAccountPage,
-    MusicPage
+    MusicPage,
+    BuddyListPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -109,7 +111,8 @@ import { MusicPage } from '../pages/music/music';
     MyProfilePage,
     ClothingPage,
     EditAccountPage,
-    MusicPage
+    MusicPage,
+    BuddyListPage
   ],
   providers: [
     StatusBar,

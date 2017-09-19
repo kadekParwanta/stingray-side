@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
-import { LoopBackConfig } from './shared/sdk';
+import { LoopBackConfig, User } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -20,6 +20,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { ClothingPage } from '../pages/clothing/clothing';
 import { MusicPage } from '../pages/music/music';
+import { BuddyListPage } from '../pages/buddy-list/buddy-list';
 
 export interface PageInterface {
   title: string;
@@ -37,6 +38,7 @@ export class MyApp {
 
   rootPage: any = HomePage;
   hasLoggedIn: Boolean;
+  isAdmin: Boolean;
   navigationPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
@@ -46,9 +48,7 @@ export class MyApp {
     { title: 'Music', component: MusicPage, index: 4, icon: 'musical-notes' },
   ]
 
-  accountPages: PageInterface[] = [
-    { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
-  ]
+  accountPages: PageInterface[] = []
 
   footerPage: PageInterface;
 
@@ -82,13 +82,32 @@ export class MyApp {
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.hasLoggedIn = hasLoggedIn;
-      this.setAccountPages(hasLoggedIn)
       if (hasLoggedIn) {
         this.footerPage = this.loggedInPage;
+        this.userData.getUser().then((user: User)=> {
+          if (user) {
+            let role = user.roleName as any
+            this.isAdmin = (role == "admin")
+            if (this.isAdmin) {
+              this.accountPages = [
+                {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+                { title: 'Chat Us', component: BuddyListPage, index: 4, icon: 'chatbubbles' },
+              ]
+            } else {
+              this.accountPages = [
+                {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+                { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
+              ]
+            }
+          }
+        })
       } else {
         this.footerPage = this.loggedOutPage;
+        this.accountPages = []
       }
     });
+
+    
 
     this.listenToLoginEvents();
     this.platform.registerBackButtonAction(()=>{
@@ -158,17 +177,15 @@ export class MyApp {
 
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
-      this.setAccountPages(true);
+      this.setAccountPages(true, this.isAdmin);
       this.footerPage = this.loggedInPage;
     });
 
     this.events.subscribe('user:signup', () => {
-      this.setAccountPages(false);
       this.footerPage = this.loggedOutPage;
     });
 
     this.events.subscribe('user:logout', () => {
-      this.setAccountPages(false);
       this.footerPage = this.loggedOutPage;
     });
   }
@@ -182,7 +199,7 @@ export class MyApp {
     alert.present();
   }
 
-  setAccountPages(isLoggedIn: boolean) {
+  setAccountPages(isLoggedIn: Boolean, isAdmin: Boolean) {
     if (isLoggedIn) {
       this.accountPages= [
         {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},

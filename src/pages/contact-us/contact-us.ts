@@ -34,6 +34,8 @@ export class ContactUsPage implements OnDestroy {
     this.events.subscribe('new-message',(message: ChatMessage) => {
       this.messages.push(message)
     })
+
+    this.room = this.navParams.get('room')
   }
 
 
@@ -44,7 +46,9 @@ export class ContactUsPage implements OnDestroy {
         this.userData.getUser().then(
           (user) => {
             this.me = user
-            this.chatService.join(user.id).subscribe((room: Room) => {
+            let roomId = user.id
+            if (this.room) roomId = this.room.id
+            this.chatService.join(roomId).subscribe((room: Room) => {
               this.room = room
               this.chatService.listenNewMessage(room.id)
               this.chatService.getMessages(room.id).then((messages) => {
@@ -85,7 +89,7 @@ export class ContactUsPage implements OnDestroy {
   }
 
   getPictureURL(path): string {
-    return AppSettings.API_ENDPOINT + path;
+    return AppSettings.API_ENDPOINT + "/" + path;
   }
 
 }
