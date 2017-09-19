@@ -38,8 +38,13 @@ export class ContactUsPage implements OnDestroy {
     this.room = this.navParams.get('room')
   }
 
+  ngOnDestroy() {
+    this.chatService.disconnect();
+  }
 
-  ngOnInit(): void {
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ContactUsPage');
     this.userData.getCredentials().then((credentials) => {
       if (credentials) {
         this.chatService.authenticate(credentials);
@@ -47,7 +52,7 @@ export class ContactUsPage implements OnDestroy {
           (user) => {
             this.me = user
             let roomId = user.id
-            if (this.room) roomId = this.room.id
+            if (this.room) roomId = this.room.name
             this.chatService.join(roomId).subscribe((room: Room) => {
               this.room = room
               this.chatService.listenNewMessage(room.id)
@@ -61,17 +66,6 @@ export class ContactUsPage implements OnDestroy {
       }
 
     });
-
-    
-  }
-
-  ngOnDestroy() {
-    this.chatService.disconnect();
-  }
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactUsPage');
   }
 
   sendMessage(msg) {
