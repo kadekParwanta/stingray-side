@@ -1,14 +1,19 @@
 /* tslint:disable */
+import {
+  Message
+} from '../index';
 
 declare var Object: any;
 export interface RoomInterface {
   "name": string;
   "id"?: any;
+  messages?: Message[];
 }
 
 export class Room implements RoomInterface {
   "name": string;
   "id": any;
+  messages: Message[];
   constructor(data?: RoomInterface) {
     Object.assign(this, data);
   }
@@ -51,6 +56,11 @@ export class Room implements RoomInterface {
         },
       },
       relations: {
+        messages: {
+          name: 'messages',
+          type: 'Message[]',
+          model: 'Message'
+        },
       }
     }
   }

@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ChatService } from '../../providers/chat-service';
-import { User } from '../../app/shared/sdk';
+import { ChatService, ChatMessage } from '../../providers/chat-service';
+import { User, Room} from '../../app/shared/sdk';
 import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
+import { Events } from 'ionic-angular';
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the ContactUs page.
@@ -16,17 +18,23 @@ import { LoginPage } from '../login/login';
   templateUrl: 'contact-us.html'
 })
 export class ContactUsPage implements OnDestroy {
-  messages;
+  messages: Array<ChatMessage>;
   connection;
   message: string = '';
+  room: Room
   me: User;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private userData: UserData,
-    private chatService: ChatService
-  ) {}
+    private chatService: ChatService,
+    public events: Events
+  ) {
+    this.events.subscribe('new-message',(message: ChatMessage) => {
+      this.messages.push(message)
+    })
+  }
 
 
   ngOnInit(): void {
@@ -36,15 +44,21 @@ export class ContactUsPage implements OnDestroy {
         this.userData.getUser().then(
           (user) => {
             this.me = user
-            this.chatService.getMessages(user.id).subscribe((messages) => {
-              this.messages = messages;
-            });
+            this.chatService.join(user.id).subscribe((room: Room) => {
+              this.room = room
+              this.chatService.listenNewMessage(room.id)
+              this.chatService.getMessages(room.id).then((messages) => {
+                this.messages = messages;
+              });
+            })
           })
       } else {
         this.navCtrl.setRoot(LoginPage);
       }
 
     });
+
+    
   }
 
   ngOnDestroy() {
@@ -57,8 +71,21 @@ export class ContactUsPage implements OnDestroy {
   }
 
   sendMessage(msg) {
-    this.chatService.sendMessage(msg);
+    let chatMessage = new ChatMessage()
+    chatMessage.status = 'pending'
+    chatMessage.text = msg
+    chatMessage.userId = this.me.id
+    chatMessage.userAvatar = this.me.profilePicture
+    chatMessage.userName = this.me.username
+    chatMessage.roomId = this.room.id
+
+    this.chatService.sendMessage(chatMessage);
+    this.messages.push(chatMessage)
     this.message = '';
+  }
+
+  getPictureURL(path): string {
+    return AppSettings.API_ENDPOINT + path;
   }
 
 }

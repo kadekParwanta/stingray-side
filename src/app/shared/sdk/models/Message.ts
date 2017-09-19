@@ -1,23 +1,34 @@
 /* tslint:disable */
 import {
-  User
+  User,
+  Room
 } from '../index';
 
 declare var Object: any;
 export interface MessageInterface {
   "text": string;
   "createdDate": Date;
+  "status"?: string;
+  "userName"?: string;
+  "userAvatar"?: string;
   "id"?: any;
   "userId"?: any;
+  "roomId"?: any;
   sender?: User;
+  room?: Room;
 }
 
 export class Message implements MessageInterface {
   "text": string;
   "createdDate": Date;
+  "status": string;
+  "userName": string;
+  "userAvatar": string;
   "id": any;
   "userId": any;
+  "roomId": any;
   sender: User;
+  room: Room;
   constructor(data?: MessageInterface) {
     Object.assign(this, data);
   }
@@ -58,6 +69,18 @@ export class Message implements MessageInterface {
           name: 'createdDate',
           type: 'Date'
         },
+        "status": {
+          name: 'status',
+          type: 'string'
+        },
+        "userName": {
+          name: 'userName',
+          type: 'string'
+        },
+        "userAvatar": {
+          name: 'userAvatar',
+          type: 'string'
+        },
         "id": {
           name: 'id',
           type: 'any'
@@ -66,12 +89,21 @@ export class Message implements MessageInterface {
           name: 'userId',
           type: 'any'
         },
+        "roomId": {
+          name: 'roomId',
+          type: 'any'
+        },
       },
       relations: {
         sender: {
           name: 'sender',
           type: 'User',
           model: 'User'
+        },
+        room: {
+          name: 'room',
+          type: 'Room',
+          model: 'Room'
         },
       }
     }

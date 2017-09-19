@@ -18,8 +18,10 @@
 
 <ion-content>
   <div class="messages">
-    <div class="message" *ngFor="let m of messages" [ngClass]="{'me': m.sender.id === me.id}">
-      <img-loader useImg [src]="m.sender.profilePicture" class="avatar" *ngIf="m.sender.id !== me.id"></img-loader>
+    <div class="message" *ngFor="let m of messages" [ngClass]="{'me': m.userId === me.id}">
+      <ion-avatar>
+          <img-loader useImg [src]="getPictureURL(m.userAvatar)"></img-loader>
+      </ion-avatar>
       {{ m.text }}
       <span class="date">{{ m.createdDate | date:'medium' }}</span>
     </div>

@@ -5,6 +5,9 @@ import * as io from 'socket.io-client';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { LoopBackConfig } from '../app/shared/sdk';
+import { Message, Room } from '../app/shared/sdk/models';
+import { MessageApi, RoomApi } from '../app/shared/sdk/services';
+import { Events } from 'ionic-angular';
 
 /*
   Generated class for the ChatService provider.
@@ -12,12 +15,22 @@ import { LoopBackConfig } from '../app/shared/sdk';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
+
+export class ChatMessage {
+  roomId: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  text: string;
+  status: string;
+}
+
 @Injectable()
 export class ChatService {
   private socket;
   private credentials;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public messageApi: MessageApi, public roomApi: RoomApi, public events: Events) {
     console.log('Hello ChatService Provider' + LoopBackConfig.getPath());
     this.socket = io.connect(LoopBackConfig.getPath());
   }
@@ -37,21 +50,51 @@ export class ChatService {
     this.socket.emit("authentication", this.credentials);
   }
 
-  sendMessage(message) {
-    this.socket.emit('add-message', {text:message, username:this.credentials.username});
+  join(roomName: string) {
+    this.socket.emit("room",roomName);
+    let observable = new Observable(observer => {
+      var name = 'joined-room/'+roomName
+      this.socket.on('joined-room/'+roomName, (room: Room) => {
+        observer.next(room);
+        })
+    })
+
+    return observable
   }
 
-  getMessages(id) {
-    let observable = new Observable(observer => {
-      var name = '/add-message/'+id;
-      this.socket.on(name, (data) => {
-        observer.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
+  sendMessage(message: ChatMessage) {
+    this.socket.emit('send-message', message);
+  }
+
+  // getMessages(id) {
+  //   let observable = new Observable(observer => {
+  //     var name = '/add-message/'+id;
+  //     this.socket.on(name, (data) => {
+  //       observer.next(data);
+  //     });
+  //     return () => {
+  //       this.socket.disconnect();
+  //     };
+  //   })
+  //   return observable;
+  // }
+
+  getMessages(roomId: string) {
+    return this.roomApi.findById(roomId, {include:"messages"})
+    .map((room: Room) => { return room.messages})
+    .toPromise()
+  }
+
+  listenNewMessage(roomId: string) {
+    this.socket.on("new-message", (data: ChatMessage) => {
+      console.log("new message", data)
+      let userId = data.userId
+      if (userId != roomId) this.events.publish("new-message", data)
     })
-    return observable;
+  }
+
+  removeEventListener() {
+    this.events.unsubscribe('new-message')
   }
 
   disconnect() {

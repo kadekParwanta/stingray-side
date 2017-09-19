@@ -23,6 +23,19 @@ page-contact-us {
         display: block;
         font-size: 10px;
       }
+      ion-avatar {
+        img-loader {
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+            display: block;
+            float: left;
+            margin-right: 5px;
+            margin-left: -5px;
+          }
+        }
+      }
       img.avatar {
         width: 30px;
         height: 30px;
