@@ -37,11 +37,13 @@
           <p>Tahun {{generation.year}}</p>
         </ion-col>
         <ion-col col-4>
-          <button ion-button icon-left block color="danger" (click)="order()">
+          <button ion-button icon-left block color="danger" (click)="order()" *ngIf="!allowAccess">
                   <ion-icon name="cart"></ion-icon>Order
                 </button>
           <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">
-                  <ion-icon name="book"></ion-icon>Preview
+                  <ion-icon name="book"></ion-icon>
+                  <span *ngIf="allowAccess">Read</span>
+                  <span *ngIf="!allowAccess">Preview</span>
                 </button>
         </ion-col>
       </ion-row>
