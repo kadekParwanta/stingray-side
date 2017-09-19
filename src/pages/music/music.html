@@ -1,0 +1,100 @@
+<!--
+  Generated template for the MusicPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    
+      <ion-navbar color="dark">
+        <ion-title>Music</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
+    
+    
+    <ion-content>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing.."></ion-refresher-content>
+          </ion-refresher>
+          <ion-grid *ngIf="isConnected; else offline">
+            <div *ngIf="!isBusy; else busy">
+              <ion-row *ngIf="promotions.length > 0" class="promotion">
+                <ion-col>
+                    <ion-card class="full-card" *ngIf="promotions[0].photos.length > 0">
+                        <img-loader useImg [src]="getPictureURL(promotions[0].photos[0].url)" class="music-image"></img-loader>
+                      </ion-card>
+                </ion-col>
+              </ion-row>
+              <!-- <ion-row>
+                <ion-col>
+                    <ion-item class="category-row">
+                        <ion-row>
+                            <ion-col>
+                              <img src="assets/img/men.jpg" class="category">
+                              <p class="category-title">Pria</p>
+                            </ion-col>
+                            <ion-col>
+                                <img src="assets/img/women.jpeg" class="category">
+                              <p class="category-title">Wanita</p>
+                            </ion-col>
+                            <ion-col>
+                                <img src="assets/img/kids.jpg" class="category">
+                              <p class="category-title">Anak-anak</p>
+                            </ion-col>
+                            <ion-col>
+                                <img src="assets/img/men.jpg" class="category">
+                                <p class="category-title">Kategory</p>
+                            </ion-col>
+                          </ion-row>
+                    </ion-item>
+                </ion-col>
+              </ion-row>     -->
+              <ion-row *ngFor="let music of musics">
+                <ion-col>
+                  <ion-card class="full-card">
+                      <div *ngIf="music.photos.length > 0">
+                          <img-loader useImg [src]="getPictureURL(music.photos[0].url)"></img-loader>
+                      </div>
+                      <ion-card-content>
+                        <ion-card-title>
+                          {{music.name}}
+                        </ion-card-title>
+                        <p>
+                          {{music.description}}
+                        </p>
+                        <ion-row>
+                          <ion-col col-4 offset-8>
+                              <button ion-button icon-left color="danger" item-end>
+                                  <ion-icon name="cart"></ion-icon>Order
+                                </button>
+                          </ion-col>
+                        </ion-row>
+                        
+                      </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>      
+            </div>
+          </ion-grid>
+    
+    </ion-content>
+    
+    <ng-template #offline>
+      <div class="offline">
+        <div [hidden]="isLoading" class="absolute-center">
+          <ion-icon name="sad" item-start></ion-icon>
+          Oops.. Koneksi terputus
+        </div>
+        <div [hidden]="!isLoading" class="absolute-center">
+          <ion-spinner name="bubbles"></ion-spinner>
+          Menyambungkan..
+        </div>
+      </div>
+    
+    </ng-template>
+    
+    <ng-template #busy>
+      <ion-spinner name="dots" class="busy"></ion-spinner>
+    </ng-template>
+    

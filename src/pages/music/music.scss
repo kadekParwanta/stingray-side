@@ -1,0 +1,22 @@
+page-music {
+    ion-content {
+        background-color: transparent !important;
+    }
+    
+    ion-grid {
+      height: 100%;
+      align-items: center;
+    }
+    
+    .content {
+        background-image: url("../assets/img/home-bg.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+
+    .full-card {
+        margin: 0;
+        width: 100%;
+    }
+}

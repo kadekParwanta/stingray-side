@@ -19,6 +19,7 @@ import { AppUpdate } from '@ionic-native/app-update';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { ClothingPage } from '../pages/clothing/clothing';
+import { MusicPage } from '../pages/music/music';
 
 export interface PageInterface {
   title: string;
@@ -42,6 +43,7 @@ export class MyApp {
     { title: 'Photography', component: PhotographyPage, index: 2, icon: 'camera' },
     { title: 'Events', component: EventOrganizerPage, index: 3, icon: 'key' },
     { title: 'Clothing', component: ClothingPage, index: 4, icon: 'body' },
+    { title: 'Music', component: MusicPage, index: 4, icon: 'musical-notes' },
   ]
 
   accountPages: PageInterface[] = [

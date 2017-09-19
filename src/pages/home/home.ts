@@ -8,6 +8,7 @@ import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { MyProfilePage } from '../my-profile/my-profile'
 import { ClothingPage } from '../clothing/clothing';
+import { MusicPage } from '../music/music';
 
 /*
   Generated class for the Home page.
@@ -95,7 +96,7 @@ export class HomePage {
         this.navCtrl.push(ClothingPage)
         break;
       case 4:
-        this.navCtrl.push(SchoolsPage)
+        this.navCtrl.push(MusicPage)
         break;
     }
     

@@ -53,7 +53,9 @@
           <ion-row *ngFor="let clothing of clothings">
             <ion-col>
               <ion-card class="full-card">
-                  <img-loader useImg [src]="getPictureURL(clothing.photos[0].url)" class="clothing-image"></img-loader>
+                <div *ngIf="clothing.photos.length > 0">
+                    <img-loader useImg [src]="getPictureURL(clothing.photos[0].url)" class="clothing-image"></img-loader>
+                </div>
                   <ion-card-content>
                     <ion-card-title>
                       {{clothing.name || clothing.description}}
