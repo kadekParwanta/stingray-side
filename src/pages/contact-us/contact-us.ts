@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { ChatService } from '../../providers/chat-service';
 import { User, Room, Message} from '../../app/shared/sdk';
 import { UserData } from '../../providers/user-data';
@@ -18,12 +18,14 @@ import { AppSettings } from '../../providers/app-setting';
   templateUrl: 'contact-us.html'
 })
 export class ContactUsPage implements OnDestroy {
-  messages: Array<Message>;
+
+  messages: Array<Message> = new Array<Message>()
   connection;
   message: string = '';
   room: Room
   isAdmin: boolean = false
   me: User;
+  private isBusy: Boolean = true
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +35,10 @@ export class ContactUsPage implements OnDestroy {
     public events: Events
   ) {
     this.events.subscribe('new-message',(message: Message) => {
-      this.messages.push(message)
+      let senderId = message.userId
+      if (senderId != this.me.id) {
+        this.messages.push(message)        
+      } 
     })
 
     this.room = this.navParams.get('room')
@@ -43,25 +48,25 @@ export class ContactUsPage implements OnDestroy {
     this.chatService.disconnect();
   }
 
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactUsPage');
+  ionViewDidEnter() {
     this.userData.getCredentials().then((credentials) => {
       if (credentials) {
         this.chatService.authenticate(credentials);
         this.userData.getUser().then(
           (user) => {
             this.me = user
-            let roomId = user.id
+            let roomName = user.id
             if (this.room) {
-              roomId = this.room.name
+              roomName = this.room.name
               this.isAdmin = true
-            } 
-            this.chatService.join(roomId).subscribe((room: Room) => {
+            }
+            this.isBusy = true 
+            this.chatService.join(roomName).subscribe((room: Room) => {
               this.room = room
-              this.chatService.listenNewMessage(room.id)
+              this.chatService.listenNewMessage(roomName)
               this.chatService.getMessages(room.id).then((messages) => {
                 this.messages = messages;
+                this.isBusy = false
               });
             })
           })
@@ -70,6 +75,15 @@ export class ContactUsPage implements OnDestroy {
       }
 
     });
+  }
+
+  ionViewWillLeave() {
+    this.chatService.leave(this.room.name)
+  }
+
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ContactUsPage');
   }
 
   sendMessage(msg) {

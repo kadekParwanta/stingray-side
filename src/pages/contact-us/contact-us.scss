@@ -8,6 +8,11 @@ page-contact-us {
         background-position: center;
     }
 
+    .container {
+      height: 100%;
+      align-items: center;
+    }
+
   .messages {
     width: 100%;
     position: absolute;
@@ -55,6 +60,14 @@ page-contact-us {
       text-align: right;
       img.avatar {
         display: none;
+      }
+
+      ion-avatar {
+        img-loader {
+          img {
+            display: none;
+          }
+        }
       }
     }
   }

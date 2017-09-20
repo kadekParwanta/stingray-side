@@ -53,6 +53,10 @@ export class ChatService {
     return observable
   }
 
+  leave(roomName: string) {
+    this.socket.emit("leave-room", roomName)
+  }
+
   sendMessage(message: Message) {
     this.socket.emit('send-message', message);
   }
@@ -76,11 +80,10 @@ export class ChatService {
     .toPromise()
   }
 
-  listenNewMessage(roomId: string) {
+  listenNewMessage(roomName: string) {
     this.socket.on("new-message", (data: Message) => {
       console.log("new message", data)
-      let userId = data.userId
-      if (userId != roomId) this.events.publish("new-message", data)
+      this.events.publish("new-message", data)
     })
   }
 
