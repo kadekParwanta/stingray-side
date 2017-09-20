@@ -29,14 +29,21 @@
     <div class="container">
       <div *ngIf="!isBusy; else busy">
         <ion-list>
-          <div *ngFor="let m of messages" class="chat-bubble" [ngClass]="{'left': m.userId != me.id, 'right': m.userId == me.id}">
-            <div class="message"  [ngClass]="{'me': m.userId === me.id}">
-              <ion-avatar>
-                <img-loader useImg [src]="getPictureURL(m.userAvatar)"></img-loader>
-              </ion-avatar>
-              {{ m.text }}
-              <span class="date">{{ m.createdDate | date:'medium' }}</span>
-            </div>
+          <div *ngFor="let m of messages" >
+              <ion-row>
+                  <ion-col>
+                    <div class="chat-bubble" [ngClass]="{'left': m.userId != me.id, 'right': m.userId == me.id}">
+                        <div class="message"  [ngClass]="{'me': m.userId === me.id}">
+                            <ion-avatar>
+                                <img-loader useImg [src]="getPictureURL(m.userAvatar)"></img-loader>
+                              </ion-avatar>
+                              {{ m.text }}
+                              <span class="date">{{ m.createdDate | date:'medium' }}</span>
+                        </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+            
           </div>
         </ion-list>
       </div>
