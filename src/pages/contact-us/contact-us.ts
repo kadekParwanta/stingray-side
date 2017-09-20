@@ -6,6 +6,7 @@ import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
 import { Events } from 'ionic-angular';
 import { AppSettings } from '../../providers/app-setting';
+import { MyProfilePage } from '../my-profile/my-profile'
 
 /*
   Generated class for the ContactUs page.
@@ -109,6 +110,10 @@ export class ContactUsPage implements OnInit, OnDestroy {
 
   getPictureURL(path): string {
     return AppSettings.API_ENDPOINT + "/" + path;
+  }
+
+  goToProfile(){
+    this.navCtrl.push(MyProfilePage)
   }
 
   autoScroll(): MutationObserver {

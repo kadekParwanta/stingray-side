@@ -25,8 +25,8 @@ page-contact-us {
     width: 100%;
     height: 100%;
     position: absolute;
+
     .message {
-      width: 70%;
       padding: 5px 10px;
       background: #387ef5;
       color: #fff;
@@ -60,10 +60,10 @@ page-contact-us {
         margin-left: -5px;
       }
     }
+
     .message.me {
       float: right;
       background: #fff;
-      border: 1px solid #387ef5;
       color: #222;
       text-align: right;
       img.avatar {
@@ -77,6 +77,51 @@ page-contact-us {
           }
         }
       }
+    }
+
+    .chat-bubble {
+      border-radius: 5px;
+      display: inline-block;
+      position: relative;
+      margin: 10px;
+      max-width: 80%;
+    }
+  
+    .chat-bubble:before {
+      content: "\00a0";
+      display: block;
+      height: 16px;
+      width: 9px;
+      position: absolute;
+      bottom: -7.5px;
+    }
+  
+    .chat-bubble.left {
+      background-color: #387ef5;
+      float: left;
+    }
+  
+    .chat-bubble.left:before {
+      background-color: #387ef5;
+      left: 10px;
+      -webkit-transform: rotate(70deg) skew(5deg);
+    }
+  
+    .chat-bubble.right {
+      background-color: #fff;
+      color: #000;
+      float: right;
+    }
+  
+    .chat-bubble.right:before {
+      background-color: #fff;
+      right: 10px;
+      -webkit-transform: rotate(118deg) skew(-5deg);
+    }
+  
+    .chat-bubble.right a.autolinker {
+      color: #000;
+      font-weight: bold;
     }
   }
 

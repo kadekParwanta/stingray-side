@@ -12,36 +12,38 @@
     </button>
     <ion-title>Chat Us</ion-title>
     <ion-buttons end *ngIf="me">
-        <button ion-button icon-only *ngIf="!me.profilePicture" (click)="goToProfile()">
+      <button ion-button icon-only *ngIf="!me.profilePicture" (click)="goToProfile()">
           <ion-icon name="contact"></ion-icon>
         </button>
-        <ion-avatar *ngIf="me.profilePicture" (click)="goToProfile()">
-            <img-loader useImg [src]="me.profilePicture" class="myAvatar"></img-loader>
-        </ion-avatar>
-      </ion-buttons>
+      <ion-avatar *ngIf="me.profilePicture" (click)="goToProfile()">
+        <img-loader useImg [src]="me.profilePicture" class="myAvatar"></img-loader>
+      </ion-avatar>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-    <ion-scroll scrollY="true" class="messages">
-        <div class="container">
-            <div *ngIf="!isBusy; else busy">
-                <ion-list>
-                    <div class="message" *ngFor="let m of messages" [ngClass]="{'me': m.userId === me.id}">
-                        <ion-avatar>
-                            <img-loader useImg [src]="getPictureURL(m.userAvatar)"></img-loader>
-                        </ion-avatar>
-                        {{ m.text }}
-                        <span class="date">{{ m.createdDate | date:'medium' }}</span>
-                      </div>
-                </ion-list>
+  <ion-scroll scrollY="true" class="messages">
+    <div class="container">
+      <div *ngIf="!isBusy; else busy">
+        <ion-list>
+          <div *ngFor="let m of messages" class="chat-bubble" [ngClass]="{'left': m.userId != me.id, 'right': m.userId == me.id}">
+            <div class="message"  [ngClass]="{'me': m.userId === me.id}">
+              <ion-avatar>
+                <img-loader useImg [src]="getPictureURL(m.userAvatar)"></img-loader>
+              </ion-avatar>
+              {{ m.text }}
+              <span class="date">{{ m.createdDate | date:'medium' }}</span>
             </div>
           </div>
-        
-    </ion-scroll>
-  
+        </ion-list>
+      </div>
+    </div>
+
+  </ion-scroll>
+
 </ion-content>
 
 <ion-footer>
@@ -51,8 +53,9 @@
     <ion-icon name="send"></ion-icon>
   </button>  
 </div> -->
-<ion-toolbar>
-    <ion-input [(ngModel)]="message" type="text" placeholder="Write a message..." autocomplete="true" spellcheck="true" tappable (keydown.enter)="sendMessage(message)"></ion-input>
+  <ion-toolbar>
+    <ion-input [(ngModel)]="message" type="text" placeholder="Write a message..." autocomplete="true" spellcheck="true" tappable
+      (keydown.enter)="sendMessage(message)"></ion-input>
     <ion-buttons end>
       <button ion-button icon-only (click)="sendMessage(message)" [disabled]="message === ''">
         <ion-icon name="paper-plane"></ion-icon>
