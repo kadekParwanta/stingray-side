@@ -60,9 +60,9 @@ export class ContactUsPage implements OnInit, OnDestroy {
       if (credentials) {
         this.chatService.authenticate(credentials);
         this.userData.getUser().then(
-          (user) => {
+          (user : User) => {
             this.me = user
-            let roomName = user.id
+            let roomName = user.username
             if (this.room) {
               roomName = this.room.name
               this.isAdmin = true
