@@ -9,6 +9,7 @@ import { UserData } from '../../providers/user-data';
 import { MyProfilePage } from '../my-profile/my-profile'
 import { ClothingPage } from '../clothing/clothing';
 import { MusicPage } from '../music/music';
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the Home page.
@@ -104,6 +105,10 @@ export class HomePage {
 
   goToProfile(){
     this.navCtrl.push(MyProfilePage)
+  }
+
+  getPictureURL(path): string {
+    return AppSettings.API_ENDPOINT + "/" + path;
   }
 
 }

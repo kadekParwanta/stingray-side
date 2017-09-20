@@ -13,10 +13,18 @@ page-contact-us {
       align-items: center;
     }
 
+    .myAvatar {
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
+
   .messages {
     width: 100%;
+    height: 100%;
     position: absolute;
-    margin-bottom: 44px;
     .message {
       width: 70%;
       padding: 5px 10px;

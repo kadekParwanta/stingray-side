@@ -16,7 +16,7 @@
         <ion-icon name="contact"></ion-icon>
       </button>
       <ion-avatar *ngIf="me.profilePicture" (click)="goToProfile()">
-          <img-loader useImg [src]="me.profilePicture"></img-loader>
+          <img-loader useImg [src]="getPictureURL(me.profilePicture)" class="myAvatar"></img-loader>
       </ion-avatar>
     </ion-buttons>
   </ion-navbar>

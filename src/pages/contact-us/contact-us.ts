@@ -17,7 +17,12 @@ import { AppSettings } from '../../providers/app-setting';
   selector: 'page-contact-us',
   templateUrl: 'contact-us.html'
 })
-export class ContactUsPage implements OnDestroy {
+export class ContactUsPage implements OnInit, OnDestroy {
+  autoScroller: MutationObserver;
+
+  ngOnInit(): void {
+    this.autoScroller = this.autoScroll();
+  }
 
   messages: Array<Message> = new Array<Message>()
   connection;
@@ -46,6 +51,7 @@ export class ContactUsPage implements OnDestroy {
 
   ngOnDestroy() {
     this.chatService.disconnect();
+    this.autoScroller.disconnect();
   }
 
   ionViewDidEnter() {
@@ -103,6 +109,34 @@ export class ContactUsPage implements OnDestroy {
 
   getPictureURL(path): string {
     return AppSettings.API_ENDPOINT + "/" + path;
+  }
+
+  autoScroll(): MutationObserver {
+    const autoScroller = new MutationObserver(this.scrollDown.bind(this));
+
+    autoScroller.observe(this.messagesList, {
+      childList: true,
+      subtree: true
+    });
+
+    return autoScroller;
+  }
+
+  scrollDown(): void {
+    this.scroller.scrollTop = this.scroller.scrollHeight;
+    this.messageEditor.focus();
+  }
+
+  private get messageEditor(): HTMLInputElement {
+    return <HTMLInputElement>document.querySelector('ion-input');
+  }
+
+  private get messagesList(): Element {
+    return document.querySelector('.messages');
+  }
+
+  private get scroller(): Element {
+    return this.messagesList.querySelector('.scroll-content');
   }
 
 }
