@@ -1,18 +1,27 @@
 import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, ToastController, Refresher, AlertController, ModalController, MenuController } from 'ionic-angular';
+
+//SDK
 import { Generation, Media, School, User, Class } from '../../app/shared/sdk/models';
 import { GenerationApi } from '../../app/shared/sdk/services';
-import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
-import { ClassDetailPage } from '../class-detail/class-detail';
+
+//Native
 import { ZBar } from '@ionic-native/zbar';
-import { AppSettings } from '../../providers/app-setting';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { ImageLoader } from 'ionic-image-loader';
 import { Network } from '@ionic-native/network';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { VideoPlayer } from '@ionic-native/video-player';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+
+//Helper
+import { AppSettings } from '../../providers/app-setting';
+import { UserData } from '../../providers/user-data';
+import { ImageLoader } from 'ionic-image-loader';
+
 import { AbstractBasePage } from '../base/base';
 import { EpubPage } from '../epub/epub';
-import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
+import { OrderYearbookPage } from '../order-yearbook/order-yearbook';
+import { ClassDetailPage } from '../class-detail/class-detail';
 
 export class Book {
   label: string;
@@ -29,7 +38,7 @@ export class Book {
   selector: 'page-generation-detail',
   templateUrl: 'generation-detail.html'
 })
-export class GenerationDetailPage extends AbstractBasePage{
+export class GenerationDetailPage extends AbstractBasePage {
   generation = new Generation()
   generationId: String
   school: School = new School()
@@ -40,7 +49,7 @@ export class GenerationDetailPage extends AbstractBasePage{
   private selectedClassroom: Class
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public generationApi: GenerationApi,
@@ -52,10 +61,12 @@ export class GenerationDetailPage extends AbstractBasePage{
     public userData: UserData,
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
-    public modalCtrl: ModalController) {
-      super(network, ngZone)
-      this.generationId = navParams.get('generationId');
-      this.school.name = "";
+    public modalCtrl: ModalController,
+    public videoPlayer: VideoPlayer,
+    public youtube: YoutubeVideoPlayer) {
+    super(network, ngZone)
+    this.generationId = navParams.get('generationId');
+    this.school.name = "";
   }
 
   ionViewDidEnter() {
@@ -67,17 +78,17 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   initData() {
-    this.userData.getUser().then((user: User)=> {
+    this.userData.getUser().then((user: User) => {
       if (user) {
         this.me = user
         let role = user.roleName as any
         this.allowAccess = (role == "admin")
-      } 
-      this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
+      }
+      this.getGenerationDetails(this.generationId).then((generation: Generation) => {
         this.populateGenerationDetails(generation)
       })
     })
-    
+
   }
 
   mySlideOptions = {
@@ -117,8 +128,8 @@ export class GenerationDetailPage extends AbstractBasePage{
         }
       ]
     })
-    .map((generation: Generation) => { return generation})
-    .toPromise()
+      .map((generation: Generation) => { return generation })
+      .toPromise()
     // this.generationApi.findById(generation.id, {
     //   include: [
     //     {
@@ -312,7 +323,7 @@ export class GenerationDetailPage extends AbstractBasePage{
     }
   }
 
-  isItemShown(classRoom): Boolean  {
+  isItemShown(classRoom): Boolean {
     return this.shownItem === classRoom;
   }
 
@@ -321,7 +332,7 @@ export class GenerationDetailPage extends AbstractBasePage{
       this.showLoginAlert("order")
     } else {
       //TODO
-      this.navCtrl.push(OrderYearbookPage, {"generation":this.generation});
+      this.navCtrl.push(OrderYearbookPage, { "generation": this.generation });
     }
   }
 
@@ -330,7 +341,7 @@ export class GenerationDetailPage extends AbstractBasePage{
       if (this.allowAccess) {
         this.navCtrl.push(ClassDetailPage, { classRoomId: classRoom.id });
       } else {
-        this.showAlert("Data tidak ditemukan","Anda tidak terdaftar sebagai siswa di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order",["OK"], null)
+        this.showAlert("Data tidak ditemukan", "Anda tidak terdaftar sebagai siswa di yearbook ini. Silahkan konfirmasi melalui contact us atau pesan dengan klik Order", ["OK"], null)
       }
     } else {
       if (this.allowAccess) {
@@ -339,7 +350,7 @@ export class GenerationDetailPage extends AbstractBasePage{
         this.selectedClassroom = classRoom
         this.showLoginAlert("class")
       }
-      
+
     }
   }
 
@@ -350,13 +361,13 @@ export class GenerationDetailPage extends AbstractBasePage{
       buttons: [{
         text: 'Cancel',
         role: 'cancel'
-      },{
+      }, {
         text: 'OK',
         handler: () => {
           this.goToLogin(key)
         }
       }
-    ],
+      ],
     });
     alert.present();
   }
@@ -372,20 +383,20 @@ export class GenerationDetailPage extends AbstractBasePage{
 
   openPhotoViewer(url) {
     this.imgLoader.getImagePath(url).then(
-      path => {this.imageViewer.show(path)},
-      fallbackPath => {this.imageViewer.show(fallbackPath)}
+      path => { this.imageViewer.show(path) },
+      fallbackPath => { this.imageViewer.show(fallbackPath) }
     )
   }
 
   doRefresh(refresher: Refresher) {
-    this.getGenerationDetails(this.generationId).then((generation:Generation)=>{
+    this.getGenerationDetails(this.generationId).then((generation: Generation) => {
       this.populateGenerationDetails(generation)
       refresher.complete()
-            const toast = this.toastCtrl.create({
-              message: 'Data sudah diperbaharui',
-              duration: 3000
-            })
-            toast.present()
+      const toast = this.toastCtrl.create({
+        message: 'Data sudah diperbaharui',
+        duration: 3000
+      })
+      toast.present()
     })
   }
 
@@ -404,18 +415,18 @@ export class GenerationDetailPage extends AbstractBasePage{
   }
 
   goToLogin(key: string) {
-    let loginModal = this.modalCtrl.create(LoginPage, {generationId:this.generationId});
-    loginModal.onDidDismiss(data=>{
+    let loginModal = this.modalCtrl.create(LoginPage, { generationId: this.generationId });
+    loginModal.onDidDismiss(data => {
       console.log(data);
       if (data.success) {
-        this.userData.getUser().then((user: User)=> {
+        this.userData.getUser().then((user: User) => {
           if (user) {
             this.me = user
             let role = user.roleName as any
             this.allowAccess = (role == "admin")
           }
 
-          switch(key) {
+          switch (key) {
             case "order": {
               this.order()
               break
@@ -426,10 +437,27 @@ export class GenerationDetailPage extends AbstractBasePage{
             }
           }
         })
-        
+
       }
     })
     loginModal.present();
+  }
+
+  getYouTubeVideoID(url): string {
+    url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    return undefined !== url[2] ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+  }
+
+  play() {
+    // this.videoPlayer.play(this.generation.videoUrl).then(() => {
+    //   console.log('video completed')
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+
+    let videoId = this.getYouTubeVideoID(this.generation.videoUrl)
+
+    this.youtube.openVideo(videoId);
   }
 
 }

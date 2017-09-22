@@ -20,6 +20,7 @@ import { Events } from 'ionic-angular';
 export class ChatService {
   private socket;
   private credentials;
+  private roomName;
 
   constructor(public http: Http, public messageApi: MessageApi, public roomApi: RoomApi, public events: Events) {
     console.log('Hello ChatService Provider' + LoopBackConfig.getPath());
@@ -33,6 +34,10 @@ export class ChatService {
     this.socket.on("authenticated", () => {
       console.log('authenticated');
     });
+    this.socket.on("reconnect", () => {
+      console.log('reconnect');
+      if (this.roomName) this.join(this.roomName)
+    })
   }
 
   connect() {
@@ -42,6 +47,7 @@ export class ChatService {
   }
 
   join(roomName: string) {
+    this.roomName = roomName
     this.socket.emit("room",roomName);
     let observable = new Observable(observer => {
       var name = 'joined-room/'+roomName

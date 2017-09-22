@@ -41,10 +41,8 @@ export class ContactUsPage implements OnInit, OnDestroy {
     public events: Events
   ) {
     this.events.subscribe('new-message',(message: Message) => {
-      let senderId = message.userId
-      if (senderId != this.me.id) {
-        this.messages.push(message)        
-      } 
+      this.messages.pop()
+      this.messages.push(message) 
     })
 
     this.room = this.navParams.get('room')
@@ -56,6 +54,7 @@ export class ContactUsPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+    console.log('ionViewDidEnter ContactUsPage');
     this.userData.getCredentials().then((credentials) => {
       if (credentials) {
         this.chatService.authenticate(credentials);

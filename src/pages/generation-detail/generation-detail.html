@@ -37,8 +37,8 @@
           <p>Tahun {{generation.year}}</p>
         </ion-col>
         <ion-col col-4>
-          <button ion-button icon-left block color="danger" (click)="order()" *ngIf="!allowAccess">
-                  <ion-icon name="cart"></ion-icon>Order
+          <button ion-button icon-left block color="danger" (click)="play()" *ngIf="generation.videoUrl">
+                  <ion-icon name="play"></ion-icon>Play
                 </button>
           <button ion-button icon-left block color="secondary" (click)="read()" *ngIf="generation.yearbook">
                   <ion-icon name="book"></ion-icon>
