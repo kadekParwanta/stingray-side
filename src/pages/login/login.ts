@@ -110,9 +110,9 @@ export class LoginPage {
 
       this.userApi.login({ username: this.login.username, password: this.login.password }).subscribe(
         (res: any) => {
-          let role = res.roleName as any
+          let role = res.user.roleName as any
           let isAdmin = (role == "admin")
-          this.userData.login(this.login.username, this.login.password, isAdmin);
+          this.userData.login(isAdmin);
           this.userData.user(res.user);
           loading.dismiss();
         },

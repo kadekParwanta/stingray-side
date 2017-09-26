@@ -50,46 +50,19 @@ export class UserData {
     });
   };
 
-  login(username: string, password: string, isAdmin: boolean) {
+  login(isAdmin: boolean) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.setCredentials(username, password);
     this.events.publish('user:login', {isAdmin:isAdmin});
   };
 
   signup(username: string, password: string) {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.setCredentials(username, password);
     this.events.publish('user:signup');
   };
 
   logout() {
     this.storage.remove(this.HAS_LOGGED_IN);
-    this.storage.remove('username');
     this.storage.remove('userdata');
-    this.storage.remove('credentials');
     this.events.publish('user:logout');
-  };
-
-  setUsername(username: string) {
-    this.storage.set('username', username);
-  };
-
-  setCredentials(username: string ,password: string) {
-    this.storage.set('credentials', {username:username, password:password});
-  }
-
-  getCredentials() {
-    return this.storage.get('credentials').then((value) => {
-      return value;
-    });
-  };
-
-  getUsername() {
-    return this.storage.get('username').then((value) => {
-      return value;
-    });
   };
 
   // return a promise

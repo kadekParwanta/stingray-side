@@ -41,7 +41,7 @@ export class ContactUsPage implements OnInit, OnDestroy {
     public events: Events
   ) {
     this.events.subscribe('new-message',(message: Message) => {
-      this.messages.pop()
+      if (message.userId == this.me.id) this.messages.pop()
       this.messages.push(message) 
     })
 
@@ -49,38 +49,34 @@ export class ContactUsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.chatService.disconnect();
     this.autoScroller.disconnect();
   }
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter ContactUsPage');
-    this.userData.getCredentials().then((credentials) => {
-      if (credentials) {
-        this.chatService.authenticate(credentials);
-        this.userData.getUser().then(
-          (user : User) => {
-            this.me = user
-            let roomName = user.username
-            if (this.room) {
-              roomName = this.room.name
-              this.isAdmin = true
-            }
-            this.isBusy = true 
-            this.chatService.join(roomName).subscribe((room: Room) => {
-              this.room = room
-              this.chatService.listenNewMessage(roomName)
-              this.chatService.getMessages(room.id).then((messages) => {
-                this.messages = messages;
-                this.isBusy = false
-              });
-            })
+    this.userData.getUser().then(
+      (user : User) => {
+        if (user) {
+          this.me = user
+          let roomName = user.username
+          if (this.room) {
+            roomName = this.room.name
+            this.isAdmin = true
+          }
+          this.isBusy = true 
+          this.chatService.join(roomName).subscribe((room: Room) => {
+            this.room = room
+            this.chatService.listenNewMessage(roomName)
+            this.chatService.getMessages(room.id).then((messages) => {
+              this.messages = messages;
+              this.isBusy = false
+            });
           })
-      } else {
-        this.navCtrl.setRoot(LoginPage);
-      }
-
-    });
+        } else {
+          this.navCtrl.setRoot(LoginPage);
+        }
+        
+      })
   }
 
   ionViewWillLeave() {

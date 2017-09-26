@@ -23,8 +23,7 @@ export class ChatService {
   private roomName;
 
   constructor(public http: Http, public messageApi: MessageApi, public roomApi: RoomApi, public events: Events) {
-    console.log('Hello ChatService Provider' + LoopBackConfig.getPath());
-    this.socket = io.connect(LoopBackConfig.getPath());
+    console.log('Hello ChatService Provider');
   }
 
   authenticate(credentials) {

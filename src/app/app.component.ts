@@ -1,11 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events, ViewController, AlertController, LoadingController} from 'ionic-angular';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
+import { Nav, Platform, Events, ViewController, AlertController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
-import { LoopBackConfig, User } from './shared/sdk';
+import { LoopBackConfig, User, LoopBackAuth } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -21,6 +21,7 @@ import { MyProfilePage } from '../pages/my-profile/my-profile';
 import { ClothingPage } from '../pages/clothing/clothing';
 import { MusicPage } from '../pages/music/music';
 import { BuddyListPage } from '../pages/buddy-list/buddy-list';
+import { ChatService } from '../providers/chat-service';
 
 export interface PageInterface {
   title: string;
@@ -33,7 +34,12 @@ export interface PageInterface {
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnDestroy {
+
+  ngOnDestroy() {
+    this.chatService.disconnect();
+  }
+
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
@@ -56,8 +62,8 @@ export class MyApp {
   loggedOutPage: PageInterface = { title: 'Login', component: LoginPage, icon: 'log-in' };
 
   constructor(
-    public platform: Platform, 
-    public userData: UserData, 
+    public platform: Platform,
+    public userData: UserData,
     public events: Events,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
@@ -65,54 +71,21 @@ export class MyApp {
     private appUpdate: AppUpdate,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    private chatService: ChatService,
+    private loopbackAuth: LoopBackAuth,
     public imageLoader: ImageLoader) {
-    
+
 
     this.footerPage = this.loggedOutPage;
     this.userData.checkHasSeenTutorial()
-    .then((hasSeenTutorial) => {
-      if (hasSeenTutorial) {
-        this.rootPage = HomePage;
-      } else {
-        this.rootPage = TutorialPage;
-      }
-      this.initializeApp();
-    });
-
-    // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.hasLoggedIn = hasLoggedIn;
-      if (hasLoggedIn) {
-        this.footerPage = this.loggedInPage;
-        this.userData.getUser().then((user: User)=> {
-          if (user) {
-            let role = user.roleName as any
-            this.isAdmin = (role == "admin")
-            this.setAccountPages(true, this.isAdmin)
-          }
-        })
-      } else {
-        this.footerPage = this.loggedOutPage;
-        this.setAccountPages(false, false)
-      }
-    });
-
-    
-
-    this.listenToLoginEvents();
-    this.platform.registerBackButtonAction(()=>{
-      let activeView: ViewController = this.nav.getActive();
-      if (activeView != null) {
-        if (this.nav.canGoBack()) {
-          this.nav.pop();
-        } else if (typeof activeView.instance.backButtonAction === 'function') {
-          activeView.instance.backButtonAction();
+      .then((hasSeenTutorial) => {
+        if (hasSeenTutorial) {
+          this.rootPage = HomePage;
         } else {
-          this.nav.parent.select(0);
+          this.rootPage = TutorialPage;
         }
-      }
-    })
-
+        this.initializeApp();
+      });
   }
 
   initializeApp() {
@@ -127,19 +100,56 @@ export class MyApp {
       LoopBackConfig.setApiVersion('api');
 
       //Image Loader
-      this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg'); 
+      this.imageLoaderConfig.setFallbackUrl('assets/img/placeholder.jpg');
       this.imageLoaderConfig.useImageTag(true);
 
       //App Update
       const updateUrl = 'https://kadekparwanta.github.io/stingray/stingray.xml';
       this.appUpdate.checkAppUpdate(updateUrl);
+
+
+
+      // decide which menu items should be hidden by current login status stored in local storage
+      this.userData.hasLoggedIn().then((hasLoggedIn) => {
+        this.hasLoggedIn = hasLoggedIn;
+        if (hasLoggedIn) {
+          this.footerPage = this.loggedInPage;
+          this.userData.getUser().then((user: User) => {
+            if (user) {
+              let role = user.roleName as any
+              this.isAdmin = (role == "admin")
+              this.setAccountPages(true, this.isAdmin)
+            }
+          })
+        } else {
+          this.footerPage = this.loggedOutPage;
+          this.setAccountPages(false, false)
+        }
+      });
+
+
+
+      this.listenToLoginEvents();
+      this.platform.registerBackButtonAction(() => {
+        let activeView: ViewController = this.nav.getActive();
+        if (activeView != null) {
+          if (this.nav.canGoBack()) {
+            this.nav.pop();
+          } else if (typeof activeView.instance.backButtonAction === 'function') {
+            activeView.instance.backButtonAction();
+          } else {
+            this.nav.parent.select(0);
+          }
+        }
+      })
+
     });
   }
 
   openPage(page: PageInterface) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    
+
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
       let loading = this.loadingCtrl.create({
@@ -154,7 +164,7 @@ export class MyApp {
         loading.dismiss();
         this.presentAlert()
       }, 1000);
-    } else if (page.title == 'Home'){
+    } else if (page.title == 'Home') {
       this.nav.setRoot(page.component);
     } else {
       this.nav.push(page.component);
@@ -193,22 +203,30 @@ export class MyApp {
 
   setAccountPages(isLoggedIn: Boolean, isAdmin: Boolean) {
     if (isLoggedIn) {
+      this.connectToSocketIO()
       if (isAdmin) {
-        this.accountPages= [
-          {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+        this.accountPages = [
+          { title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact' },
           { title: 'Chat Us', component: BuddyListPage, index: 4, icon: 'chatbubbles' },
         ]
       } else {
-        this.accountPages= [
-          {title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact'},
+        this.accountPages = [
+          { title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact' },
           { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
         ]
       }
     } else {
-      this.accountPages= [
+      this.chatService.disconnect()
+      this.accountPages = [
         { title: 'Chat Us', component: ContactUsPage, index: 4, icon: 'chatbubbles' },
       ]
     }
-    
+  }
+
+  connectToSocketIO() {
+    let accessTookenId = this.loopbackAuth.getAccessTokenId()
+    let userId = this.loopbackAuth.getCurrentUserId()
+
+    this.chatService.authenticate({ id: accessTookenId, userId: userId })
   }
 }
