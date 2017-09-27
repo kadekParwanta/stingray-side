@@ -4,9 +4,11 @@ import { School, Media, Generation } from '../../app/shared/sdk/models';
 import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';
+import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 import { ZBar } from '@ionic-native/zbar';
 import { AppSettings } from '../../providers/app-setting';
+import { UserData } from '../../providers/user-data';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
 
@@ -41,6 +43,7 @@ export class SchoolsPage extends AbstractBasePage{
     public events: Events,
     private zbar: ZBar,
     public network: Network,
+    public userdata: UserData,
     public ngZone: NgZone) {
       super(network, ngZone)
   }
@@ -149,7 +152,14 @@ export class SchoolsPage extends AbstractBasePage{
         this.generationApi.findByBarcode(result).subscribe(
           (generation: Generation) => {
             if (generation) {
-              this.navCtrl.push(GenerationDetailPage, { generationId: generation.id });
+              this.userdata.hasLoggedIn().then((hasLoggedIn: boolean) => {
+                if (!hasLoggedIn) {
+                  //TODO
+                } else {
+                  this.navCtrl.push(GenerationDetailPage, { generationId: generation.id });
+                }
+              })
+              
             } else {
               let errorAlert = this.alertController.create({
                 title: 'Error',

@@ -12,6 +12,7 @@ import { AbstractBasePage } from '../base/base';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login'
 import { AppSettings } from '../../providers/app-setting';
+import { GenerationDetailPage } from '../generation-detail/generation-detail';
 
 /*
   Generated class for the Register page.
@@ -50,6 +51,7 @@ export class RegisterPage extends AbstractBasePage {
   isSearched: boolean
   isSkipped: boolean
   selectedIndex: number
+  generationId: string
 
   constructor(
     public navCtrl: NavController,
@@ -64,18 +66,19 @@ export class RegisterPage extends AbstractBasePage {
     public network: Network,
     public ngZone: NgZone,
     public evts: Events) {
-    super(network, ngZone)
-    this.signupForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required]), EmailValidator.createValidator(this.userApi)],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    }, {
+      super(network, ngZone)
+      this.generationId = navParams.get('generationId');
+      this.signupForm = formBuilder.group({
+        email: ['', Validators.compose([Validators.required]), EmailValidator.createValidator(this.userApi)],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required]
+      }, {
         validator: PasswordValidator.MatchPassword
       });
 
-    this.schoolForm = formBuilder.group({
-      schools: formBuilder.array([
-        this.initSchools()
+      this.schoolForm = formBuilder.group({
+        schools: formBuilder.array([
+          this.initSchools()
       ])
     })
 
@@ -265,19 +268,32 @@ export class RegisterPage extends AbstractBasePage {
       this.userApi.create(newUSer).subscribe(
         (res: any) => {
           this.createdUserId = res.id;
-          this.userData.signup(this.signupForm.value["email"], this.signupForm.value["password"]);
-          loading.dismiss();
-
-          this.alertCtrl.create({
-            message: 'Data Anda sedang diverifikasi.',
-            title: 'Selamat',
-            buttons: [{
-              text: 'OK',
-              handler: data => {
-                this.navCtrl.setRoot(HomePage)
-              }
-            }]
-          }).present();
+          this.userData.signup();
+          this.userApi.login({ username: this.signupForm.value["email"], password: this.signupForm.value["password"] }).subscribe(
+            (res:any) => {
+              let role = res.user.roleName as any
+              let isAdmin = (role == "admin")
+              this.userData.login(isAdmin);
+              this.userData.user(res.user);
+              loading.dismiss();
+              this.alertCtrl.create({
+                message: 'Data Anda sedang diverifikasi.',
+                title: 'Selamat',
+                buttons: [{
+                  text: 'OK',
+                  handler: data => {
+                    this.navCtrl.setRoot(HomePage)
+                  }
+                }]
+              }).present();
+            },
+            err => {
+              console.error(err);
+              loading.dismiss();
+              this.showAlert(err.name, err.message, ["OK"]);
+            },
+            () => console.log('login success')
+          )
         },
         err => {
           console.error(err);

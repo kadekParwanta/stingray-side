@@ -55,7 +55,7 @@ export class UserData {
     this.events.publish('user:login', {isAdmin:isAdmin});
   };
 
-  signup(username: string, password: string) {
+  signup() {
     this.events.publish('user:signup');
   };
 
