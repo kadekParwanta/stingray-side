@@ -97,7 +97,7 @@ export class ChatService {
   }
 
   disconnect() {
-    this.socket.disconnect();
+    if (this.socket) this.socket.disconnect();
   }
 
 }

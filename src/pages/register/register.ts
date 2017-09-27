@@ -5,12 +5,13 @@ import { UsernameValidator } from '../../app/validators/username';
 import { EmailValidator } from '../../app/validators/email';
 import { PasswordValidator } from '../../app/validators/password';
 import { User, School, Generation, Class, Student } from '../../app/shared/sdk/models';
-import { UserApi, SchoolApi } from '../../app/shared/sdk/services';
+import { UserApi, SchoolApi, StudentApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { Network } from '@ionic-native/network';
 import { AbstractBasePage } from '../base/base';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login'
+import { AppSettings } from '../../providers/app-setting';
 
 /*
   Generated class for the Register page.
@@ -42,6 +43,13 @@ export class RegisterPage extends AbstractBasePage {
   selectedGeneration: Generation = new Generation()
   selectedClass: Class = new Class()
   createdUserId: String;
+  isItYou: boolean = false
+  students: Array<any>
+  myStudent: Student
+  studentName: string
+  isSearched: boolean
+  isSkipped: boolean
+  selectedIndex: number
 
   constructor(
     public navCtrl: NavController,
@@ -49,6 +57,7 @@ export class RegisterPage extends AbstractBasePage {
     public formBuilder: FormBuilder,
     public userApi: UserApi,
     public schoolApi: SchoolApi,
+    public studentApi: StudentApi,
     public userData: UserData,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
@@ -86,6 +95,10 @@ export class RegisterPage extends AbstractBasePage {
     this.evts.subscribe('step:next', () => {
       //Do something if next
       console.log('Next pressed: ', this.currentStep);
+      if (this.currentStep == 2) {
+        this.getStudentsByEmail(this.signupForm.value["email"])
+        this.updateStepCondition(2)
+      } 
     });
     this.evts.subscribe('step:back', () => {
       //Do something if back
@@ -177,10 +190,15 @@ export class RegisterPage extends AbstractBasePage {
     return classRoom
   }
 
-  updateStepCondition() {
-    this.stepCondition = this.signupForm.controls.email.valid &&
+  updateStepCondition(step: number) {
+    if (step == 1) {
+      this.stepCondition = this.signupForm.controls.email.valid &&
       this.signupForm.controls.password.valid &&
-      this.signupForm.controls.confirmPassword.valid;
+      this.signupForm.controls.confirmPassword.valid
+    } if (step == 2) {
+      this.stepCondition = (this.myStudent || this.isSkipped);
+    }
+    
   }
 
   subcribeToFormChanges() {
@@ -189,7 +207,7 @@ export class RegisterPage extends AbstractBasePage {
 
     // subscribe to the stream 
     myFormValueChanges$.subscribe(x => {
-      this.updateStepCondition();
+      this.updateStepCondition(1);
     });
   }
 
@@ -206,23 +224,30 @@ export class RegisterPage extends AbstractBasePage {
       let generationIds = []
       let classIds = []
       let studentIds = []
-      if (this.selectedSchools.length > 0) {
-        let schools = this.schoolForm.value["schools"]
-        schools.forEach(element => {
-          schoolIds.push(element['id'])
-          let generations = element.generations
-          generations.forEach(generation => {
-            generationIds.push(generation['id'])
-            let classes = generation.classes
-            classes.forEach(classroom => {
-              classIds.push(classroom['id'])
-              let students = classroom.students
-              students.forEach(student => {
-                studentIds.push(student['id'])
-              });
-            });
-          });
-        });
+      // if (this.selectedSchools.length > 0) {
+      //   let schools = this.schoolForm.value["schools"]
+      //   schools.forEach(element => {
+      //     schoolIds.push(element['id'])
+      //     let generations = element.generations
+      //     generations.forEach(generation => {
+      //       generationIds.push(generation['id'])
+      //       let classes = generation.classes
+      //       classes.forEach(classroom => {
+      //         classIds.push(classroom['id'])
+      //         let students = classroom.students
+      //         students.forEach(student => {
+      //           studentIds.push(student['id'])
+      //         });
+      //       });
+      //     });
+      //   });
+      // }
+
+      if (this.myStudent) {
+        studentIds.push(this.myStudent.id)
+        classIds.push(this.myStudent.class.id)
+        generationIds.push(this.myStudent.class.generation.id)
+        schoolIds.push(this.myStudent.class.generation.school.id)
       }
 
 
@@ -300,6 +325,45 @@ export class RegisterPage extends AbstractBasePage {
 
   passwordValueChange() {
     this.isPasswordModified = true
+  }
+
+  getStudentsByEmail(email:string) {
+    this.studentApi.findOne({where : {email: email}}).subscribe((res: Student) => {
+      if (res) {
+        this.studentName = res.name
+        this.searchStudent()
+      }
+    })
+  }
+
+  searchStudent() {
+    this.isSearched = true
+    if (this.studentName) {
+      this.students = []
+      var pattern = new RegExp('.*'+this.studentName+'.*','i');
+      this.studentApi.find({where : {and: [{userId: {exists:false}},{name: {like: this.studentName, options:'i'}}]}, include: ['photo', {class : {generation: 'school'}}], limit:5}).subscribe((res: Array<Student>) => {
+        if (res) {
+          this.students = res
+        } 
+      })
+    }
+  }
+
+  getPictureURL(path: string): string {
+    return AppSettings.API_ENDPOINT  + path
+  }
+
+  selectStudent(student: Student, index: number) {
+    this.students[index].selected = true
+    this.selectedIndex = index
+    this.myStudent = student
+    this.updateStepCondition(2);
+  }
+
+  skipStudent() {
+    this.isSkipped = true
+    if (this.selectedIndex >= 0) this.students[this.selectedIndex].selected = false
+    this.updateStepCondition(2);
   }
 
 }

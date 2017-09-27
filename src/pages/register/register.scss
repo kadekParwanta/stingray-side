@@ -7,7 +7,26 @@ page-register {
     }
 
     p {
-        color: gold
+        color: white
+    }
+
+    .profile-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        
+        img {
+            width: 100%;
+        }
+    }
+
+    .not-found {
+        position: absolute;
+        bottom: 0
+    }
+
+    .selected {
+        background-color: cornflowerblue
     }
 
     ion-item {

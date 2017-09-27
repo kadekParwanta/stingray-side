@@ -58,67 +58,37 @@
                 </ion-row>
             </form>
         </ion-wizard-step>
-        <ion-wizard-step>
-            <p>Mohon lengkapi data sekolah Anda jika pernah memesan Yearbook pada Stingray</p>
-            <form [formGroup]="schoolForm" novalidate inset *ngIf="isConnected; else offline">
-                <ion-row>
-                    <ion-col>
-                        <div formArrayName="schools" *ngFor="let school of schoolForm.get('schools').controls; let i=index">
-                            <ion-item>
-                                <p>{{selectedSchools.length > i? selectedSchools[i].name : 'Sekolah #' + (i+1)}}</p>
-                                <ion-icon item-end name="trash" *ngIf="schoolForm.controls.schools.controls.length > 1" (click)="removeSchool(i)"></ion-icon>
-                            </ion-item>
-                            <ion-list [formGroupName]="i">
-                                <ion-item>
-                                    <ion-label>Sekolah</ion-label>
-                                    <ion-select formControlName="id" (ionChange)="onSchoolSelect(i, $event)">
-                                        <ion-option *ngFor="let schoolOpt of schools" [value]="schoolOpt.id">{{schoolOpt.name}}</ion-option>
-                                    </ion-select>
-                                </ion-item>
-
-                                <div formArrayName="generations" *ngFor="let generation of school.controls.generations.controls; let j=index">
-                                    <ion-list [formGroupName]="j">
-                                        <ion-item *ngIf="selectedSchools.length > i">
-                                            <ion-label>Generasi</ion-label>
-                                            <ion-select formControlName="id" (ionChange)="onGenerationSelect(i,$event)">
-                                                <ion-option *ngFor="let generationOpt of selectedSchools[i].generations" [value]="generationOpt.id">{{generationOpt.year}}</ion-option>
-                                            </ion-select>
-                                        </ion-item>
-
-                                        <div formArrayName="classes" *ngFor="let class of generation.controls.classes.controls; let k=index">
-                                            <ion-list [formGroupName]="k">
-                                                <ion-item *ngIf="selectedGenerations.length > i">
-                                                    <ion-label>Kelas</ion-label>
-                                                    <ion-select formControlName="id" (ionChange)="onClassSelect(i, $event)">
-                                                        <ion-option *ngFor="let classOpt of selectedGenerations[i].classes" [value]="classOpt.id">{{classOpt.name}}</ion-option>
-                                                    </ion-select>
-                                                </ion-item>
-
-                                                <div formArrayName="students" *ngFor="let class of class.controls.students.controls; let l=index">
-                                                    <ion-list [formGroupName]="l">
-                                                        <ion-item *ngIf="selectedClasses.length > i">
-                                                            <ion-label>Siswa/i</ion-label>
-                                                            <ion-select formControlName="id">
-                                                                <ion-option *ngFor="let studentOpt of selectedClasses[i].students" [value]="studentOpt.id">{{studentOpt.name}}</ion-option>
-                                                            </ion-select>
-                                                        </ion-item>
-
-                                                    </ion-list>
-                                                </div>
-                                            </ion-list>
-                                        </div>
-                                    </ion-list>
-                                </div>
-                            </ion-list>
-                        </div>
-                    </ion-col>
+        <ion-wizard-step style="height:80%">
+            <p>Cari nama anda</p>
+            <ion-row>
+                <ion-col col-10>
+                    <ion-input type="text" style="background-color:white; color:black" placeholder="Cari siswa.." [(ngModel)]="studentName"></ion-input>
+                </ion-col>
+                <ion-col col-2>
+                    <button ion-button (click)="searchStudent()">
+                        <ion-icon name="search"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="isSearched">
+                <ion-col>
+                        <p>Apakah ini Anda? Silahkan klik</p>
+                </ion-col>
+            </ion-row>
+            <ion-list *ngFor="let student of students; let i = index">
+                <ion-row (click)="selectStudent(student, i)" [ngClass]="{'selected':student.selected}">
+                        <ion-col col-4>
+                                <img-loader *ngIf="student.photo" useImg [src]="getPictureURL(student.photo.url)" class="profile-img"></img-loader>
+                            </ion-col>
+                            <ion-col col-8>
+                                <p>{{student.name}}</p>
+                                <p>{{student.class.generation.school.name}}</p>
+                            </ion-col>
                 </ion-row>
-                <ion-row>
-                    <ion-col>
-                        <button ion-button class="submit-btn" (click)="addSchool()">Tambah sekolah</button>
-                    </ion-col>
-                </ion-row>
-            </form>
+
+            </ion-list>
+            <button ion-button block outline class="not-found" (click)="skipStudent()">Skip. Tidak Menemukan Data Saya.</button>
+            
         </ion-wizard-step>
     </ion-simple-wizard>
 
@@ -137,4 +107,66 @@
             </div>
         </ion-item>
     </ion-row>
+</ng-template>
+
+<ng-template #notstudent>
+    <form [formGroup]="schoolForm" novalidate inset *ngIf="isConnected; else offline">
+        <ion-row>
+            <ion-col>
+                <div formArrayName="schools" *ngFor="let school of schoolForm.get('schools').controls; let i=index">
+                    <ion-item>
+                        <p>{{selectedSchools.length > i? selectedSchools[i].name : 'Sekolah #' + (i+1)}}</p>
+                        <ion-icon item-end name="trash" *ngIf="schoolForm.controls.schools.controls.length > 1" (click)="removeSchool(i)"></ion-icon>
+                    </ion-item>
+                    <ion-list [formGroupName]="i">
+                        <ion-item>
+                            <ion-label>Sekolah</ion-label>
+                            <ion-select formControlName="id" (ionChange)="onSchoolSelect(i, $event)">
+                                <ion-option *ngFor="let schoolOpt of schools" [value]="schoolOpt.id">{{schoolOpt.name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+
+                        <div formArrayName="generations" *ngFor="let generation of school.controls.generations.controls; let j=index">
+                            <ion-list [formGroupName]="j">
+                                <ion-item *ngIf="selectedSchools.length > i">
+                                    <ion-label>Generasi</ion-label>
+                                    <ion-select formControlName="id" (ionChange)="onGenerationSelect(i,$event)">
+                                        <ion-option *ngFor="let generationOpt of selectedSchools[i].generations" [value]="generationOpt.id">{{generationOpt.year}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+
+                                <div formArrayName="classes" *ngFor="let class of generation.controls.classes.controls; let k=index">
+                                    <ion-list [formGroupName]="k">
+                                        <ion-item *ngIf="selectedGenerations.length > i">
+                                            <ion-label>Kelas</ion-label>
+                                            <ion-select formControlName="id" (ionChange)="onClassSelect(i, $event)">
+                                                <ion-option *ngFor="let classOpt of selectedGenerations[i].classes" [value]="classOpt.id">{{classOpt.name}}</ion-option>
+                                            </ion-select>
+                                        </ion-item>
+
+                                        <div formArrayName="students" *ngFor="let class of class.controls.students.controls; let l=index">
+                                            <ion-list [formGroupName]="l">
+                                                <ion-item *ngIf="selectedClasses.length > i">
+                                                    <ion-label>Siswa/i</ion-label>
+                                                    <ion-select formControlName="id">
+                                                        <ion-option *ngFor="let studentOpt of selectedClasses[i].students" [value]="studentOpt.id">{{studentOpt.name}}</ion-option>
+                                                    </ion-select>
+                                                </ion-item>
+
+                                            </ion-list>
+                                        </div>
+                                    </ion-list>
+                                </div>
+                            </ion-list>
+                        </div>
+                    </ion-list>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <button ion-button class="submit-btn" (click)="addSchool()">Tambah sekolah</button>
+            </ion-col>
+        </ion-row>
+    </form>
 </ng-template>
