@@ -97,8 +97,8 @@ export class ChatService {
   }
 
   listenNewMessage(roomName: string) {
-    this.socket.on("new-message", (data: Message) => {
-      this.events.publish("new-message", data)
+    this.socket.on("new-message-"+roomName, (data: Message) => {
+      this.events.publish("new-message-"+roomName, data)
     })
   }
 

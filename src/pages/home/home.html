@@ -14,7 +14,7 @@
     <ion-buttons end *ngIf="me">
         <button ion-button icon-only (click)="goToChat()">
             <ion-icon name="chatbubbles" class="chat"></ion-icon>
-            <ion-badge class="chat-badge" *ngIf="newMessages.length>0">{{getMessageCount()}}</ion-badge>
+            <ion-badge class="chat-badge" *ngIf="newMessages.length>0">{{newMessages.length}}</ion-badge>
           </button>
       <button ion-button icon-only *ngIf="!me.profilePicture" (click)="goToProfile()">
         <ion-icon name="contact"></ion-icon>

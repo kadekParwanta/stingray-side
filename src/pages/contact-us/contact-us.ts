@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { ChatService } from '../../providers/chat-service';
-import { User, Room, Message} from '../../app/shared/sdk';
+import { User, Room, Message, MessageApi } from '../../app/shared/sdk';
 import { UserData } from '../../providers/user-data';
 import { LoginPage } from '../login/login';
 import { Events } from 'ionic-angular';
@@ -38,13 +38,9 @@ export class ContactUsPage implements OnInit, OnDestroy {
     public navParams: NavParams,
     private userData: UserData,
     private chatService: ChatService,
-    public events: Events
+    public events: Events,
+    public messageApi: MessageApi
   ) {
-    this.events.subscribe('new-message',(message: Message) => {
-      if (message.userId == this.me.id) this.messages.pop()
-      this.messages.push(message) 
-    })
-
     this.room = this.navParams.get('room')
   }
 
@@ -60,9 +56,8 @@ export class ContactUsPage implements OnInit, OnDestroy {
         if (user) {
           this.me = user
           this.isBusy = true
-          let roomName = user.username
           if (this.room) {
-            roomName = this.room.name
+            this.listenToNewMessage(this.room)
             this.isAdmin = true
             this.chatService.getMessages(this.room.id).then((messages) => {
               this.messages = messages;
@@ -71,10 +66,14 @@ export class ContactUsPage implements OnInit, OnDestroy {
           } else {
             this.userData.getRoom().then((room: Room) => {
               this.room = room
+              this.listenToNewMessage(room)
               this.chatService.getMessages(this.room.id).then((messages) => {
                 this.messages = messages;
                 this.isBusy = false
               });
+              this.messageApi.updateAll({status: "delivered", roomId: room.id},{status:"read"}).subscribe(res => {
+                console.log('updated messages from delivered to read: ' + res.count)
+              })
             })
           }
         } else {
@@ -82,6 +81,19 @@ export class ContactUsPage implements OnInit, OnDestroy {
         }
         
       })
+  }
+
+  listenToNewMessage(room) {
+    this.events.subscribe('new-message-'+room.name,(message: Message) => {
+      if (message.userId == this.me.id){
+        this.messages.pop()
+      } else {
+        this.messageApi.updateAttributes(message.id, {status: 'read'}).subscribe(res => {
+          console.log('update to read id= '+ message.id)
+        }) 
+      }
+      this.messages.push(message)
+    })
   }
 
   ionViewWillLeave() {

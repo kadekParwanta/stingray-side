@@ -36,11 +36,6 @@ export class BuddyListPage {
     })
   }
 
-  getNewMessagesCount(room): number {
-    let count = this.rooms.length
-    return room.newMessages.length/count
-  }
-
   gotoChatroom(room) {
     this.navCtrl.push(ContactUsPage, {room: room})
   }

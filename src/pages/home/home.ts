@@ -3,8 +3,8 @@ import { NavController, NavParams, Slides, Platform, ToastController, Events} fr
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
 import { EventOrganizerPage } from '../event-organizer/event-organizer';
-import { User, Message } from '../../app/shared/sdk/models';
-import { UserApi, RoomApi } from '../../app/shared/sdk/services';
+import { User, Message, Room } from '../../app/shared/sdk/models';
+import { UserApi, RoomApi, MessageApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { MyProfilePage } from '../my-profile/my-profile'
 import { ContactUsPage } from '../contact-us/contact-us'
@@ -59,11 +59,9 @@ export class HomePage {
     public userData: UserData,
     public userApi: UserApi,
     public roomApi: RoomApi,
+    public messageApi: MessageApi,
     public events: Events) {
-      this.events.subscribe('new-message',(message: Message) => {
-        console.log("new message", message)
-        this.newMessages.push(message)
-      })
+      
      }
 
   ionViewDidLoad() {
@@ -78,24 +76,36 @@ export class HomePage {
         }
 
         if (this.isAdmin) {
-          this.roomApi.count().subscribe(res => {
-            this.roomCount = res.count
+          this.roomApi.find().subscribe((rooms: [Room]) => {
+            rooms.forEach(room => {
+              this.listenToNewMessage(room)
+            })
+          })
+
+        } else {
+          this.userData.getRoom().then((room:Room) => {
+            this.listenToNewMessage(room)
           })
         }        
       }
     })
   }
 
-  ionViewDidLeave() {
-    this.newMessages.length = 0
+  listenToNewMessage(room: Room) {
+    this.events.subscribe('new-message-'+room.name,(message: Message) => {
+      console.log("new message", message)
+      if (message.userId != this.me.id) {
+        this.newMessages.push(message)
+        this.messageApi.updateAttributes(message.id, {status: 'delivered'}).subscribe(res => {
+          console.log('update to delivered id= '+ message.id)
+        }) 
+      }
+    })
+    
   }
 
-  getMessageCount(): number {
-    if (this.isAdmin) {
-      return this.newMessages.length / this.roomCount
-    } else {
-      return this.newMessages.length
-    }
+  ionViewDidLeave() {
+    this.newMessages.length = 0
   }
 
   backButtonAction() {

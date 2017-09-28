@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
-import { LoopBackConfig, User, LoopBackAuth, Room, RoomApi } from './shared/sdk';
+import { LoopBackConfig, User, LoopBackAuth, Room, RoomApi, MessageApi, Message } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -75,6 +75,7 @@ export class MyApp implements OnDestroy {
     private chatService: ChatService,
     private loopbackAuth: LoopBackAuth,
     private roomApi: RoomApi,
+    private messageApi: MessageApi,
     public imageLoader: ImageLoader) {
 
 
@@ -244,6 +245,9 @@ export class MyApp implements OnDestroy {
         this.chatService.join(roomName).subscribe((room: Room) => {
           this.userData.room(room)
           this.chatService.listenNewMessage(roomName)
+          this.messageApi.updateAll({status: "pending", roomId: room.id},{status:"delivered"}).subscribe(res => {
+            console.log('updated messages from pending to delivered: ' + res.count + ' roomId= ' + room.id)
+          })
         })
       }
     })

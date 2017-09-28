@@ -17,7 +17,7 @@
   <ion-list *ngFor="let room of rooms">
     <ion-item (click)="gotoChatroom(room)">
       {{room.name}}
-      <ion-badge item-end *ngIf="room.newMessages.length>0">{{getNewMessagesCount(room)}}</ion-badge>
+      <ion-badge item-end *ngIf="room.newMessages.length>0">{{room.newMessages.length}}</ion-badge>
     </ion-item>
     
   </ion-list>
