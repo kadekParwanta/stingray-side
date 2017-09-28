@@ -11,9 +11,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>login</ion-title>
-    <button ion-button menuToggle *ngIf="generationId" end (click)="dismiss({success:false})">
-        <ion-icon name="close"></ion-icon>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="generationId" end (click)="dismiss({success:false})">
+          <ion-icon name="close"></ion-icon>
       </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

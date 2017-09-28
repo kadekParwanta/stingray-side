@@ -1,9 +1,10 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, Refresher, Events} from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, Refresher, Events, ModalController} from 'ionic-angular';
 import { School, Media, Generation } from '../../app/shared/sdk/models';
 import { SchoolApi, GenerationApi } from '../../app/shared/sdk/services';
 import { SchoolDetailPage } from '../school-detail/school-detail';
 import { GenerationDetailPage } from '../generation-detail/generation-detail';
+import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 import { ZBar } from '@ionic-native/zbar';
@@ -44,6 +45,7 @@ export class SchoolsPage extends AbstractBasePage{
     private zbar: ZBar,
     public network: Network,
     public userdata: UserData,
+    public modalCtrl: ModalController,
     public ngZone: NgZone) {
       super(network, ngZone)
   }
@@ -145,7 +147,7 @@ export class SchoolsPage extends AbstractBasePage{
       flash: "off",
       drawSight: false
     };
-
+    
     this.zbar.scan(zBarOptions)
       .then(result => {
         console.log(result); // Scanned code
@@ -154,7 +156,7 @@ export class SchoolsPage extends AbstractBasePage{
             if (generation) {
               this.userdata.hasLoggedIn().then((hasLoggedIn: boolean) => {
                 if (!hasLoggedIn) {
-                  //TODO
+                  this.goToLogin(generation.id)
                 } else {
                   this.navCtrl.push(GenerationDetailPage, { generationId: generation.id });
                 }
@@ -225,5 +227,31 @@ export class SchoolsPage extends AbstractBasePage{
 
       toast.present()
     })
+  }
+
+  goToLogin(generationId: string) {
+    let loginModal = this.modalCtrl.create(LoginPage, { generationId: generationId });
+    loginModal.onDidDismiss(data => {
+      console.log(data);
+      if (data.success) {
+        this.navCtrl.push(GenerationDetailPage, {generationId: generationId})
+      } else if (data.register) {
+        this.goToRegisterModal(generationId)
+      }
+    })
+    loginModal.present();
+  }
+
+
+
+  goToRegisterModal(generationId: string) {
+    let registerModal = this.modalCtrl.create(RegisterPage, { generationId: generationId });
+    registerModal.onDidDismiss(data => {
+      console.log(data);
+      if (data.success) {
+        this.navCtrl.push(GenerationDetailPage, {generationId: generationId})
+      }
+    })
+    registerModal.present();
   }
 }

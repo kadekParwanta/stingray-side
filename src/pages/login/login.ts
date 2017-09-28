@@ -1,6 +1,6 @@
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, NavParams, AlertController, LoadingController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ViewController, ModalController } from 'ionic-angular';
 import { User } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { RegisterPage } from '../register/register';
@@ -84,7 +84,8 @@ export class LoginPage {
     public userData: UserData,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public modalCtrl: ModalController
   ) { 
     this.generationId = this.navParams.get("generationId")
   }
@@ -135,7 +136,11 @@ export class LoginPage {
   }
 
   onSignup() {
-    this.navCtrl.push(RegisterPage);
+    if (this.generationId) {
+      this.dismiss({success: false, register: true})
+    } else {
+      this.navCtrl.push(RegisterPage);
+    }
   }
 
   showAlert(title: string, subTitle: string, buttons: Array<string>) {

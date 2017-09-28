@@ -1,5 +1,5 @@
 import { Component, NgZone, Directive, Input } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Events } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Events, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, Validator, FormControl, FormArray } from '@angular/forms';
 import { UsernameValidator } from '../../app/validators/username';
 import { EmailValidator } from '../../app/validators/email';
@@ -65,6 +65,7 @@ export class RegisterPage extends AbstractBasePage {
     public loadingCtrl: LoadingController,
     public network: Network,
     public ngZone: NgZone,
+    public viewCtrl: ViewController,
     public evts: Events) {
       super(network, ngZone)
       this.generationId = navParams.get('generationId');
@@ -282,10 +283,16 @@ export class RegisterPage extends AbstractBasePage {
                 buttons: [{
                   text: 'OK',
                   handler: data => {
-                    this.navCtrl.setRoot(HomePage)
+                    if (this.generationId) {
+                      this.dismiss({success: true})
+                    } else {
+                      this.navCtrl.setRoot(HomePage);
+                    }
                   }
                 }]
               }).present();
+
+              
             },
             err => {
               console.error(err);
@@ -332,6 +339,7 @@ export class RegisterPage extends AbstractBasePage {
 
   back() {
     this.navCtrl.getPrevious().data.emailFromRegister = this.signupForm.value['email']
+    if (this.generationId) this.navCtrl.getPrevious().data.generationId = this.generationId
     this.navCtrl.pop()
   }
 
@@ -380,6 +388,10 @@ export class RegisterPage extends AbstractBasePage {
     this.isSkipped = true
     if (this.selectedIndex >= 0) this.students[this.selectedIndex].selected = false
     this.updateStepCondition(2);
+  }
+
+  dismiss(data: any) {
+    this.viewCtrl.dismiss(data)
   }
 
 }

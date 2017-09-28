@@ -7,7 +7,12 @@
 <ion-header>
 
     <ion-navbar color="dark">
-        <ion-title>register</ion-title>
+        <ion-title>Register</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only *ngIf="generationId" end (click)="dismiss({success:false})">
+                  <ion-icon name="close"></ion-icon>
+                </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>
@@ -72,23 +77,23 @@
             </ion-row>
             <ion-row *ngIf="isSearched">
                 <ion-col>
-                        <p>Apakah ini Anda? Silahkan klik</p>
+                    <p>Apakah ini Anda? Silahkan klik</p>
                 </ion-col>
             </ion-row>
             <ion-list *ngFor="let student of students; let i = index">
                 <ion-row (click)="selectStudent(student, i)" [ngClass]="{'selected':student.selected}">
-                        <ion-col col-4>
-                                <img-loader *ngIf="student.photo" useImg [src]="getPictureURL(student.photo.url)" class="profile-img"></img-loader>
-                            </ion-col>
-                            <ion-col col-8>
-                                <p>{{student.name}}</p>
-                                <p>{{student.class.generation.school.name}}</p>
-                            </ion-col>
+                    <ion-col col-4>
+                        <img-loader *ngIf="student.photo" useImg [src]="getPictureURL(student.photo.url)" class="profile-img"></img-loader>
+                    </ion-col>
+                    <ion-col col-8>
+                        <p>{{student.name}}</p>
+                        <p>{{student.class.generation.school.name}}</p>
+                    </ion-col>
                 </ion-row>
 
             </ion-list>
             <button ion-button block outline class="not-found" (click)="skipStudent()">Skip. Tidak Menemukan Data Saya.</button>
-            
+
         </ion-wizard-step>
     </ion-simple-wizard>
 
