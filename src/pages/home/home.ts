@@ -13,6 +13,7 @@ import { ClothingPage } from '../clothing/clothing';
 import { MusicPage } from '../music/music';
 import { BuddyListPage } from '../buddy-list/buddy-list';
 import { AppSettings } from '../../providers/app-setting';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 /*
   Generated class for the Home page.
@@ -64,6 +65,7 @@ export class HomePage {
     public roomApi: RoomApi,
     public messageApi: MessageApi,
     public chatService: ChatService,
+    private localNotifications: LocalNotifications,
     public events: Events) {
       
      }
@@ -106,6 +108,10 @@ export class HomePage {
     this.events.subscribe('new-message-'+room.name,(message: Message) => {
       console.log("new message", message)
       if (message.userId != this.me.id) {
+        this.localNotifications.schedule({
+          id: 1,
+          text: message.text
+        });
         this.newMessages.push(message)
         this.messageApi.updateAttributes(message.id, {status: 'delivered'}).subscribe(res => {
           console.log('update to delivered id= '+ message.id)

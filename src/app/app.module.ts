@@ -17,6 +17,7 @@ import { Camera } from '@ionic-native/camera';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { VideoPlayer } from '@ionic-native/video-player'
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 //Helpers
@@ -137,6 +138,7 @@ import { BuddyListPage } from '../pages/buddy-list/buddy-list';
     FilePath,
     InAppBrowser,
     VideoPlayer,
-    YoutubeVideoPlayer]
+    YoutubeVideoPlayer,
+    LocalNotifications]
 })
 export class AppModule {}
