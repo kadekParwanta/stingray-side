@@ -2,7 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { NavController, NavParams, Refresher, ToastController, AlertController, ActionSheetController, Loading, LoadingController, Platform, PopoverController } from 'ionic-angular';
 import { Network } from '@ionic-native/network'
 import { AbstractBasePage } from '../base/base';
-import { User, Order } from '../../app/shared/sdk/models';
+import { User, Order, Generation } from '../../app/shared/sdk/models';
 import { UserApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { AppSettings } from '../../providers/app-setting';
@@ -63,7 +63,7 @@ export class MyProfilePage extends AbstractBasePage {
   getProfile() {
     this.isBusy = true
     return this.userData.getUser().then((user: User) => {
-      return this.userApi.findById(user.id, { include: [{ 'orders': { 'yearbooks': ['school', 'photos'] } }, { 'students': { 'class': { 'generation': 'school' } } }] })
+      return this.userApi.findById(user.id, { include: [{ 'orders': { 'yearbooks': ['school', 'photos'] } }, { 'students': { 'class': { 'generation': ['school','photos'] } } }] })
         .map((user: User) => { return user })
         .toPromise()
     })
@@ -106,7 +106,11 @@ export class MyProfilePage extends AbstractBasePage {
     })
   }
 
-  gotoGenerationDetails(order: Order) {
+  gotoGenerationDetails(generation: Generation) {
+    this.navCtrl.push(GenerationDetailPage, { generationId: generation.id })
+  }
+
+  gotoOrderDetails(order: Order) {
     if (order.status == "NEW") {
       this.showAlert("Maaf", "Mohon lakukan pembayaran.", ["OK"])
     } else if (order.status == "IN_PROGRESS") {

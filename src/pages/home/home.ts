@@ -1,14 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Slides, Platform, ToastController } from 'ionic-angular';
+import { NavController, NavParams, Slides, Platform, ToastController, Events} from 'ionic-angular';
 import { SchoolsPage } from '../schools/schools';
 import { PhotographyPage } from '../photography/photography';
 import { EventOrganizerPage } from '../event-organizer/event-organizer';
-import { User } from '../../app/shared/sdk/models';
-import { UserApi } from '../../app/shared/sdk/services';
+import { User, Message } from '../../app/shared/sdk/models';
+import { UserApi, RoomApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
 import { MyProfilePage } from '../my-profile/my-profile'
+import { ContactUsPage } from '../contact-us/contact-us'
 import { ClothingPage } from '../clothing/clothing';
 import { MusicPage } from '../music/music';
+import { BuddyListPage } from '../buddy-list/buddy-list';
 import { AppSettings } from '../../providers/app-setting';
 
 /*
@@ -27,6 +29,9 @@ export class HomePage {
   private timePeriodToExit = 2000;
   hasLoggedIn: Boolean = false;
   me: User
+  newMessages: Array<Message> = Array<Message>()
+  isAdmin: boolean
+  roomCount: number
 
   sliders = [
     {
@@ -52,18 +57,41 @@ export class HomePage {
     public platform: Platform,
     public toastCtrl: ToastController,
     public userData: UserData,
-    public userApi: UserApi) { }
+    public userApi: UserApi,
+    public roomApi: RoomApi,
+    public events: Events) {
+      this.events.subscribe('new-message',(res) => {
+        console.log("new message", res.message)
+        this.newMessages.push(res.message)
+      })
+     }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
     this.userData.getUser().then((user: User)=> {
       if (user) {
         this.me = user
+        let role = user.roleName as any
+        this.isAdmin = (role == "admin")
         if (user.profilePicture == "storages/missing/missing-image.png") {
           this.me.profilePicture = undefined
         }
+
+        if (this.isAdmin) {
+          this.roomApi.count().subscribe(res => {
+            this.roomCount = res.count
+          })
+        }        
       }
     })
+  }
+
+  getMessageCount(): number {
+    if (this.isAdmin) {
+      return this.newMessages.length / this.roomCount
+    } else {
+      return this.newMessages.length
+    }
   }
 
   backButtonAction() {
@@ -105,6 +133,14 @@ export class HomePage {
 
   goToProfile(){
     this.navCtrl.push(MyProfilePage)
+  }
+
+  goToChat(){
+    if (this.isAdmin) {
+      this.navCtrl.push(BuddyListPage)
+    } else {
+      this.navCtrl.push(ContactUsPage)
+    }
   }
 
   getPictureURL(path): string {

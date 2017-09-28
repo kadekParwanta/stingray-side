@@ -30,13 +30,24 @@ export class ChatService {
     this.credentials = credentials;
     this.socket = io.connect(LoopBackConfig.getPath());
     this.socket.on("connect", () => this.connect());
-    this.socket.on("authenticated", () => {
-      console.log('authenticated');
-    });
+
     this.socket.on("reconnect", () => {
       console.log('reconnect');
       if (this.roomName) this.join(this.roomName)
     })
+
+    // this.socket.on('authenticated', () => {
+    //   console.log('authenticated');
+    //   })
+
+    let observable = new Observable(observer => {
+      this.socket.on('authenticated', () => {
+        console.log('authenticated');
+        observer.next('');
+        })
+    })
+
+    return observable
   }
 
   connect() {
@@ -87,8 +98,7 @@ export class ChatService {
 
   listenNewMessage(roomName: string) {
     this.socket.on("new-message", (data: Message) => {
-      console.log("new message", data)
-      this.events.publish("new-message", data)
+      this.events.publish("new-message", {message: data, roomName: roomName})
     })
   }
 

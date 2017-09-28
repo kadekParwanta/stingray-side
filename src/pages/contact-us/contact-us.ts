@@ -40,9 +40,9 @@ export class ContactUsPage implements OnInit, OnDestroy {
     private chatService: ChatService,
     public events: Events
   ) {
-    this.events.subscribe('new-message',(message: Message) => {
-      if (message.userId == this.me.id) this.messages.pop()
-      this.messages.push(message) 
+    this.events.subscribe('new-message',(res) => {
+      if (res.message.userId == this.me.id) this.messages.pop()
+      this.messages.push(res.message) 
     })
 
     this.room = this.navParams.get('room')
@@ -54,24 +54,29 @@ export class ContactUsPage implements OnInit, OnDestroy {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter ContactUsPage');
+    
     this.userData.getUser().then(
       (user : User) => {
         if (user) {
           this.me = user
+          this.isBusy = true
           let roomName = user.username
           if (this.room) {
             roomName = this.room.name
             this.isAdmin = true
-          }
-          this.isBusy = true 
-          this.chatService.join(roomName).subscribe((room: Room) => {
-            this.room = room
-            this.chatService.listenNewMessage(roomName)
-            this.chatService.getMessages(room.id).then((messages) => {
+            this.chatService.getMessages(this.room.id).then((messages) => {
               this.messages = messages;
               this.isBusy = false
             });
-          })
+          } else {
+            this.userData.getRoom().then((room: Room) => {
+              this.room = room
+              this.chatService.getMessages(this.room.id).then((messages) => {
+                this.messages = messages;
+                this.isBusy = false
+              });
+            })
+          }
         } else {
           this.navCtrl.setRoot(LoginPage);
         }

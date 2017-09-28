@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
-import { LoopBackConfig, User, LoopBackAuth } from './shared/sdk';
+import { LoopBackConfig, User, LoopBackAuth, Room, RoomApi } from './shared/sdk';
 import { SchoolsPage } from '../pages/schools/schools';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -45,6 +45,7 @@ export class MyApp implements OnDestroy {
   rootPage: any = HomePage;
   hasLoggedIn: Boolean;
   isAdmin: Boolean;
+  me: User;
   navigationPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
@@ -73,6 +74,7 @@ export class MyApp implements OnDestroy {
     public loadingCtrl: LoadingController,
     private chatService: ChatService,
     private loopbackAuth: LoopBackAuth,
+    private roomApi: RoomApi,
     public imageLoader: ImageLoader) {
 
 
@@ -116,6 +118,7 @@ export class MyApp implements OnDestroy {
           this.footerPage = this.loggedInPage;
           this.userData.getUser().then((user: User) => {
             if (user) {
+              this.me = user
               let role = user.roleName as any
               this.isAdmin = (role == "admin")
               this.setAccountPages(true, this.isAdmin)
@@ -228,5 +231,21 @@ export class MyApp implements OnDestroy {
     let userId = this.loopbackAuth.getCurrentUserId()
 
     this.chatService.authenticate({ id: accessTookenId, userId: userId })
+    .subscribe(()=> {
+      let roomName = this.me.username
+      if (this.isAdmin) {
+        this.roomApi.find().subscribe((rooms:[Room]) => {
+          rooms.forEach(room => {
+            this.chatService.join(room.name)
+            this.chatService.listenNewMessage(room.name)
+          })
+        })
+      } else {
+        this.chatService.join(roomName).subscribe((room: Room) => {
+          this.userData.room(room)
+          this.chatService.listenNewMessage(roomName)
+        })
+      }
+    })
   }
 }

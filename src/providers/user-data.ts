@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
-import {User} from '../app/shared/sdk';
+import {User, Room} from '../app/shared/sdk';
 
 /*
   Generated class for the UserData provider.
@@ -46,6 +46,17 @@ export class UserData {
 
   getUser() {
     return this.storage.get('userdata').then((value) => {
+      return value;
+    });
+  };
+
+  room(room:Room) {
+    this.storage.set('roomdata',room);
+    this.events.publish('join-room', {room:room});
+  }
+
+  getRoom() {
+    return this.storage.get('roomdata').then((value) => {
       return value;
     });
   };
