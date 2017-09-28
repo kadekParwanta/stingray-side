@@ -6,6 +6,7 @@ import { EventOrganizerPage } from '../event-organizer/event-organizer';
 import { User, Message, Room } from '../../app/shared/sdk/models';
 import { UserApi, RoomApi, MessageApi } from '../../app/shared/sdk/services';
 import { UserData } from '../../providers/user-data';
+import { ChatService } from '../../providers/chat-service';
 import { MyProfilePage } from '../my-profile/my-profile'
 import { ContactUsPage } from '../contact-us/contact-us'
 import { ClothingPage } from '../clothing/clothing';
@@ -31,6 +32,8 @@ export class HomePage {
   me: User
   newMessages: Array<Message> = Array<Message>()
   isAdmin: boolean
+  rooms: [Room]
+  singleRoom: Room
   roomCount: number
 
   sliders = [
@@ -60,12 +63,18 @@ export class HomePage {
     public userApi: UserApi,
     public roomApi: RoomApi,
     public messageApi: MessageApi,
+    public chatService: ChatService,
     public events: Events) {
       
      }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+    
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter HomePage');
     this.userData.getUser().then((user: User)=> {
       if (user) {
         this.me = user
@@ -77,6 +86,7 @@ export class HomePage {
 
         if (this.isAdmin) {
           this.roomApi.find().subscribe((rooms: [Room]) => {
+            this.rooms = rooms
             rooms.forEach(room => {
               this.listenToNewMessage(room)
             })
@@ -84,6 +94,7 @@ export class HomePage {
 
         } else {
           this.userData.getRoom().then((room:Room) => {
+            this.singleRoom = room
             this.listenToNewMessage(room)
           })
         }        
@@ -102,6 +113,19 @@ export class HomePage {
       }
     })
     
+  }
+
+  ionViewWillLeave() {
+    if (this.isAdmin) {
+      if (this.rooms) {
+        this.rooms.forEach(room => {
+          this.chatService.removeEventListener(room.name)
+        })
+      }
+    } else {
+      if (this.singleRoom) this.chatService.removeEventListener(this.singleRoom.name)
+    }
+
   }
 
   ionViewDidLeave() {

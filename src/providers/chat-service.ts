@@ -102,8 +102,8 @@ export class ChatService {
     })
   }
 
-  removeEventListener() {
-    this.events.unsubscribe('new-message')
+  removeEventListener(roomName: string) {
+    this.events.unsubscribe("new-message-"+roomName)
   }
 
   disconnect() {

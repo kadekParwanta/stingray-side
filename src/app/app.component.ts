@@ -217,7 +217,7 @@ export class MyApp implements OnDestroy {
 
   setAccountPages(isLoggedIn: Boolean, isAdmin: Boolean) {
     if (isLoggedIn) {
-      this.connectToSocketIO()
+      this.connectToSocketIO(isAdmin)
       if (isAdmin) {
         this.accountPages = [
           { title: 'My Profile', component: MyProfilePage, index: 0, icon: 'contact' },
@@ -237,14 +237,13 @@ export class MyApp implements OnDestroy {
     }
   }
 
-  connectToSocketIO() {
+  connectToSocketIO(isAdmin: Boolean) {
     let accessTookenId = this.loopbackAuth.getAccessTokenId()
     let userId = this.loopbackAuth.getCurrentUserId()
 
     this.chatService.authenticate({ id: accessTookenId, userId: userId })
     .subscribe(()=> {
-      let roomName = this.me.username
-      if (this.isAdmin) {
+      if (isAdmin) {
         this.roomApi.find().subscribe((rooms:[Room]) => {
           this.rooms = rooms
           rooms.forEach(room => {
@@ -253,14 +252,23 @@ export class MyApp implements OnDestroy {
           })
         })
       } else {
-        this.chatService.join(roomName).subscribe((room: Room) => {
-          this.singleRoom = room
-          this.userData.room(room)
-          this.chatService.listenNewMessage(roomName)
-          this.messageApi.updateAll({status: "pending", roomId: room.id},{status:"delivered"}).subscribe(res => {
-            console.log('updated messages from pending to delivered: ' + res.count + ' roomId= ' + room.id)
-          })
+        this.userData.getUser().then((user: User) => {
+          if (user) {
+            this.me = user
+            let role = user.roleName as any
+            this.isAdmin = (role == "admin")
+            let roomName = this.me.username
+            this.chatService.join(roomName).subscribe((room: Room) => {
+              this.singleRoom = room
+              this.userData.room(room)
+              this.chatService.listenNewMessage(roomName)
+              this.messageApi.updateAll({status: "pending", roomId: room.id},{status:"delivered"}).subscribe(res => {
+                console.log('updated messages from pending to delivered: ' + res.count + ' roomId= ' + room.id)
+              })
+            })
+          }
         })
+        
       }
     })
   }
