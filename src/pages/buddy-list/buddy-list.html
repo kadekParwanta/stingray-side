@@ -15,7 +15,11 @@
 
 <ion-content padding>
   <ion-list *ngFor="let room of rooms">
-    <ion-item (click)="gotoChatroom(room)">{{room.name}}</ion-item>
+    <ion-item (click)="gotoChatroom(room)">
+      {{room.name}}
+      <ion-badge item-end *ngIf="room.newMessages.length>0">{{getNewMessagesCount(room)}}</ion-badge>
+    </ion-item>
+    
   </ion-list>
 
 </ion-content>

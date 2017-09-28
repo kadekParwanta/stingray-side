@@ -40,9 +40,9 @@ export class ContactUsPage implements OnInit, OnDestroy {
     private chatService: ChatService,
     public events: Events
   ) {
-    this.events.subscribe('new-message',(res) => {
-      if (res.message.userId == this.me.id) this.messages.pop()
-      this.messages.push(res.message) 
+    this.events.subscribe('new-message',(message: Message) => {
+      if (message.userId == this.me.id) this.messages.pop()
+      this.messages.push(message) 
     })
 
     this.room = this.navParams.get('room')

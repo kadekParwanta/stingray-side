@@ -60,9 +60,9 @@ export class HomePage {
     public userApi: UserApi,
     public roomApi: RoomApi,
     public events: Events) {
-      this.events.subscribe('new-message',(res) => {
-        console.log("new message", res.message)
-        this.newMessages.push(res.message)
+      this.events.subscribe('new-message',(message: Message) => {
+        console.log("new message", message)
+        this.newMessages.push(message)
       })
      }
 
@@ -84,6 +84,10 @@ export class HomePage {
         }        
       }
     })
+  }
+
+  ionViewDidLeave() {
+    this.newMessages.length = 0
   }
 
   getMessageCount(): number {
@@ -137,7 +141,7 @@ export class HomePage {
 
   goToChat(){
     if (this.isAdmin) {
-      this.navCtrl.push(BuddyListPage)
+      this.navCtrl.push(BuddyListPage, {newMessages: this.newMessages})
     } else {
       this.navCtrl.push(ContactUsPage)
     }
