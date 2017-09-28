@@ -96,11 +96,6 @@ export class ContactUsPage implements OnInit, OnDestroy {
     })
   }
 
-  ionViewWillLeave() {
-    this.chatService.leave(this.room.name)
-  }
-
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactUsPage');
   }

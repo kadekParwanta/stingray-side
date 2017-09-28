@@ -38,6 +38,14 @@ export class MyApp implements OnDestroy {
 
   ngOnDestroy() {
     this.chatService.disconnect();
+    if (this.isAdmin) {
+      this.rooms.forEach(room => {
+        this.chatService.leave(room.name)
+      })
+    } else {
+      this.chatService.leave(this.singleRoom.name)
+    }
+    
   }
 
   @ViewChild(Nav) nav: Nav;
@@ -46,6 +54,8 @@ export class MyApp implements OnDestroy {
   hasLoggedIn: Boolean;
   isAdmin: Boolean;
   me: User;
+  rooms: [Room]
+  singleRoom: Room
   navigationPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Yearbook', component: SchoolsPage, index: 1, icon: 'book' },
@@ -236,6 +246,7 @@ export class MyApp implements OnDestroy {
       let roomName = this.me.username
       if (this.isAdmin) {
         this.roomApi.find().subscribe((rooms:[Room]) => {
+          this.rooms = rooms
           rooms.forEach(room => {
             this.chatService.join(room.name)
             this.chatService.listenNewMessage(room.name)
@@ -243,6 +254,7 @@ export class MyApp implements OnDestroy {
         })
       } else {
         this.chatService.join(roomName).subscribe((room: Room) => {
+          this.singleRoom = room
           this.userData.room(room)
           this.chatService.listenNewMessage(roomName)
           this.messageApi.updateAll({status: "pending", roomId: room.id},{status:"delivered"}).subscribe(res => {
