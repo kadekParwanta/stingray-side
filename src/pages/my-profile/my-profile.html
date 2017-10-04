@@ -27,7 +27,7 @@
       </div>
       <div class="main-cnt">
         <ion-card>
-          <ion-card-header>Akun</ion-card-header>
+          <ion-card-header><h2>Akun</h2></ion-card-header>
           <ion-list>
             <ion-item>
               <p>Name</p>
@@ -41,7 +41,7 @@
           </ion-list>
         </ion-card>
         <ion-card style="margin-top:20px !important">
-          <ion-card-header>Yearbook</ion-card-header>
+          <ion-card-header><h2>Yearbook</h2></ion-card-header>
           <ion-list>
             <ion-item *ngFor="let student of userProfile.students" (click)="gotoGenerationDetails(student.class.generation)">
               <div>
@@ -71,7 +71,7 @@
           </ion-list>
         </ion-card>
         <ion-card style="margin-top:20px !important">
-          <ion-card-header>Order</ion-card-header>
+          <ion-card-header><h2>Order</h2></ion-card-header>
           <ion-list>
             <ion-item *ngFor="let order of userProfile.orders" (click)="gotoGenerationDetails(order)">
               <div *ngIf="order.yearbooks.length > 0">

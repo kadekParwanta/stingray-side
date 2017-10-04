@@ -1,5 +1,7 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, NavParams, Refresher, ToastController, AlertController, ActionSheetController, Loading, LoadingController, Platform, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Refresher, ToastController, 
+  AlertController, ActionSheetController, Loading, ActionSheet,
+  LoadingController, Platform, PopoverController } from 'ionic-angular';
 import { Network } from '@ionic-native/network'
 import { AbstractBasePage } from '../base/base';
 import { User, Order, Generation } from '../../app/shared/sdk/models';
@@ -32,6 +34,7 @@ export class MyProfilePage extends AbstractBasePage {
   private userProfile: User
   lastImage: string = null;
   loading: Loading
+  actionSheet: ActionSheet
 
   constructor(
     public navCtrl: NavController,
@@ -67,6 +70,14 @@ export class MyProfilePage extends AbstractBasePage {
         .map((user: User) => { return user })
         .toPromise()
     })
+  }
+
+  backButtonAction(){
+    if (this.actionSheet) {
+      this.actionSheet.dismiss()
+    } else {
+      this.navCtrl.pop()
+    }
   }
 
   populateData(res) {
@@ -131,7 +142,7 @@ export class MyProfilePage extends AbstractBasePage {
   }
 
   public presentActionSheet() {
-    let actionSheet = this.actionSheetCtrl.create({
+    this.actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
         {
@@ -152,7 +163,7 @@ export class MyProfilePage extends AbstractBasePage {
         }
       ]
     });
-    actionSheet.present();
+    this.actionSheet.present();
   }
 
   public takePicture(sourceType) {

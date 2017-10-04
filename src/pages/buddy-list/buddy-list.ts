@@ -18,6 +18,7 @@ import { ContactUsPage } from '../contact-us/contact-us'
 export class BuddyListPage {
   private rooms: Array<any>
   private messages: Array<Message>
+  private selectedRoomIndex: number
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public roomApi: RoomApi) {
     this.messages = this.navParams.get('newMessages')
@@ -36,8 +37,13 @@ export class BuddyListPage {
     })
   }
 
-  gotoChatroom(room) {
+  gotoChatroom(room, index) {
     this.navCtrl.push(ContactUsPage, {room: room})
+    this.selectedRoomIndex = index
+  }
+
+  ionViewWillLeave() {
+    if (this.selectedRoomIndex) this.rooms[this.selectedRoomIndex].newMessages = []
   }
 
 }

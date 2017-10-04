@@ -22,6 +22,7 @@ import { ClothingPage } from '../pages/clothing/clothing';
 import { MusicPage } from '../pages/music/music';
 import { BuddyListPage } from '../pages/buddy-list/buddy-list';
 import { ChatService } from '../providers/chat-service';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 export interface PageInterface {
   title: string;
@@ -86,6 +87,7 @@ export class MyApp implements OnDestroy {
     private loopbackAuth: LoopBackAuth,
     private roomApi: RoomApi,
     private messageApi: MessageApi,
+    public localNotifications: LocalNotifications,
     public imageLoader: ImageLoader) {
 
 
@@ -249,7 +251,11 @@ export class MyApp implements OnDestroy {
           rooms.forEach(room => {
             this.chatService.join(room.name)
             this.chatService.listenNewMessage(room.name)
+            this.listenToNewMessageEvents(room)
           })
+        })
+        this.messageApi.updateAll({status: "pending", userId: {neq : userId}},{status:"delivered"}).subscribe(res => {
+          console.log('updated messages from pending to delivered: ' + res.count)
         })
       } else {
         this.userData.getUser().then((user: User) => {
@@ -262,7 +268,8 @@ export class MyApp implements OnDestroy {
               this.singleRoom = room
               this.userData.room(room)
               this.chatService.listenNewMessage(roomName)
-              this.messageApi.updateAll({status: "pending", roomId: room.id},{status:"delivered"}).subscribe(res => {
+              this.listenToNewMessageEvents(room)
+              this.messageApi.updateAll({status: "pending", roomId: room.id, userId: {neq : this.me.id}},{status:"delivered"}).subscribe(res => {
                 console.log('updated messages from pending to delivered: ' + res.count + ' roomId= ' + room.id)
               })
             })
@@ -271,5 +278,21 @@ export class MyApp implements OnDestroy {
         
       }
     })
+  }
+
+  listenToNewMessageEvents(room: Room) {
+    this.events.subscribe('new-message-'+room.name,(message: Message) => {
+      console.log("new message", message)
+      if (message.userId != this.me.id) {
+        this.localNotifications.schedule({
+          id: 1,
+          text: message.text
+        });
+        this.messageApi.updateAttributes(message.id, {status: 'delivered'}).subscribe(res => {
+          console.log('update to delivered id= '+ message.id)
+        }) 
+      }
+    })
+    
   }
 }

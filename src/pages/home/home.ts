@@ -72,11 +72,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter HomePage');
     this.userData.getUser().then((user: User)=> {
       if (user) {
         this.me = user
@@ -94,13 +89,37 @@ export class HomePage {
             })
           })
 
+          this.messageApi.find({where : {and: [{status: 'delivered'},{userId: {neq: this.me.id}}]}}).subscribe((messages: [Message]) => {
+            this.newMessages = messages
+          })
+
         } else {
           this.userData.getRoom().then((room:Room) => {
             this.singleRoom = room
             this.listenToNewMessage(room)
+            this.messageApi.find({where : {and: [{status: 'delivered'},{userId: {neq: this.me.id}}]}}).subscribe((messages: [Message]) => {
+              this.newMessages = messages
+            })
           })
         }        
       }
+    })
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter HomePage');
+    if (this.isAdmin) {
+      this.getDeliveredMessage()
+    } else {
+      if (this.singleRoom) {
+        this.getDeliveredMessage()
+      }
+    }
+  }
+
+  getDeliveredMessage() {
+    this.messageApi.find({where : {and: [{status: 'delivered'},{userId: {neq: this.me.id}}]}}).subscribe((messages: [Message]) => {
+      this.newMessages = messages
     })
   }
 
@@ -108,31 +127,24 @@ export class HomePage {
     this.events.subscribe('new-message-'+room.name,(message: Message) => {
       console.log("new message", message)
       if (message.userId != this.me.id) {
-        this.localNotifications.schedule({
-          id: 1,
-          text: message.text
-        });
         this.newMessages.push(message)
-        this.messageApi.updateAttributes(message.id, {status: 'delivered'}).subscribe(res => {
-          console.log('update to delivered id= '+ message.id)
-        }) 
       }
     })
     
   }
 
-  ionViewWillLeave() {
-    if (this.isAdmin) {
-      if (this.rooms) {
-        this.rooms.forEach(room => {
-          this.chatService.removeEventListener(room.name)
-        })
-      }
-    } else {
-      if (this.singleRoom) this.chatService.removeEventListener(this.singleRoom.name)
-    }
+  // ionViewWillLeave() {
+  //   if (this.isAdmin) {
+  //     if (this.rooms) {
+  //       this.rooms.forEach(room => {
+  //         this.chatService.removeEventListener(room.name)
+  //       })
+  //     }
+  //   } else {
+  //     if (this.singleRoom) this.chatService.removeEventListener(this.singleRoom.name)
+  //   }
 
-  }
+  // }
 
   ionViewDidLeave() {
     this.newMessages.length = 0

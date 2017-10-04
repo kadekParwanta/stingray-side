@@ -62,6 +62,7 @@ export class ContactUsPage implements OnInit, OnDestroy {
             this.chatService.getMessages(this.room.id).then((messages) => {
               this.messages = messages;
               this.isBusy = false
+              this.updateAllDeliveredToRead()
             });
           } else {
             this.userData.getRoom().then((room: Room) => {
@@ -70,10 +71,8 @@ export class ContactUsPage implements OnInit, OnDestroy {
               this.chatService.getMessages(this.room.id).then((messages) => {
                 this.messages = messages;
                 this.isBusy = false
+                this.updateAllDeliveredToRead()
               });
-              this.messageApi.updateAll({status: "delivered", roomId: room.id},{status:"read"}).subscribe(res => {
-                console.log('updated messages from delivered to read: ' + res.count)
-              })
             })
           }
         } else {
@@ -81,6 +80,12 @@ export class ContactUsPage implements OnInit, OnDestroy {
         }
         
       })
+  }
+
+  updateAllDeliveredToRead() {
+    this.messageApi.updateAll({status: "delivered", roomId: this.room.id, userId:{neq: this.me.id}},{status:"read"}).subscribe(res => {
+      console.log('updated messages from delivered to read: ' + res.count)
+    })
   }
 
   listenToNewMessage(room) {
